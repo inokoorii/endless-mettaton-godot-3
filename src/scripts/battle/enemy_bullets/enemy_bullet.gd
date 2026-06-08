@@ -25,6 +25,14 @@ enum BulletColors {
 }
 
 
+# CLASS CONSTANTS
+const BULLET_COLOR_WHITE: Color = Color("FFFFFF")
+const BULLET_COLOR_BLUE: Color = Color("00A2E8")
+const BULLET_COLOR_ORANGE: Color = Color("FFA914")
+const BULLET_COLOR_GREEN: Color = Color("00FF00")
+const BULLET_COLOR_GRAY: Color = Color("7F7F7F")
+
+
 # CLASS EXPORT VARIABLES
 var bullet_type: int = BulletTypes.BULLET_TYPE_DAMAGE \
 		setget set_bullet_type
@@ -40,8 +48,10 @@ var on_hit_invincibility_frames: float = 900.0 \
 
 var movement_speed: float = 0.0 \
 		setget set_movement_speed
-var movement_direction: Vector2 = Vector2.ZERO
-var movement_rotation_degrees: float = 0.0
+var movement_direction: Vector2 = Vector2.ZERO \
+		setget set_movement_direction
+var movement_rotation_degrees: float = 0.0 \
+		setget set_movement_rotation_degrees
 var movement_rotate_velocity: bool = false
 
 
@@ -66,7 +76,7 @@ func _handle_movement(delta: float) -> void:
 		
 		if movement_rotate_velocity:
 			velocity = velocity.rotated(rotation)
-		
+			
 		position += velocity
 		rotation_degrees += movement_rotation_degrees * delta
 
@@ -75,15 +85,15 @@ func _handle_movement(delta: float) -> void:
 func _on_bullet_color_changed() -> void:
 	match bullet_color:
 		BulletColors.BULLET_COLOR_WHITE:
-			modulate = Color("FFFFFF")
+			modulate = BULLET_COLOR_WHITE
 		BulletColors.BULLET_COLOR_BLUE:
-			modulate = Color("00A2E8")
+			modulate = BULLET_COLOR_BLUE
 		BulletColors.BULLET_COLOR_ORANGE:
-			modulate = Color("FFA914")
+			modulate = BULLET_COLOR_ORANGE
 		BulletColors.BULLET_COLOR_GREEN:
-			modulate = Color("00FF00")
+			modulate = BULLET_COLOR_GREEN
 		BulletColors.BULLET_COLOR_GRAY:
-			modulate = Color("7F7F7F")
+			modulate = BULLET_COLOR_GRAY
 
 
 # CLASS SETTER FUNCIONS
@@ -117,6 +127,14 @@ func set_on_hit_invincibility_frames(value: float) -> void:
 func set_movement_speed(value: float) -> void:
 	movement_speed = value
 	movement_speed = clamp(movement_speed, 0.0, INF)
+
+
+func set_movement_direction(value: Vector2) -> void:
+	movement_direction = value
+
+
+func set_movement_rotation_degrees(value: float) -> void:
+	movement_rotation_degrees = value
 
 
 # CLASS PROPERTY LIST FUNCTIONS
