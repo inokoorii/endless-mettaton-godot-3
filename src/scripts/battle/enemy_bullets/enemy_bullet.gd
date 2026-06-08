@@ -25,14 +25,6 @@ enum BulletColors {
 }
 
 
-# CLASS CONSTANTS
-const BULLET_COLOR_WHITE: Color = Color("FFFFFF")
-const BULLET_COLOR_BLUE: Color = Color("00A2E8")
-const BULLET_COLOR_ORANGE: Color = Color("FFA914")
-const BULLET_COLOR_GREEN: Color = Color("00FF00")
-const BULLET_COLOR_GRAY: Color = Color("7F7F7F")
-
-
 # CLASS EXPORT VARIABLES
 var bullet_type: int = BulletTypes.BULLET_TYPE_DAMAGE \
 		setget set_bullet_type
@@ -48,10 +40,8 @@ var on_hit_invincibility_frames: float = 900.0 \
 
 var movement_speed: float = 0.0 \
 		setget set_movement_speed
-var movement_direction: Vector2 = Vector2.ZERO \
-		setget set_movement_direction
-var movement_rotation_degrees: float = 0.0 \
-		setget set_movement_rotation_degrees
+var movement_direction: Vector2 = Vector2.ZERO
+var movement_rotation_degrees: float = 0.0
 var movement_rotate_velocity: bool = false
 
 
@@ -62,10 +52,7 @@ var velocity: Vector2
 # GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
 func _ready() -> void:
 	add_to_group("BattleEnemyBullets", true)
-
-
-func _process(delta: float) -> void:
-	_set_modulate()
+	connect("bullet_color_changed", self, "_on_bullet_color_changed")
 
 
 func _physics_process(delta: float) -> void:
@@ -73,20 +60,6 @@ func _physics_process(delta: float) -> void:
 
 
 # CLASS PRIVATE METHODS
-func _set_modulate() -> void:
-	match bullet_color:
-		BulletColors.BULLET_COLOR_WHITE:
-			modulate = BULLET_COLOR_WHITE
-		BulletColors.BULLET_COLOR_BLUE:
-			modulate = BULLET_COLOR_BLUE
-		BulletColors.BULLET_COLOR_ORANGE:
-			modulate = BULLET_COLOR_ORANGE
-		BulletColors.BULLET_COLOR_GREEN:
-			modulate = BULLET_COLOR_GREEN
-		BulletColors.BULLET_COLOR_GRAY:
-			modulate = BULLET_COLOR_GRAY
-
-
 func _handle_movement(delta: float) -> void:
 	if not Engine.editor_hint:
 		velocity = (movement_direction * movement_speed) * delta
@@ -96,6 +69,21 @@ func _handle_movement(delta: float) -> void:
 		
 		position += velocity
 		rotation_degrees += movement_rotation_degrees * delta
+
+
+# CLASS SIGNAL CONNECTION FUNCTIONS
+func _on_bullet_color_changed() -> void:
+	match bullet_color:
+		BulletColors.BULLET_COLOR_WHITE:
+			modulate = Color("FFFFFF")
+		BulletColors.BULLET_COLOR_BLUE:
+			modulate = Color("00A2E8")
+		BulletColors.BULLET_COLOR_ORANGE:
+			modulate = Color("FFA914")
+		BulletColors.BULLET_COLOR_GREEN:
+			modulate = Color("00FF00")
+		BulletColors.BULLET_COLOR_GRAY:
+			modulate = Color("7F7F7F")
 
 
 # CLASS SETTER FUNCIONS
@@ -129,17 +117,6 @@ func set_on_hit_invincibility_frames(value: float) -> void:
 func set_movement_speed(value: float) -> void:
 	movement_speed = value
 	movement_speed = clamp(movement_speed, 0.0, INF)
-
-
-func set_movement_direction(value: Vector2) -> void:
-	movement_direction = value
-	movement_direction.x = clamp(movement_direction.x, -INF, INF)
-	movement_direction.y = clamp(movement_direction.y, -INF, INF)
-
-
-func set_movement_rotation_degrees(value: float) -> void:
-	movement_rotation_degrees = value
-	movement_rotation_degrees = clamp(movement_rotation_degrees, -INF, INF)
 
 
 # CLASS PROPERTY LIST FUNCTIONS
