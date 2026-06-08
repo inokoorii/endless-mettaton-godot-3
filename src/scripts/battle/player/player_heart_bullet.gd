@@ -80,6 +80,7 @@ func _get_property_list() -> Array:
 			},
 		]
 	)
+	
 	property_list.append_array(
 		[
 			{
@@ -106,6 +107,7 @@ func _get_property_list() -> Array:
 			},
 		]
 	)
+	
 	property_list.append_array(
 		[
 			{

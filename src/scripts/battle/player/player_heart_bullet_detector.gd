@@ -55,7 +55,6 @@ func _on_area_entered(area: Area2D) -> void:
 func set_action(value: int) -> void:
 	action = value
 	action = clamp(action, 0, Actions.size() - 1) as int
-	
 	emit_signal("action_changed")
 
 
@@ -72,6 +71,7 @@ func _get_property_list() -> Array:
 			},
 		]
 	)
+	
 	property_list.append_array(
 		[
 			{
