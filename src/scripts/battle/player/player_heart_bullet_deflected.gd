@@ -96,13 +96,6 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "Movement",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_GROUP,
-				"hint": PROPERTY_HINT_NONE,
-				"hint_string": "movement",
-			},
-			{
 				"name": "movement_speed",
 				"type": TYPE_REAL,
 				"usage": PROPERTY_USAGE_DEFAULT,

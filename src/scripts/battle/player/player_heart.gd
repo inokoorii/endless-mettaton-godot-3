@@ -77,7 +77,7 @@ func _handle_bullet_firing(delta: float) -> void:
 				get_parent().add_child(bullet)
 				bullet.position = position + bullet_firing_offset
 				
-				bullet_firing_cooldown_left = bullet_firing_cooldown * delta
+				bullet_firing_cooldown_left = bullet_firing_cooldown
 				emit_signal("bullet_fired", bullet)
 
 
@@ -113,13 +113,6 @@ func _get_property_list() -> Array:
 	
 	property_list.append_array(
 		[
-			{
-				"name": "Movement",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_GROUP,
-				"hint": PROPERTY_HINT_NONE,
-				"hint_string": "movement",
-			},
 			{
 				"name": "movement_speed",
 				"type": TYPE_REAL,
