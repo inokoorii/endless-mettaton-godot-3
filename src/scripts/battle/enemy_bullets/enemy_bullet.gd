@@ -85,12 +85,16 @@ func _update_modulate() -> void:
 	match bullet_color:
 		BulletColors.BULLET_COLOR_WHITE:
 			modulate = BULLET_COLOR_WHITE
+		
 		BulletColors.BULLET_COLOR_BLUE:
 			modulate = BULLET_COLOR_BLUE
+		
 		BulletColors.BULLET_COLOR_ORANGE:
 			modulate = BULLET_COLOR_ORANGE
+		
 		BulletColors.BULLET_COLOR_GREEN:
 			modulate = BULLET_COLOR_GREEN
+		
 		BulletColors.BULLET_COLOR_GRAY:
 			modulate = BULLET_COLOR_GRAY
 
