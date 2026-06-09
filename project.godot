@@ -38,6 +38,11 @@ _global_script_classes=[ {
 "class": "MainScene",
 "language": "GDScript",
 "path": "res://src/scripts/core/main_scene.gd"
+}, {
+"base": "Node2D",
+"class": "SlicedSprite",
+"language": "GDScript",
+"path": "res://src/scripts/misc/sliced_sprite.gd"
 } ]
 _global_script_class_icons={
 "BattleEnemyBullet": "",
@@ -45,7 +50,8 @@ _global_script_class_icons={
 "BattlePlayerHeart": "",
 "BattlePlayerHeartBullet": "",
 "BattlePlayerHeartBulletDetector": "",
-"MainScene": ""
+"MainScene": "",
+"SlicedSprite": ""
 }
 
 [application]

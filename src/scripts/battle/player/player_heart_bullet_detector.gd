@@ -24,11 +24,11 @@ var action: int = Actions.ACTION_IGNORE \
 # GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
 func _ready() -> void:
 	add_to_group("BattlePlayerHeartBulletDetectors", true)
-	connect("area_entered", self, "_on_area_entered")
+	connect("area_entered", self, "_handle_collisions")
 
 
-# CLASS SIGNAL CONNECTION FUNCTIONS
-func _on_area_entered(area: Area2D) -> void:
+# CLASS PRIVATE FUNCTIONS
+func _handle_collisions(area: Area2D) -> void:
 	if area is BattlePlayerHeartBullet:
 		match action:
 			Actions.ACTION_IGNORE:

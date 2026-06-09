@@ -31,7 +31,7 @@ func _input(event: InputEvent) -> void:
 			
 			yield(get_tree(), "idle_frame")
 			OS.window_fullscreen = true
-
+			
 		else:
 			OS.window_fullscreen = false
 			

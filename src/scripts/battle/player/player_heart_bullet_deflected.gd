@@ -26,10 +26,7 @@ func _ready() -> void:
 	add_to_group("BattlePlayerHeartBulletDeflecteds", true)
 	
 	if is_instance_valid(visibility_notifier_2d):
-		visibility_notifier_2d.connect(
-				"screen_exited",
-				self,
-				"_on_visibility_notifier_2d_screen_exited")
+		visibility_notifier_2d.connect( "screen_exited", self, "_handle_cleanup")
 	
 	if not Engine.editor_hint:
 		_setup_movement_direction()
@@ -68,8 +65,7 @@ func _handle_movement(delta: float) -> void:
 		rotation_degrees += movement_rotation * delta
 
 
-# SCRIPT SIGNAL CONNECTION FUNCTIONS
-func _on_visibility_notifier_2d_screen_exited() -> void:
+func _handle_cleanup() -> void:
 	queue_free()
 
 

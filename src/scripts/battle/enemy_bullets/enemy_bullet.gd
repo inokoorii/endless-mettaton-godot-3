@@ -62,27 +62,26 @@ var velocity: Vector2
 # GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
 func _ready() -> void:
 	add_to_group("BattleEnemyBullets", true)
-	connect("bullet_color_changed", self, "_on_bullet_color_changed")
+	connect("bullet_color_changed", self, "_update_modulate")
 
 
 func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 
 
-# CLASS PRIVATE METHODS
+# CLASS PRIVATE FUNCTIONS
 func _handle_movement(delta: float) -> void:
 	if not Engine.editor_hint:
 		velocity = (movement_direction * movement_speed) * delta
 		
 		if movement_rotate_velocity:
 			velocity = velocity.rotated(rotation)
-			
+		
 		position += velocity
 		rotation_degrees += movement_rotation_degrees * delta
 
 
-# CLASS SIGNAL CONNECTION FUNCTIONS
-func _on_bullet_color_changed() -> void:
+func _update_modulate() -> void:
 	match bullet_color:
 		BulletColors.BULLET_COLOR_WHITE:
 			modulate = BULLET_COLOR_WHITE

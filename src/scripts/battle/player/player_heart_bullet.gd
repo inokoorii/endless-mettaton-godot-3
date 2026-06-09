@@ -31,10 +31,7 @@ func _ready() -> void:
 	add_to_group("BattlePlayerHeartBullets", true)
 	
 	if is_instance_valid(visibility_notifier_2d):
-		visibility_notifier_2d.connect(
-				"screen_exited",
-				self,
-				"_on_visibility_notifier_2d_screen_exited")
+		visibility_notifier_2d.connect("screen_exited", self, "_handle_cleanup")
 
 
 func _physics_process(delta: float) -> void:
@@ -51,8 +48,7 @@ func _handle_movement(delta: float) -> void:
 		scale += scale_growth * delta
 
 
-# CLASS SIGNAL CONNECTION FUNCTIONS
-func _on_visibility_notifier_2d_screen_exited() -> void:
+func _handle_cleanup() -> void:
 	queue_free()
 
 
