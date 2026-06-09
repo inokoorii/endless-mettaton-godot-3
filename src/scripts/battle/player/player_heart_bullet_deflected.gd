@@ -26,7 +26,7 @@ func _ready() -> void:
 	add_to_group("BattlePlayerHeartBulletDeflecteds", true)
 	
 	if is_instance_valid(visibility_notifier_2d):
-		visibility_notifier_2d.connect( "screen_exited", self, "_handle_cleanup")
+		visibility_notifier_2d.connect("screen_exited", self, "_handle_cleanup")
 	
 	if not Engine.editor_hint:
 		_setup_movement_direction()
