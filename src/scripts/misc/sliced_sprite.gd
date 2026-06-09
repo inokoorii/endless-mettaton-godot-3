@@ -15,6 +15,10 @@ var normal_map: Texture = null \
 
 var offset: Vector2 = Vector2.ZERO \
 		setget set_offset
+var flip_h: bool = false \
+		setget set_flip_h
+var flip_v: bool = false \
+		setget set_flip_v
 
 var spacing: Vector2 = Vector2.ZERO \
 		setget set_spacing
@@ -36,11 +40,65 @@ func _ready() -> void:
 	connect("texture_changed", self, "_update_sprite_regions")
 	connect("texture_changed", self, "_update_sprite_transforms")
 	
-	set_texture(texture)
-	set_normal_map(normal_map)
+	_update_sprite_textures()
+	_update_sprite_normal_maps()
+	_update_sprite_offsets()
+	_update_sprite_regions()
+	_update_sprite_transforms()
 
 
 # CLASS PRIVATE FUNCTIONS
+func _update_sprite_textures() -> void:
+	if top_left or is_instance_valid(top_left):
+		top_left.texture = texture
+	if top_right or is_instance_valid(top_right):
+		top_right.texture = texture
+	if bottom_left or is_instance_valid(bottom_left):
+		bottom_left.texture = texture
+	if bottom_right or is_instance_valid(bottom_right):
+		bottom_right.texture = texture
+
+
+func _update_sprite_normal_maps() -> void:
+	if top_left or is_instance_valid(top_left):
+		top_left.normal_map = normal_map
+	if top_right or is_instance_valid(top_right):
+		top_right.normal_map = normal_map
+	if bottom_left or is_instance_valid(bottom_left):
+		bottom_left.normal_map = normal_map
+	if bottom_right or is_instance_valid(bottom_right):
+		bottom_right.normal_map = normal_map
+
+
+func _update_sprite_offsets() -> void:
+	if top_left or is_instance_valid(top_left):
+		top_left.offset = offset
+	if top_right or is_instance_valid(top_right):
+		top_right.offset = offset
+	if bottom_left or is_instance_valid(bottom_left):
+		bottom_left.offset = offset
+	if bottom_right or is_instance_valid(bottom_right):
+		bottom_right.offset = offset
+	
+	if top_left or is_instance_valid(top_left):
+		top_left.flip_h = flip_h
+	if top_right or is_instance_valid(top_right):
+		top_right.flip_h = flip_h
+	if bottom_left or is_instance_valid(bottom_left):
+		bottom_left.flip_h = flip_h
+	if bottom_right or is_instance_valid(bottom_right):
+		bottom_right.flip_h = flip_h
+	
+	if top_left or is_instance_valid(top_left):
+		top_left.flip_v = flip_v
+	if top_right or is_instance_valid(top_right):
+		top_right.flip_v = flip_v
+	if bottom_left or is_instance_valid(bottom_left):
+		bottom_left.flip_v = flip_v
+	if bottom_right or is_instance_valid(bottom_right):
+		bottom_right.flip_v = flip_v
+
+
 func _update_sprite_regions() -> void:
 	if not texture:
 		if top_left or is_instance_valid(top_left):
@@ -66,18 +124,38 @@ func _update_sprite_regions() -> void:
 		if top_left or is_instance_valid(top_left):
 			top_left.region_rect.size = Vector2(texture_width, texture_height)
 			top_left.region_rect.position = Vector2.ZERO
+			
+			if flip_h:
+				top_left.region_rect.position.x = texture_width
+			if flip_v:
+				top_left.region_rect.position.y = texture_height
 		
 		if top_right or is_instance_valid(top_right):
 			top_right.region_rect.size = Vector2(texture_width, texture_height)
 			top_right.region_rect.position = Vector2(texture_width, 0.0)
+			
+			if flip_h:
+				top_right.region_rect.position.x = 0
+			if flip_v:
+				top_right.region_rect.position.y = texture_height
 		
 		if bottom_left or is_instance_valid(bottom_left):
 			bottom_left.region_rect.size = Vector2(texture_width, texture_height)
 			bottom_left.region_rect.position = Vector2(0.0, texture_height)
+			
+			if flip_h:
+				bottom_left.region_rect.position.x = texture_width
+			if flip_v:
+				bottom_left.region_rect.position.y = 0
 		
 		if bottom_right or is_instance_valid(bottom_right):
 			bottom_right.region_rect.size = Vector2(texture_width, texture_height)
 			bottom_right.region_rect.position = Vector2(texture_width, texture_height)
+
+			if flip_h:
+				bottom_right.region_rect.position.x = 0
+			if flip_v:
+				bottom_right.region_rect.position.y = 0
 
 
 func _update_sprite_transforms() -> void:
@@ -115,42 +193,30 @@ func _update_sprite_transforms() -> void:
 # CLASS SETTER FUNCTIONS
 func set_texture(value: Texture) -> void:
 	texture = value
+	_update_sprite_textures()
 	emit_signal("texture_changed")
-	
-	if top_left or is_instance_valid(top_left):
-		top_left.texture = texture
-	if top_right or is_instance_valid(top_right):
-		top_right.texture = texture
-	if bottom_left or is_instance_valid(bottom_left):
-		bottom_left.texture = texture
-	if bottom_right or is_instance_valid(bottom_right):
-		bottom_right.texture = texture
 
 
 func set_normal_map(value: Texture) -> void:
 	normal_map = value
-	
-	if top_left or is_instance_valid(top_left):
-		top_left.texture = texture
-	if top_right or is_instance_valid(top_right):
-		top_right.texture = texture
-	if bottom_left or is_instance_valid(bottom_left):
-		bottom_left.texture = texture
-	if bottom_right or is_instance_valid(bottom_right):
-		bottom_right.texture = texture
+	_update_sprite_normal_maps()
 
 
 func set_offset(value: Vector2) -> void:
 	offset = value
-	
-	if top_left or is_instance_valid(top_left):
-		top_left.offset = offset
-	if top_right or is_instance_valid(top_right):
-		top_right.offset = offset
-	if bottom_left or is_instance_valid(bottom_left):
-		bottom_left.offset = offset
-	if bottom_right or is_instance_valid(bottom_right):
-		bottom_right.offset = offset
+	_update_sprite_offsets()
+
+
+func set_flip_h(value: bool) -> void:
+	flip_h = value
+	_update_sprite_offsets()
+	_update_sprite_regions()
+
+
+func set_flip_v(value: bool) -> void:
+	flip_v = value
+	_update_sprite_offsets()
+	_update_sprite_regions()
 
 
 func set_spacing(value: Vector2) -> void:
@@ -203,6 +269,16 @@ func _get_property_list() -> Array:
 				"type": TYPE_VECTOR2,
 				"usage": PROPERTY_USAGE_DEFAULT,
 			},
+			{
+				"name": "flip_h",
+				"type": TYPE_BOOL,
+				"usage": PROPERTY_USAGE_DEFAULT,
+			},
+			{
+				"name": "flip_v",
+				"type": TYPE_BOOL,
+				"usage": PROPERTY_USAGE_DEFAULT,
+			},
 		]
 	)
 	
@@ -229,6 +305,8 @@ func property_can_revert(property: String):
 		"texture": true,
 		"normal_map": true,
 		"offset": true,
+		"flip_h": true,
+		"flip_v": true,
 		"spacing": true,
 	}
 	
@@ -241,6 +319,8 @@ func property_get_revert(property: String):
 		"texture": null,
 		"normal_map": null,
 		"offset": Vector2.ZERO,
+		"flip_h": false,
+		"flip_v": false,
 		"spacing": Vector2.ZERO,
 	}
 	

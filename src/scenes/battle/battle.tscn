@@ -5,7 +5,7 @@
 [ext_resource path="res://src/scripts/battle/player/player_heart_bullet_detector.gd" type="Script" id=3]
 [ext_resource path="res://src/scripts/battle/enemy_bullets/enemy_bullet.gd" type="Script" id=4]
 [ext_resource path="res://src/scenes/misc/sliced_sprite.tscn" type="PackedScene" id=5]
-[ext_resource path="res://assets/sprites/battle/ui/button_fight/ui_button_fight_1.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/battle/ui/button_act/ui_button_act_0.png" type="Texture" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 64, 64 )

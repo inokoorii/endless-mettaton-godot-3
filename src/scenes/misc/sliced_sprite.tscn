@@ -7,6 +7,8 @@ script = ExtResource( 1 )
 texture = null
 normal_map = null
 offset = Vector2( 0, 0 )
+flip_h = false
+flip_v = false
 spacing = Vector2( 0, 0 )
 
 [node name="TopLeft" type="Sprite" parent="."]
