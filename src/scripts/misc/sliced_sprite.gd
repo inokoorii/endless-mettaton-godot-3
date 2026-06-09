@@ -1,3 +1,4 @@
+# TODO: Refactor this at some point.
 tool
 class_name SlicedSprite
 extends Node2D
@@ -91,7 +92,7 @@ func _update_sprite_offsets() -> void:
 
 func _update_sprite_regions() -> void:
 	if not texture:
-		if  is_instance_valid(top_left):
+		if is_instance_valid(top_left):
 			top_left.region_rect.size = Vector2.ZERO
 			top_left.region_rect.position = Vector2.ZERO
 		
