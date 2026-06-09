@@ -230,5 +230,7 @@ shape = SubResource( 4 )
 
 [node name="SlicedSprite" parent="." instance=ExtResource( 5 )]
 texture = ExtResource( 6 )
+h_separation = 0.0
+v_separation = 0.0
 
 [node name="BattlePlayerHeart" parent="." instance=ExtResource( 2 )]

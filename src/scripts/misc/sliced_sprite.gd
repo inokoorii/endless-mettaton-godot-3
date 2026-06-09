@@ -1,4 +1,4 @@
-# TODO: Refactor this at some point.
+# TODO: Refactor/clean this up at some point.
 tool
 class_name SlicedSprite
 extends Node2D
@@ -21,8 +21,10 @@ var flip_h: bool = false \
 var flip_v: bool = false \
 		setget set_flip_v
 
-var spacing: Vector2 = Vector2.ZERO \
-		setget set_spacing
+var h_separation: float = 0.0 \
+		setget set_h_separation
+var v_separation: float = 0.0 \
+		setget set_v_separation
 
 
 # CLASS ONREADY VARIABLES
@@ -49,10 +51,13 @@ func _ready() -> void:
 func _update_sprite_textures() -> void:
 	if is_instance_valid(top_left):
 		top_left.texture = texture
+	
 	if is_instance_valid(top_right):
 		top_right.texture = texture
+	
 	if is_instance_valid(bottom_left):
 		bottom_left.texture = texture
+	
 	if is_instance_valid(bottom_right):
 		bottom_right.texture = texture
 
@@ -60,10 +65,13 @@ func _update_sprite_textures() -> void:
 func _update_sprite_normal_maps() -> void:
 	if is_instance_valid(top_left):
 		top_left.normal_map = normal_map
+	
 	if is_instance_valid(top_right):
 		top_right.normal_map = normal_map
+	
 	if is_instance_valid(bottom_left):
 		bottom_left.normal_map = normal_map
+	
 	if is_instance_valid(bottom_right):
 		bottom_right.normal_map = normal_map
 
@@ -153,10 +161,13 @@ func _update_sprite_transforms() -> void:
 	if not texture:
 		if is_instance_valid(top_left):
 			top_left.position = Vector2.ZERO
+		
 		if is_instance_valid(top_right):
 			top_right.position = Vector2.ZERO
+		
 		if is_instance_valid(bottom_left):
 			bottom_left.position = Vector2.ZERO
+		
 		if is_instance_valid(bottom_right):
 			bottom_right.position = Vector2.ZERO
 		
@@ -166,19 +177,19 @@ func _update_sprite_transforms() -> void:
 		
 		if is_instance_valid(top_left):
 			top_left.position = Vector2(ceil(-texture_width), ceil(-texture_height))
-			top_left.position += Vector2(-spacing.x, -spacing.y)
+			top_left.position += Vector2(-h_separation, -v_separation)
 		
 		if is_instance_valid(top_right):
 			top_right.position = Vector2(ceil(texture_width), ceil(-texture_height))
-			top_right.position += Vector2(+spacing.x, -spacing.y)
+			top_right.position += Vector2(+h_separation, -v_separation)
 		
 		if is_instance_valid(bottom_left):
 			bottom_left.position = Vector2(ceil(-texture_width), ceil(texture_height))
-			bottom_left.position += Vector2(-spacing.x, +spacing.y)
+			bottom_left.position += Vector2(-h_separation, +v_separation)
 		
 		if is_instance_valid(bottom_right):
 			bottom_right.position = Vector2(ceil(texture_width), ceil(texture_height))
-			bottom_right.position += Vector2(+spacing.x, +spacing.y)
+			bottom_right.position += Vector2(+h_separation, +v_separation)
 
 
 # CLASS SETTER FUNCTIONS
@@ -213,8 +224,13 @@ func set_flip_v(value: bool) -> void:
 	_update_sprite_regions()
 
 
-func set_spacing(value: Vector2) -> void:
-	spacing = value
+func set_h_separation(value: float) -> void:
+	h_separation = value
+	_update_sprite_transforms()
+
+
+func set_v_separation(value: float) -> void:
+	v_separation = value
 	_update_sprite_transforms()
 
 
@@ -279,13 +295,18 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "Spacing",
+				"name": "Separation",
 				"type": TYPE_NIL,
 				"usage": PROPERTY_USAGE_GROUP,
 			},
 			{
-				"name": "spacing",
-				"type": TYPE_VECTOR2,
+				"name": "h_separation",
+				"type": TYPE_REAL,
+				"usage": PROPERTY_USAGE_DEFAULT,
+			},
+			{
+				"name": "v_separation",
+				"type": TYPE_REAL,
 				"usage": PROPERTY_USAGE_DEFAULT,
 			},
 		]
@@ -301,7 +322,8 @@ func property_can_revert(property: String):
 		"offset": true,
 		"flip_h": true,
 		"flip_v": true,
-		"spacing": true,
+		"h_separation": true,
+		"v_separation": true,
 	}
 	
 	if property_list.keys().has(property):
@@ -315,7 +337,8 @@ func property_get_revert(property: String):
 		"offset": Vector2.ZERO,
 		"flip_h": false,
 		"flip_v": false,
-		"spacing": Vector2.ZERO,
+		"h_separation": 0.0,
+		"v_separation": 0.0,
 	}
 	
 	if property_list.keys().has(property):
