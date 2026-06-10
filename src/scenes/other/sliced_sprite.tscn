@@ -1,6 +1,6 @@
 [gd_scene load_steps=2 format=2]
 
-[ext_resource path="res://src/scripts/misc/sliced_sprite.gd" type="Script" id=1]
+[ext_resource path="res://src/scripts/other/sliced_sprite.gd" type="Script" id=1]
 
 [node name="SlicedSprite" type="Node2D"]
 script = ExtResource( 1 )
@@ -9,7 +9,8 @@ normal_map = null
 offset = Vector2( 0, 0 )
 flip_h = false
 flip_v = false
-spacing = Vector2( 0, 0 )
+h_separation = 0.0
+v_separation = 0.0
 
 [node name="TopLeft" type="Sprite" parent="."]
 region_enabled = true

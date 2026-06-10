@@ -17,10 +17,6 @@ onready var game_viewport: Viewport = \
 
 
 # GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
-func _ready() -> void:
-	add_to_group("MainScenes", true)
-
-
 func _input(event: InputEvent) -> void:
 #	Keybind: [F4]
 	if event.is_action_pressed("window_toggle_fullscreen"):

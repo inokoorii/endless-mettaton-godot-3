@@ -146,23 +146,21 @@ func _get_property_list() -> Array:
 	return property_list
 
 
-func property_can_revert(property: String):
-	var property_list: Dictionary = {
-		"movement_speed": true,
-		"bullet_firing_cooldown": true,
-		"bullet_firing_offset": true,
-	}
-	
-	if property_list.keys().has(property):
-		return property_list.get(property)
-
-
-func property_get_revert(property: String):
+func _get_property_list_reverts() -> Dictionary:
 	var property_list: Dictionary = {
 		"movement_speed": 120.0,
 		"bullet_firing_cooldown": 900.0,
 		"bullet_firing_offset": Vector2(0.0, 0.0),
 	}
 	
-	if property_list.keys().has(property):
-		return property_list.get(property)
+	return property_list
+
+
+func property_can_revert(property: String):
+	var property_list: Dictionary = _get_property_list_reverts()
+	return property_list.has(property)
+
+
+func property_get_revert(property: String):
+	var property_list: Dictionary = _get_property_list_reverts()
+	return property_list.get(property)

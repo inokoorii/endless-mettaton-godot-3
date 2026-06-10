@@ -122,19 +122,7 @@ func _get_property_list() -> Array:
 	return property_list
 
 
-func property_can_revert(property: String):
-	var property_list: Dictionary = {
-		"movement_speed": true,
-		"movement_acceleration": true,
-		"movement_direction": true,
-		"scale_growth": true,
-	}
-	
-	if property_list.keys().has(property):
-		return property_list.get(property)
-
-
-func property_get_revert(property: String):
+func _get_property_list_reverts() -> Dictionary:
 	var property_list: Dictionary = {
 		"movement_speed": 480.0,
 		"movement_acceleration": 6.0,
@@ -142,5 +130,14 @@ func property_get_revert(property: String):
 		"scale_growth": Vector2(0.0, 6.0),
 	}
 	
-	if property_list.keys().has(property):
-		return property_list.get(property)
+	return property_list
+
+
+func property_can_revert(property: String):
+	var property_list: Dictionary = _get_property_list_reverts()
+	return property_list.has(property)
+
+
+func property_get_revert(property: String):
+	var property_list: Dictionary = _get_property_list_reverts()
+	return property_list.get(property)

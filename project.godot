@@ -42,7 +42,7 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "SlicedSprite",
 "language": "GDScript",
-"path": "res://src/scripts/misc/sliced_sprite.gd"
+"path": "res://src/scripts/other/sliced_sprite.gd"
 } ]
 _global_script_class_icons={
 "BattleEnemyBullet": "",

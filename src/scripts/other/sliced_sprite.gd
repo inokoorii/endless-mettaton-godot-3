@@ -196,7 +196,6 @@ func _update_sprite_transforms() -> void:
 func set_texture(value: Texture) -> void:
 	texture = value
 	emit_signal("texture_changed")
-	
 	_update_sprite_textures()
 	_update_sprite_regions()
 	_update_sprite_transforms()
@@ -204,11 +203,13 @@ func set_texture(value: Texture) -> void:
 
 func set_normal_map(value: Texture) -> void:
 	normal_map = value
+	
 	_update_sprite_normal_maps()
 
 
 func set_offset(value: Vector2) -> void:
 	offset = value
+	
 	_update_sprite_offsets()
 
 
@@ -315,22 +316,7 @@ func _get_property_list() -> Array:
 	return property_list
 
 
-func property_can_revert(property: String):
-	var property_list: Dictionary = {
-		"texture": true,
-		"normal_map": true,
-		"offset": true,
-		"flip_h": true,
-		"flip_v": true,
-		"h_separation": true,
-		"v_separation": true,
-	}
-	
-	if property_list.keys().has(property):
-		return property_list.get(property)
-
-
-func property_get_revert(property: String):
+func _get_property_list_reverts() -> Dictionary:
 	var property_list: Dictionary = {
 		"texture": null,
 		"normal_map": null,
@@ -341,5 +327,14 @@ func property_get_revert(property: String):
 		"v_separation": 0.0,
 	}
 	
-	if property_list.keys().has(property):
-		return property_list.get(property)
+	return property_list
+
+
+func property_can_revert(property: String):
+	var property_list: Dictionary = _get_property_list_reverts()
+	return property_list.has(property)
+
+
+func property_get_revert(property: String):
+	var property_list: Dictionary = _get_property_list_reverts()
+	return property_list.get(property)

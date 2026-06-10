@@ -62,7 +62,6 @@ var velocity: Vector2
 # GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
 func _ready() -> void:
 	add_to_group("BattleEnemyBullets", true)
-	connect("bullet_color_changed", self, "_update_modulate")
 
 
 func _physics_process(delta: float) -> void:
@@ -110,6 +109,7 @@ func set_bullet_color(value: int) -> void:
 	bullet_color = value
 	bullet_color = clamp(bullet_color, 0, BulletColors.size() - 1) as int
 	emit_signal("bullet_color_changed")
+	_update_modulate()
 
 
 func set_on_hit_damage(value: int) -> void:
@@ -237,24 +237,7 @@ func _get_property_list() -> Array:
 	return property_list
 
 
-func property_can_revert(property: String):
-	var property_list: Dictionary = {
-		"bullet_type": true,
-		"bullet_color": true,
-		"on_hit_damage": true,
-		"on_hit_heal": true,
-		"on_hit_invincibility_frames": true,
-		"movement_speed": true,
-		"movement_direction": true,
-		"movement_rotation_degrees": true,
-		"movement_rotate_velocity": true,
-	}
-	
-	if property_list.keys().has(property):
-		return property_list.get(property)
-
-
-func property_get_revert(property: String):
+func _get_property_list_reverts() -> Dictionary:
 	var property_list: Dictionary = {
 		"bullet_type": BulletTypes.BULLET_TYPE_DAMAGE,
 		"bullet_color": BulletColors.BULLET_COLOR_WHITE,
@@ -267,5 +250,14 @@ func property_get_revert(property: String):
 		"movement_rotate_velocity": false,
 	}
 	
-	if property_list.keys().has(property):
-		return property_list.get(property)
+	return property_list
+
+
+func property_can_revert(property: String):
+	var property_list: Dictionary = _get_property_list_reverts()
+	return property_list.has(property)
+
+
+func property_get_revert(property: String):
+	var property_list: Dictionary = _get_property_list_reverts()
+	return property_list.get(property)
