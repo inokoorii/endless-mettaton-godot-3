@@ -11,9 +11,9 @@ var _last_window_position: Vector2
 onready var clear_color: ColorRect = \
 		get_node_or_null("ClearColor")
 onready var game_viewport_container: ViewportContainer = \
-		get_node_or_null("Viewports/Game")
+		get_node_or_null("GameViewportContainer")
 onready var game_viewport: Viewport = \
-		get_node_or_null("Viewports/Game/GameViewport")
+		get_node_or_null("GameViewportContainer/GameViewport")
 
 
 # GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS

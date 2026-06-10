@@ -21,6 +21,33 @@ var box_type: int = BoxTypes.BOX_TYPE_HOLLOW \
 # SCRIPT ONREADY VARIABLES
 onready var box_sprite: SlicedSprite = \
 		get_node_or_null("BoxSprite")
+onready var heart_bullet_detector: BattlePlayerHeartBulletDetector = \
+		get_node_or_null("HeartBulletDetector")
+onready var visibility_notifier_2d: VisibilityNotifier2D = \
+		get_node_or_null("VisibilityNotifier2D")
+
+
+# GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
+func _ready() -> void:
+	add_to_group("MettaBoxes", true)
+	_update_sprite_texture()
+
+
+# SCRIPT PRIVATE FUNCTIONS
+func _update_sprite_texture() -> void:
+	if is_instance_valid(box_sprite):
+		var texture: StreamTexture
+		
+		match box_type:
+			BoxTypes.BOX_TYPE_HOLLOW:
+				texture = preload(
+						"res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_hollow.png")
+			
+			BoxTypes.BOX_TYPE_SOLID:
+				texture = preload(
+						"res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_solid.png")
+		
+		box_sprite.texture = texture
 
 
 # SCRIPT SETTER FUNCTIONS
@@ -28,6 +55,7 @@ func set_box_type(value: int) -> void:
 	box_type = value
 	box_type = clamp(box_type, 0, BoxTypes.size() - 1) as int
 	emit_signal("box_type_changed")
+	_update_sprite_texture()
 
 
 # SCRIPT PROPERTY LIST FUNCTIONS
@@ -69,10 +97,8 @@ func _get_property_list_reverts() -> Dictionary:
 
 
 func property_can_revert(property: String):
-	var property_list: Dictionary = _get_property_list_reverts()
-	return property_list.has(property)
+	return _get_property_list_reverts().has(property)
 
 
 func property_get_revert(property: String):
-	var property_list: Dictionary = _get_property_list_reverts()
-	return property_list.get(property)
+	return _get_property_list_reverts().get(property)

@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/metta_box.png-9497c0caf4dd1f500daa84793b4671c5.stex"
+path="res://.import/player_heart.png-4282be2c8544f781aaba58b775028402.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/battle/enemy_bullets/metta_box/metta_box.png"
-dest_files=[ "res://.import/metta_box.png-9497c0caf4dd1f500daa84793b4671c5.stex" ]
+source_file="res://assets/masks/battle/player/player_heart.png"
+dest_files=[ "res://.import/player_heart.png-4282be2c8544f781aaba58b775028402.stex" ]
 
 [params]
 

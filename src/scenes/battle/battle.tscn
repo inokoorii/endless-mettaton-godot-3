@@ -1,11 +1,8 @@
-[gd_scene load_steps=12 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://src/scripts/battle/battle.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/battle/player/player_heart.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/scripts/battle/player/player_heart_bullet_detector.gd" type="Script" id=3]
-[ext_resource path="res://src/scripts/battle/enemy_bullets/enemy_bullet.gd" type="Script" id=4]
-[ext_resource path="res://src/scenes/other/sliced_sprite.tscn" type="PackedScene" id=5]
-[ext_resource path="res://icon.png" type="Texture" id=6]
 [ext_resource path="res://src/scenes/battle/enemy_bullets/metta_box.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
@@ -15,9 +12,6 @@ extents = Vector2( 64, 64 )
 extents = Vector2( 64, 64 )
 
 [sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 64, 64 )
-
-[sub_resource type="RectangleShape2D" id=4]
 extents = Vector2( 64, 64 )
 
 [node name="Battle" type="Node2D"]
@@ -38,14 +32,14 @@ __meta__ = {
 }
 action = 0
 
-[node name="ColorRect" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorIgnore"]
+[node name="Sprite" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorIgnore"]
 margin_left = -64.0
 margin_top = -64.0
 margin_right = 64.0
 margin_bottom = 64.0
 color = Color( 1, 0, 0, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorIgnore"]
+[node name="Hurtbox" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorIgnore"]
 visible = false
 shape = SubResource( 1 )
 
@@ -58,14 +52,14 @@ __meta__ = {
 }
 action = 1
 
-[node name="ColorRect" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorDestroy"]
+[node name="Sprite" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorDestroy"]
 margin_left = -64.0
 margin_top = -64.0
 margin_right = 64.0
 margin_bottom = 64.0
 color = Color( 0, 1, 0, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorDestroy"]
+[node name="Hurtbox" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorDestroy"]
 visible = false
 shape = SubResource( 2 )
 
@@ -78,161 +72,20 @@ __meta__ = {
 }
 action = 2
 
-[node name="ColorRect" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorDeflect"]
+[node name="Sprite" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorDeflect"]
 margin_left = -64.0
 margin_top = -64.0
 margin_right = 64.0
 margin_bottom = 64.0
 color = Color( 0, 0, 1, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorDeflect"]
+[node name="Hurtbox" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorDeflect"]
 visible = false
 shape = SubResource( 3 )
 
 [node name="BattleBullets" type="Node2D" parent="."]
 
-[node name="BulletWhite" type="Area2D" parent="BattleBullets" groups=["BattleEnemyBullets"]]
-position = Vector2( -192, 128 )
-scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-bullet_type = 0
-bullet_color = 0
-on_hit_damage = 0
-on_hit_heal = 0
-on_hit_invincibility_frames = 900.0
-movement_speed = 0.0
-movement_direction = Vector2( 0, 0 )
-movement_rotation_degrees = -90.0
-movement_rotate_velocity = false
-
-[node name="ColorRect" type="ColorRect" parent="BattleBullets/BulletWhite"]
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleBullets/BulletWhite"]
-visible = false
-shape = SubResource( 4 )
-
-[node name="BulletBlue" type="Area2D" parent="BattleBullets" groups=["BattleEnemyBullets"]]
-modulate = Color( 0, 0.635294, 0.909804, 1 )
-position = Vector2( -96, 128 )
-scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-bullet_type = 0
-bullet_color = 1
-on_hit_damage = 0
-on_hit_heal = 0
-on_hit_invincibility_frames = 900.0
-movement_speed = 0.0
-movement_direction = Vector2( 0, 0 )
-movement_rotation_degrees = -45.0
-movement_rotate_velocity = false
-
-[node name="ColorRect" type="ColorRect" parent="BattleBullets/BulletBlue"]
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleBullets/BulletBlue"]
-visible = false
-shape = SubResource( 4 )
-
-[node name="BulletOrange" type="Area2D" parent="BattleBullets" groups=["BattleEnemyBullets"]]
-modulate = Color( 1, 0.662745, 0.0784314, 1 )
-position = Vector2( 0, 128 )
-scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-bullet_type = 0
-bullet_color = 2
-on_hit_damage = 0
-on_hit_heal = 0
-on_hit_invincibility_frames = 900.0
-movement_speed = 0.0
-movement_direction = Vector2( 0, 0 )
-movement_rotation_degrees = 0.0
-movement_rotate_velocity = false
-
-[node name="ColorRect" type="ColorRect" parent="BattleBullets/BulletOrange"]
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleBullets/BulletOrange"]
-visible = false
-shape = SubResource( 4 )
-
-[node name="BulletGreen" type="Area2D" parent="BattleBullets" groups=["BattleEnemyBullets"]]
-modulate = Color( 0, 1, 0, 1 )
-position = Vector2( 96, 128 )
-scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-bullet_type = 0
-bullet_color = 3
-on_hit_damage = 0
-on_hit_heal = 0
-on_hit_invincibility_frames = 900.0
-movement_speed = 0.0
-movement_direction = Vector2( 0, 0 )
-movement_rotation_degrees = 45.0
-movement_rotate_velocity = false
-
-[node name="ColorRect" type="ColorRect" parent="BattleBullets/BulletGreen"]
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleBullets/BulletGreen"]
-shape = SubResource( 4 )
-
-[node name="BulletGray" type="Area2D" parent="BattleBullets" groups=["BattleEnemyBullets"]]
-modulate = Color( 0.498039, 0.498039, 0.498039, 1 )
-position = Vector2( 192, 128 )
-scale = Vector2( 0.5, 0.5 )
-script = ExtResource( 4 )
-__meta__ = {
-"_edit_group_": true
-}
-bullet_type = 0
-bullet_color = 4
-on_hit_damage = 0
-on_hit_heal = 0
-on_hit_invincibility_frames = 900.0
-movement_speed = 0.0
-movement_direction = Vector2( 0, 0 )
-movement_rotation_degrees = 90.0
-movement_rotate_velocity = false
-
-[node name="ColorRect" type="ColorRect" parent="BattleBullets/BulletGray"]
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BattleBullets/BulletGray"]
-visible = false
-shape = SubResource( 4 )
-
-[node name="SlicedSprite" parent="." instance=ExtResource( 5 )]
-texture = ExtResource( 6 )
+[node name="MettaBox" parent="BattleBullets" groups=["MettaBoxes"] instance=ExtResource( 7 )]
 
 [node name="BattlePlayerHeart" parent="." instance=ExtResource( 2 )]
-
-[node name="Box" parent="." instance=ExtResource( 7 )]
-position = Vector2( -128, 0 )
+position = Vector2( 0, 128 )

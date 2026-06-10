@@ -3,11 +3,12 @@
 [ext_resource path="res://src/scripts/core/main_scene.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/battle/battle.tscn" type="PackedScene" id=2]
 
-[node name="MainScene" type="Control" groups=["MainScenes"]]
+[node name="MainScene" type="Control"]
 anchor_right = 1.0
 anchor_bottom = 1.0
 script = ExtResource( 1 )
 __meta__ = {
+"_edit_group_": true,
 "_edit_lock_": true
 }
 
@@ -15,13 +16,8 @@ __meta__ = {
 anchor_right = 1.0
 anchor_bottom = 1.0
 color = Color( 0, 0, 0, 1 )
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="Viewports" type="Node" parent="."]
-
-[node name="Game" type="ViewportContainer" parent="Viewports"]
+[node name="GameViewportContainer" type="ViewportContainer" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -30,14 +26,11 @@ margin_left = -320.0
 margin_top = -240.0
 margin_right = 320.0
 margin_bottom = 240.0
-__meta__ = {
-"_edit_lock_": true
-}
 
-[node name="GameViewport" type="Viewport" parent="Viewports/Game"]
+[node name="GameViewport" type="Viewport" parent="GameViewportContainer"]
 size = Vector2( 640, 480 )
 transparent_bg = true
 handle_input_locally = false
 render_target_update_mode = 3
 
-[node name="Battle" parent="Viewports/Game/GameViewport" instance=ExtResource( 2 )]
+[node name="Battle" parent="GameViewportContainer/GameViewport" instance=ExtResource( 2 )]

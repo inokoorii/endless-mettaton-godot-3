@@ -96,10 +96,8 @@ func _get_property_list_reverts() -> Dictionary:
 
 
 func property_can_revert(property: String):
-	var property_list: Dictionary = _get_property_list_reverts()
-	return property_list.has(property)
+	return _get_property_list_reverts().has(property)
 
 
 func property_get_revert(property: String):
-	var property_list: Dictionary = _get_property_list_reverts()
-	return property_list.get(property)
+	return _get_property_list_reverts().get(property)

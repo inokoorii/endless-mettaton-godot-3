@@ -1,8 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://src/scripts/battle/enemy_bullets/metta_box.gd" type="Script" id=1]
-[ext_resource path="res://assets/sprites/battle/enemy_bullets/metta_box/metta_box.png" type="Texture" id=2]
+[ext_resource path="res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_hollow.png" type="Texture" id=2]
 [ext_resource path="res://src/scenes/other/sliced_sprite.tscn" type="PackedScene" id=3]
+[ext_resource path="res://src/scripts/battle/player/player_heart_bullet_detector.gd" type="Script" id=4]
+
+[sub_resource type="RectangleShape2D" id=1]
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 8, 8 )
 
 [node name="MettaBox" type="Area2D" groups=["BattleEnemyBullets"]]
 script = ExtResource( 1 )
@@ -19,3 +25,15 @@ movement_rotate_velocity = false
 
 [node name="BoxSprite" parent="." instance=ExtResource( 3 )]
 texture = ExtResource( 2 )
+
+[node name="Hitbox" type="CollisionShape2D" parent="."]
+shape = SubResource( 1 )
+
+[node name="HeartBulletDetector" type="Area2D" parent="." groups=["BattlePlayerHeartBulletDetectors"]]
+script = ExtResource( 4 )
+action = 1
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HeartBulletDetector"]
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]

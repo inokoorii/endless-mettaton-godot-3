@@ -43,8 +43,8 @@ func _ready() -> void:
 	_update_sprite_textures()
 	_update_sprite_normal_maps()
 	_update_sprite_offsets()
-	_update_sprite_regions()
-	_update_sprite_transforms()
+	_update_sprite_region_rects()
+	_update_sprite_positions()
 
 
 # CLASS PRIVATE FUNCTIONS
@@ -98,7 +98,7 @@ func _update_sprite_offsets() -> void:
 		bottom_right.flip_v = flip_v
 
 
-func _update_sprite_regions() -> void:
+func _update_sprite_region_rects() -> void:
 	if not texture:
 		if is_instance_valid(top_left):
 			top_left.region_rect.size = Vector2.ZERO
@@ -157,7 +157,7 @@ func _update_sprite_regions() -> void:
 				bottom_right.region_rect.position.y = 0
 
 
-func _update_sprite_transforms() -> void:
+func _update_sprite_positions() -> void:
 	if not texture:
 		if is_instance_valid(top_left):
 			top_left.position = Vector2.ZERO
@@ -197,42 +197,40 @@ func set_texture(value: Texture) -> void:
 	texture = value
 	emit_signal("texture_changed")
 	_update_sprite_textures()
-	_update_sprite_regions()
-	_update_sprite_transforms()
+	_update_sprite_region_rects()
+	_update_sprite_positions()
 
 
 func set_normal_map(value: Texture) -> void:
 	normal_map = value
-	
 	_update_sprite_normal_maps()
 
 
 func set_offset(value: Vector2) -> void:
 	offset = value
-	
 	_update_sprite_offsets()
 
 
 func set_flip_h(value: bool) -> void:
 	flip_h = value
 	_update_sprite_offsets()
-	_update_sprite_regions()
+	_update_sprite_region_rects()
 
 
 func set_flip_v(value: bool) -> void:
 	flip_v = value
 	_update_sprite_offsets()
-	_update_sprite_regions()
+	_update_sprite_region_rects()
 
 
 func set_h_separation(value: float) -> void:
 	h_separation = value
-	_update_sprite_transforms()
+	_update_sprite_positions()
 
 
 func set_v_separation(value: float) -> void:
 	v_separation = value
-	_update_sprite_transforms()
+	_update_sprite_positions()
 
 
 # CLASS PROPERTY LIST FUNCTIONS
@@ -331,10 +329,8 @@ func _get_property_list_reverts() -> Dictionary:
 
 
 func property_can_revert(property: String):
-	var property_list: Dictionary = _get_property_list_reverts()
-	return property_list.has(property)
+	return _get_property_list_reverts().has(property)
 
 
 func property_get_revert(property: String):
-	var property_list: Dictionary = _get_property_list_reverts()
-	return property_list.get(property)
+	return _get_property_list_reverts().get(property)

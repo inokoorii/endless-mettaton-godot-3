@@ -1,9 +1,13 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://src/scripts/battle/player/player_heart.gd" type="Script" id=1]
 [ext_resource path="res://resources/spriteframes/battle/player/player_heart.tres" type="SpriteFrames" id=2]
+[ext_resource path="res://src/scripts/battle/enemy_bullets/enemy_bullet_detector.gd" type="Script" id=3]
 
-[sub_resource type="RectangleShape2D" id=1]
+[sub_resource type="CircleShape2D" id=3]
+radius = 8.0
+
+[sub_resource type="RectangleShape2D" id=2]
 extents = Vector2( 8, 8 )
 
 [node name="BattlePlayerHeart" type="KinematicBody2D" groups=["BattlePlayerHearts"]]
@@ -16,4 +20,10 @@ bullet_firing_offset = Vector2( 0, 0 )
 frames = ExtResource( 2 )
 
 [node name="HeartCollider" type="CollisionShape2D" parent="."]
-shape = SubResource( 1 )
+shape = SubResource( 3 )
+
+[node name="EnemyBulletDetector" type="Area2D" parent="." groups=["BattleEnemyBulletDetectors"]]
+script = ExtResource( 3 )
+
+[node name="Hurtbox" type="CollisionShape2D" parent="EnemyBulletDetector"]
+shape = SubResource( 2 )

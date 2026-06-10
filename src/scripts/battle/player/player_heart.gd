@@ -77,7 +77,7 @@ func _handle_bullet_firing(delta: float) -> void:
 				get_parent().add_child(bullet)
 				bullet.position = position + bullet_firing_offset
 				
-				bullet_firing_cooldown_left = bullet_firing_cooldown
+				bullet_firing_cooldown_left = bullet_firing_cooldown * delta
 				emit_signal("bullet_fired", bullet)
 
 
@@ -158,9 +158,9 @@ func _get_property_list_reverts() -> Dictionary:
 
 func property_can_revert(property: String):
 	var property_list: Dictionary = _get_property_list_reverts()
-	return property_list.has(property)
+	return _get_property_list_reverts().has(property)
 
 
 func property_get_revert(property: String):
 	var property_list: Dictionary = _get_property_list_reverts()
-	return property_list.get(property)
+	return _get_property_list_reverts().get(property)
