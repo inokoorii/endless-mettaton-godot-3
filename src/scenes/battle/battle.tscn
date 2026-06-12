@@ -85,7 +85,26 @@ shape = SubResource( 3 )
 
 [node name="BattleBullets" type="Node2D" parent="."]
 
-[node name="MettaBox" parent="BattleBullets" groups=["MettaBoxes"] instance=ExtResource( 7 )]
+[node name="MettaBox" parent="BattleBullets" instance=ExtResource( 7 )]
+box_type = 1
+
+[node name="MettaBoxBlue" parent="BattleBullets" instance=ExtResource( 7 )]
+modulate = Color( 0, 0.635294, 0.909804, 1 )
+bullet_type = 1
+bullet_color = 1
+movement_speed = 120.0
+movement_direction = Vector2( 0, -1 )
+movement_rotation_degrees = -90.0
+movement_rotate_velocity = true
+
+[node name="MettaBoxOrange" parent="BattleBullets" instance=ExtResource( 7 )]
+modulate = Color( 1, 0.662745, 0.0784314, 1 )
+bullet_type = 2
+bullet_color = 2
+movement_speed = 120.0
+movement_direction = Vector2( 0, -1 )
+movement_rotation_degrees = 90.0
+movement_rotate_velocity = true
 
 [node name="BattlePlayerHeart" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 128 )
+position = Vector2( 0, 129 )

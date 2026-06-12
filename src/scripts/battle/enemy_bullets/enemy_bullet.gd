@@ -3,12 +3,12 @@ class_name BattleEnemyBullet
 extends Area2D
 
 
-# CLASS SIGNALS
+"CLASS SIGNALS"
 signal bullet_type_changed
 signal bullet_color_changed
 
 
-# CLASS ENUMERATIONS
+"CLASS ENUMERATIONS"
 enum BulletTypes {
 	BULLET_TYPE_DAMAGE,
 	BULLET_TYPE_DAMAGE_ON_IDLE,
@@ -25,15 +25,7 @@ enum BulletColors {
 }
 
 
-# CLASS CONSTANTS
-const BULLET_COLOR_WHITE: Color = Color("FFFFFF")
-const BULLET_COLOR_BLUE: Color = Color("00A2E8")
-const BULLET_COLOR_ORANGE: Color = Color("FFA914")
-const BULLET_COLOR_GREEN: Color = Color("00FF00")
-const BULLET_COLOR_GRAY: Color = Color("7F7F7F")
-
-
-# CLASS EXPORT VARIABLES
+"CLASS EXPORTED VARIABLES"
 var bullet_type: int = BulletTypes.BULLET_TYPE_DAMAGE \
 		setget set_bullet_type
 var bullet_color: int = BulletColors.BULLET_COLOR_WHITE \
@@ -43,8 +35,8 @@ var on_hit_damage: int = 0 \
 		setget set_on_hit_damage
 var on_hit_heal: int = 0 \
 		setget set_on_hit_heal
-var on_hit_invincibility_frames: float = 900.0 \
-		setget set_on_hit_invincibility_frames
+var on_hit_invincibility_time: float = 1.0 \
+		setget set_on_hit_invincibility_time
 
 var movement_speed: float = 0.0 \
 		setget set_movement_speed
@@ -55,11 +47,11 @@ var movement_rotation_degrees: float = 0.0 \
 var movement_rotate_velocity: bool = false
 
 
-# CLASS PUBLIC VARIABLES
+"CLASS REGULAR VARIABLES"
 var velocity: Vector2
 
 
-# GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
+"OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	add_to_group("BattleEnemyBullets", true)
 
@@ -68,7 +60,7 @@ func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 
 
-# CLASS PRIVATE FUNCTIONS
+"CLASS PRIVATE METHODS"
 func _handle_movement(delta: float) -> void:
 	if not Engine.editor_hint:
 		velocity = (movement_direction * movement_speed) * delta
@@ -83,22 +75,22 @@ func _handle_movement(delta: float) -> void:
 func _update_modulate() -> void:
 	match bullet_color:
 		BulletColors.BULLET_COLOR_WHITE:
-			modulate = BULLET_COLOR_WHITE
+			modulate = Color("FFFFFF")
 		
 		BulletColors.BULLET_COLOR_BLUE:
-			modulate = BULLET_COLOR_BLUE
+			modulate = Color("00A2E8")
 		
 		BulletColors.BULLET_COLOR_ORANGE:
-			modulate = BULLET_COLOR_ORANGE
+			modulate = Color("FFA914")
 		
 		BulletColors.BULLET_COLOR_GREEN:
-			modulate = BULLET_COLOR_GREEN
+			modulate = Color("00FF00")
 		
 		BulletColors.BULLET_COLOR_GRAY:
-			modulate = BULLET_COLOR_GRAY
+			modulate = Color("7F7F7F")
 
 
-# CLASS SETTER FUNCIONS
+"CLASS PUBLIC METHODS (SETTERS)"
 func set_bullet_type(value: int) -> void:
 	bullet_type = value
 	bullet_type = clamp(bullet_type, 0, BulletTypes.size() - 1) as int
@@ -122,9 +114,9 @@ func set_on_hit_heal(value: int) -> void:
 	on_hit_heal = clamp(on_hit_heal, 0, INF) as int
 
 
-func set_on_hit_invincibility_frames(value: float) -> void:
-	on_hit_invincibility_frames = value
-	on_hit_invincibility_frames = clamp(on_hit_invincibility_frames, 0.0, INF)
+func set_on_hit_invincibility_time(value: float) -> void:
+	on_hit_invincibility_time = value
+	on_hit_invincibility_time = clamp(on_hit_invincibility_time, 0.0, INF)
 
 
 func set_movement_speed(value: float) -> void:
@@ -140,7 +132,7 @@ func set_movement_rotation_degrees(value: float) -> void:
 	movement_rotation_degrees = value
 
 
-# CLASS PROPERTY LIST FUNCTIONS
+"CLASS PRIVATE METHODS (PROPERTY LIST)"
 func _get_property_list() -> Array:
 	var property_list: Array = []
 	
@@ -193,9 +185,11 @@ func _get_property_list() -> Array:
 				"usage": PROPERTY_USAGE_DEFAULT,
 			},
 			{
-				"name": "on_hit_invincibility_frames",
+				"name": "on_hit_invincibility_time",
 				"type": TYPE_REAL,
 				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_EXP_RANGE,
+				"hint_string": "0.0,4096.0,0.001,or_greater",
 			},
 		]
 	)
@@ -243,7 +237,7 @@ func _get_property_list_reverts() -> Dictionary:
 		"bullet_color": BulletColors.BULLET_COLOR_WHITE,
 		"on_hit_damage": 0,
 		"on_hit_heal": 0,
-		"on_hit_invincibility_frames": 900.0,
+		"on_hit_invincibility_time": 1.0,
 		"movement_speed": 0.0,
 		"movement_direction": Vector2.ZERO,
 		"movement_rotation_degrees": 0.0,

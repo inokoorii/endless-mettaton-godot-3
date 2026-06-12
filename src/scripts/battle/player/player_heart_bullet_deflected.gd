@@ -2,26 +2,26 @@ tool
 extends Node2D
 
 
-# SCRIPT EXPORT VARIABLES
+"SCRIPT EXPORTED VARIABLES"
 var movement_speed: float = 540.0 \
 		setget set_movement_speed
 
 
-# SCRIPT PUBLIC VARIABLES
+"SCRIPT REGULAR VARIABLES"
 var movement_direction: Vector2
 var movement_rotation: float
 
 var velocity: Vector2
 
 
-# SCRIPT ONREADY VARIABLES
+"SCRIPT ONREADY VARIABLES"
 onready var heart_bullet_sprite: AnimatedSprite = \
 		get_node_or_null("HeartBulletSprite")
 onready var visibility_notifier_2d: VisibilityNotifier2D = \
 		get_node_or_null("VisibilityNotifier2D")
 
 
-# GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
+"OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	add_to_group("BattlePlayerHeartBulletDeflecteds", true)
 	_setup_movement_direction()
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 
 
-# SCRIPT PRIVATE FUNCTIONS
+"SCRIPT PRIVATE METHODS"
 func _setup_movement_direction() -> void:
 	if not Engine.editor_hint:
 		var angle_left: float = -30.0 - rand_range(0.0, 40.0)
@@ -69,13 +69,13 @@ func _handle_cleanup() -> void:
 	queue_free()
 
 
-# SCRIPT SETTER FUNCTIONS
+"SCRIPT PUBLIC METHODS (SETTERS)"
 func set_movement_speed(value: float) -> void:
 	movement_speed = value
 	movement_speed = clamp(movement_speed, 0.0, INF)
 
 
-# SCRIPT PROPERTY LIST FUNCTIONS
+"SCRIPT PRIVATE METHODS (PROPERTY LIST)"
 func _get_property_list() -> Array:
 	var property_list: Array = []
 	

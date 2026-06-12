@@ -3,11 +3,11 @@ class_name MainScene
 extends Control
 
 
-# CLASS PRIVATE VARIABLES
+"CLASS REGULAR VARIABLES"
 var _last_window_position: Vector2
 
 
-# CLASS ONREADY VARIABLES
+"CLASS ONREADY VARIABLES"
 onready var clear_color: ColorRect = \
 		get_node_or_null("ClearColor")
 onready var game_viewport_container: ViewportContainer = \
@@ -16,7 +16,7 @@ onready var game_viewport: Viewport = \
 		get_node_or_null("GameViewportContainer/GameViewport")
 
 
-# GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
+"OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _input(event: InputEvent) -> void:
 #	Keybind: [F4]
 	if event.is_action_pressed("window_toggle_fullscreen"):

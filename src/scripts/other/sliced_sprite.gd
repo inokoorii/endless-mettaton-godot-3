@@ -4,11 +4,11 @@ class_name SlicedSprite
 extends Node2D
 
 
-# CLASS SIGNALS
+"CLASS SIGNALS"
 signal texture_changed()
 
 
-# CLASS EXPORT VARIABLES
+"CLASS EXPORTED VARIABLES"
 var texture: Texture = null \
 		setget set_texture
 var normal_map: Texture = null \
@@ -27,7 +27,7 @@ var v_separation: float = 0.0 \
 		setget set_v_separation
 
 
-# CLASS ONREADY VARIABLES
+"CLASS ONREADY VARIABLES"
 onready var top_left: Sprite = \
 		get_node_or_null("TopLeft")
 onready var top_right: Sprite = \
@@ -38,7 +38,7 @@ onready var bottom_right: Sprite = \
 		get_node_or_null("BottomRight")
 
 
-# GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
+"OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	_update_sprite_textures()
 	_update_sprite_normal_maps()
@@ -47,7 +47,7 @@ func _ready() -> void:
 	_update_sprite_positions()
 
 
-# CLASS PRIVATE FUNCTIONS
+"CLASS PRIVATE METHODS"
 func _update_sprite_textures() -> void:
 	if is_instance_valid(top_left):
 		top_left.texture = texture
@@ -192,7 +192,7 @@ func _update_sprite_positions() -> void:
 			bottom_right.position += Vector2(+h_separation, +v_separation)
 
 
-# CLASS SETTER FUNCTIONS
+"CLASS PUBLIC METHODS (SETTERS)"
 func set_texture(value: Texture) -> void:
 	texture = value
 	emit_signal("texture_changed")
@@ -233,7 +233,7 @@ func set_v_separation(value: float) -> void:
 	_update_sprite_positions()
 
 
-# CLASS PROPERTY LIST FUNCTIONS
+"CLASS PRIVATE METHODS (PROPERTY LIST)"
 func _get_property_list() -> Array:
 	var property_list: Array = []
 

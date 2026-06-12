@@ -3,7 +3,7 @@ class_name BattlePlayerHeartBullet
 extends Area2D
 
 
-# CLASS EXPORT VARIABLES
+"CLASS EXPORTED VARIABLES"
 var movement_speed: float = 480.0 \
 		setget set_movement_speed
 var movement_acceleration: float = 6.0 \
@@ -13,11 +13,11 @@ var movement_direction: Vector2 = Vector2(0.0, -1.0)
 var scale_growth: Vector2 = Vector2(0.0, 6.0)
 
 
-# CLASS PUBLIC VARIABLES
+"CLASS REGULAR VARIABLES"
 var velocity: Vector2
 
 
-# CLASS ONREADY VARIABLES
+"CLASS ONREADY VARIABLES"
 onready var heart_bullet_sprite: AnimatedSprite = \
 		get_node_or_null("HeartBulletSprite")
 onready var heart_bullet_hitbox: CollisionShape2D = \
@@ -26,7 +26,7 @@ onready var visibility_notifier_2d: VisibilityNotifier2D = \
 		get_node_or_null("VisibilityNotifier2D")
 
 
-# GODOT OVERRIDEN BUILT-IN VIRTUAL FUNCTIONS
+"OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	add_to_group("BattlePlayerHeartBullets", true)
 	
@@ -38,7 +38,7 @@ func _physics_process(delta: float) -> void:
 	_handle_movement(delta)
 
 
-# CLASS PRIVATE FUNCTIONS
+"CLASS PRIVATE METHODS"
 func _handle_movement(delta: float) -> void:
 	if not Engine.editor_hint:
 		movement_speed += movement_acceleration * delta
@@ -52,7 +52,7 @@ func _handle_cleanup() -> void:
 	queue_free()
 
 
-# CLASS SETTER FUNCTIONS
+"CLASS PUBLIC METHODS (SETTERS)"
 func set_movement_speed(value: float) -> void:
 	movement_speed = value
 	movement_speed = clamp(movement_speed, 0.0, INF)
@@ -63,7 +63,7 @@ func set_movement_acceleration(value: float) -> void:
 	movement_acceleration = clamp(movement_acceleration, 0.0, INF)
 
 
-# CLASS PROPERTY LIST FUNCTIONS
+"CLASS PRIVATE METHODS (PROPERTY LIST)"
 func _get_property_list() -> Array:
 	var property_list: Array = []
 	

@@ -1,5 +1,9 @@
 extends Node
 
 
-# CORE
+"CORE"
 var main_scene: MainScene
+
+
+"BATTLE"
+var battle: Battle
