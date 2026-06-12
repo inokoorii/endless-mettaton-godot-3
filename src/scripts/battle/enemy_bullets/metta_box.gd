@@ -69,12 +69,12 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	_handle_swayation(delta)
-	_handle_breakation(delta)
+	_handle_sway_animation(delta)
+	_handle_break_animation(delta)
 
 
 "SCRIPT PRIVATE METHODS"
-func _handle_swayation(delta: float) -> void:
+func _handle_sway_animation(delta: float) -> void:
 	if not Engine.editor_hint and not destroyed:
 		_sway_elapsed_time += delta
 		_sway_x_offset = sin(
@@ -96,7 +96,7 @@ func _handle_swayation(delta: float) -> void:
 			visibility_notifier_2d.position.x = _sway_x_offset
 
 
-func _handle_breakation(delta: float) -> void:
+func _handle_break_animation(delta: float) -> void:
 	if not Engine.editor_hint and destroyed:
 		match box_type:
 			BoxTypes.BOX_TYPE_HOLLOW:
