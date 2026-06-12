@@ -3,16 +3,12 @@
 [ext_resource path="res://src/scripts/battle/battle.gd" type="Script" id=1]
 [ext_resource path="res://src/scenes/battle/player/player_heart.tscn" type="PackedScene" id=2]
 [ext_resource path="res://src/scripts/battle/player/player_heart_bullet_detector.gd" type="Script" id=3]
+[ext_resource path="res://src/scenes/battle/enemy_bullets/metta_plus_bomb.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_solid.png" type="Texture" id=5]
 [ext_resource path="res://src/scenes/battle/enemy_bullets/metta_box.tscn" type="PackedScene" id=7]
 
 [sub_resource type="RectangleShape2D" id=1]
-extents = Vector2( 64, 64 )
-
-[sub_resource type="RectangleShape2D" id=2]
-extents = Vector2( 64, 64 )
-
-[sub_resource type="RectangleShape2D" id=3]
-extents = Vector2( 64, 64 )
+extents = Vector2( 32, 32 )
 
 [node name="Battle" type="Node2D"]
 script = ExtResource( 1 )
@@ -21,225 +17,474 @@ script = ExtResource( 1 )
 rotating = true
 current = true
 
-[node name="BattlePlayerHeartDetectors" type="Node2D" parent="."]
+[node name="HeartBulletDetectors" type="Node2D" parent="."]
+position = Vector2( 0, -192 )
+z_index = 1
 
-[node name="DetectorIgnore" type="Area2D" parent="BattlePlayerHeartDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
-position = Vector2( -96, -128 )
-scale = Vector2( 0.5, 0.5 )
+[node name="Ignore" type="Area2D" parent="HeartBulletDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
+position = Vector2( -80, 0 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
 action = 0
 
-[node name="Sprite" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorIgnore"]
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
+[node name="ColorRect" type="ColorRect" parent="HeartBulletDetectors/Ignore"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
 color = Color( 1, 0, 0, 1 )
 
-[node name="Hurtbox" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorIgnore"]
-visible = false
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletDetectors/Ignore"]
 shape = SubResource( 1 )
 
-[node name="DetectorDestroy" type="Area2D" parent="BattlePlayerHeartDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
-position = Vector2( 0, -128 )
-scale = Vector2( 0.5, 0.5 )
+[node name="Destroy" type="Area2D" parent="HeartBulletDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
 action = 1
 
-[node name="Sprite" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorDestroy"]
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
+[node name="ColorRect" type="ColorRect" parent="HeartBulletDetectors/Destroy"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
 color = Color( 0, 1, 0, 1 )
 
-[node name="Hurtbox" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorDestroy"]
-visible = false
-shape = SubResource( 2 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletDetectors/Destroy"]
+shape = SubResource( 1 )
 
-[node name="DetectorDeflect" type="Area2D" parent="BattlePlayerHeartDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
-position = Vector2( 96, -128 )
-scale = Vector2( 0.5, 0.5 )
+[node name="Deflect" type="Area2D" parent="HeartBulletDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
+position = Vector2( 80, 0 )
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
 action = 2
 
-[node name="Sprite" type="ColorRect" parent="BattlePlayerHeartDetectors/DetectorDeflect"]
-margin_left = -64.0
-margin_top = -64.0
-margin_right = 64.0
-margin_bottom = 64.0
+[node name="ColorRect" type="ColorRect" parent="HeartBulletDetectors/Deflect"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
 color = Color( 0, 0, 1, 1 )
 
-[node name="Hurtbox" type="CollisionShape2D" parent="BattlePlayerHeartDetectors/DetectorDeflect"]
-visible = false
-shape = SubResource( 3 )
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletDetectors/Deflect"]
+shape = SubResource( 1 )
 
-[node name="BattleBullets" type="Node2D" parent="."]
+[node name="MettaBoxes" type="Node2D" parent="."]
+position = Vector2( 0, -64 )
+z_index = 2
 
-[node name="MettaBox" parent="BattleBullets" instance=ExtResource( 7 )]
+[node name="Row1" type="Node2D" parent="MettaBoxes"]
+position = Vector2( 0, -32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaBox" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( -192, 0 )
 sway_speed = 5.0
-sway_intensity = 5.0
+sway_intensity = -10.0
 
-[node name="MettaBox2" parent="BattleBullets" instance=ExtResource( 7 )]
+[node name="MettaBox2" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( -160, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox3" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( -128, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox4" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( -96, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox5" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( -64, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox6" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
 position = Vector2( -32, 0 )
 sway_speed = 5.0
-sway_intensity = 5.0
+sway_intensity = -10.0
 
-[node name="MettaBox3" parent="BattleBullets" instance=ExtResource( 7 )]
+[node name="MettaBox7" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox8" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
 position = Vector2( 32, 0 )
 sway_speed = 5.0
-sway_intensity = 5.0
+sway_intensity = -10.0
 
-[node name="MettaBox4" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 0, 32 )
+[node name="MettaBox9" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( 64, 0 )
 sway_speed = 5.0
-sway_intensity = 5.0
+sway_intensity = -10.0
 
-[node name="MettaBox29" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 0, 64 )
+[node name="MettaBox10" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( 96, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox11" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( 128, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox12" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( 160, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox13" parent="MettaBoxes/Row1" instance=ExtResource( 7 )]
+position = Vector2( 192, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="Row2" type="Node2D" parent="MettaBoxes"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaBox" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( -192, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox2" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( -160, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox3" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( -128, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox4" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( -96, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox5" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( -64, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox6" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( -32, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox7" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox8" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( 32, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox9" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( 64, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox10" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( 96, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox11" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( 128, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox12" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( 160, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox13" parent="MettaBoxes/Row2" instance=ExtResource( 7 )]
+position = Vector2( 192, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="Row3" type="Node2D" parent="MettaBoxes"]
+position = Vector2( 0, 32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaBox" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( -192, 0 )
 box_type = 1
 sway_speed = 5.0
 sway_intensity = 5.0
 
-[node name="MettaBox30" parent="BattleBullets" instance=ExtResource( 7 )]
-modulate = Color( 0, 0.635294, 0.909804, 1 )
-position = Vector2( -16, 96 )
+[node name="MettaBox2" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( -160, 0 )
+box_type = 1
 sway_speed = 5.0
 sway_intensity = 5.0
+
+[node name="MettaBox3" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( -128, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox4" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( -96, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox5" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( -64, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox6" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( -32, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox7" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox8" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( 32, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox9" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( 64, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox10" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( 96, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox11" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( 128, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox12" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( 160, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox13" parent="MettaBoxes/Row3" instance=ExtResource( 7 )]
+position = Vector2( 192, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaPlusBoms" type="Node2D" parent="."]
+position = Vector2( 0, 72 )
+z_index = 3
+
+[node name="Row1" type="Node2D" parent="MettaPlusBoms"]
+position = Vector2( 0, -40 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaPlusBomb" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( -192, 0 )
+
+[node name="MettaPlusBomb2" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( -160, 0 )
+
+[node name="MettaPlusBomb3" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( -128, 0 )
+
+[node name="MettaPlusBomb4" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( -96, 0 )
+
+[node name="MettaPlusBomb5" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( -64, 0 )
+
+[node name="MettaPlusBomb6" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( -32, 0 )
+
+[node name="MettaPlusBomb7" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+
+[node name="MettaPlusBomb8" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( 32, 0 )
+
+[node name="MettaPlusBomb9" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( 64, 0 )
+
+[node name="MettaPlusBomb10" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( 96, 0 )
+
+[node name="MettaPlusBomb11" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( 128, 0 )
+
+[node name="MettaPlusBomb12" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( 160, 0 )
+
+[node name="MettaPlusBomb13" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+position = Vector2( 192, 0 )
+
+[node name="Row2" type="Node2D" parent="MettaPlusBoms"]
+position = Vector2( 0, -8 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaPlusBomb" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( -192, 0 )
+
+[node name="MettaPlusBomb2" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( -160, 0 )
+
+[node name="MettaPlusBomb3" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( -128, 0 )
+
+[node name="MettaPlusBomb4" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( -96, 0 )
+
+[node name="MettaPlusBomb5" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( -64, 0 )
+
+[node name="MettaPlusBomb6" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( -32, 0 )
+
+[node name="MettaPlusBomb7" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+
+[node name="MettaPlusBomb8" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( 32, 0 )
+
+[node name="MettaPlusBomb9" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( 64, 0 )
+
+[node name="MettaPlusBomb10" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( 96, 0 )
+
+[node name="MettaPlusBomb11" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( 128, 0 )
+
+[node name="MettaPlusBomb12" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( 160, 0 )
+
+[node name="MettaPlusBomb13" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+position = Vector2( 192, 0 )
+
+[node name="Row3" type="Node2D" parent="MettaPlusBoms"]
+position = Vector2( 0, 24 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaPlusBomb" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( -192, 0 )
+
+[node name="MettaPlusBomb2" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( -160, 0 )
+
+[node name="MettaPlusBomb3" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( -128, 0 )
+
+[node name="MettaPlusBomb4" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( -96, 0 )
+
+[node name="MettaPlusBomb5" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( -64, 0 )
+
+[node name="MettaPlusBomb6" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( -32, 0 )
+
+[node name="MettaPlusBomb7" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+
+[node name="MettaPlusBomb8" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( 32, 0 )
+
+[node name="MettaPlusBomb9" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( 64, 0 )
+
+[node name="MettaPlusBomb10" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( 96, 0 )
+
+[node name="MettaPlusBomb11" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( 128, 0 )
+
+[node name="MettaPlusBomb12" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( 160, 0 )
+
+[node name="MettaPlusBomb13" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+position = Vector2( 192, 0 )
+
+[node name="ColoredBullets" type="Node2D" parent="."]
+position = Vector2( 0, 192 )
+
+[node name="Blue" parent="ColoredBullets" instance=ExtResource( 7 )]
+modulate = Color( 0, 0.635294, 0.909804, 1 )
+position = Vector2( -96, 0 )
+box_type = 1
+sway_speed = 2.5
+sway_intensity = -50.0
 bullet_type = 1
 bullet_color = 1
 
-[node name="MettaBox31" parent="BattleBullets" instance=ExtResource( 7 )]
+[node name="BoxSprite" parent="ColoredBullets/Blue" index="0"]
+texture = ExtResource( 5 )
+
+[node name="EnemyBulletDetector" parent="ColoredBullets/Blue" index="2"]
+monitoring = false
+monitorable = false
+
+[node name="Orange" parent="ColoredBullets" instance=ExtResource( 7 )]
 modulate = Color( 1, 0.662745, 0.0784314, 1 )
-position = Vector2( 16, 96 )
-sway_speed = 5.0
-sway_intensity = 5.0
+position = Vector2( 96, 0 )
+box_type = 1
+sway_speed = 2.5
+sway_intensity = 50.0
 bullet_type = 2
 bullet_color = 2
 
-[node name="MettaBox5" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -32, 32 )
-sway_speed = 5.0
-sway_intensity = 5.0
+[node name="BoxSprite" parent="ColoredBullets/Orange" index="0"]
+texture = ExtResource( 5 )
 
-[node name="MettaBox6" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 32, 32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox7" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 0, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox8" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -32, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox9" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 32, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox10" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -96, 0 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox11" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -128, 0 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox12" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -64, 0 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox13" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -96, 32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox14" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -128, 32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox15" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -64, 32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox16" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -96, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox17" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -128, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox18" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( -64, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox19" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 96, 0 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox20" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 64, 0 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox21" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 128, 0 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox22" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 96, 32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox23" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 64, 32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox24" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 128, 32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox25" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 96, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox26" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 64, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
-
-[node name="MettaBox27" parent="BattleBullets" instance=ExtResource( 7 )]
-position = Vector2( 128, -32 )
-sway_speed = 5.0
-sway_intensity = 5.0
+[node name="EnemyBulletDetector" parent="ColoredBullets/Orange" index="2"]
+monitoring = false
+monitorable = false
 
 [node name="BattlePlayerHeart" parent="." instance=ExtResource( 2 )]
-position = Vector2( 0, 129 )
+position = Vector2( 0, 192 )
+
+[editable path="ColoredBullets/Blue"]
+[editable path="ColoredBullets/Orange"]

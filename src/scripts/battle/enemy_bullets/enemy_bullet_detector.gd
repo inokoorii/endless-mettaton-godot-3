@@ -40,9 +40,8 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not Engine.editor_hint:
 		set_on_hit_invincibility_time_left(on_hit_invincibility_time_left - delta)
-		monitoring = can_monitor_bullets()
 		
-		if monitoring:
+		if monitoring and can_monitor_bullets():
 			for area in get_overlapping_areas():
 				if (not area in ignored_areas) and area is BattleEnemyBullet:
 					_handle_collisions(area)
@@ -67,7 +66,6 @@ func _handle_collisions(area: Area2D) -> void:
 	if area is BattleEnemyBullet:
 		match action:
 			Actions.ACTION_IGNORE:
-				emit_signal("bullet_entered", area, area.bullet_type)
 				emit_signal("entering_bullet_ignored", area, area.bullet_type)
 			
 			Actions.ACTION_PROCESS_BULLET:
@@ -77,7 +75,6 @@ func _handle_collisions(area: Area2D) -> void:
 				match area.bullet_type:
 					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE:
 						on_hit_invincibility_time_left = area.on_hit_invincibility_time
-						emit_signal("bullet_entered", area, area.bullet_type)
 						emit_signal("entering_bullet_processed", area, area.bullet_type)
 					
 					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE:
@@ -85,7 +82,6 @@ func _handle_collisions(area: Area2D) -> void:
 							return
 						
 						on_hit_invincibility_time_left = area.on_hit_invincibility_time
-						emit_signal("bullet_entered", area, area.bullet_type)
 						emit_signal("entering_bullet_processed", area, area.bullet_type)
 					
 					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE:
@@ -93,8 +89,9 @@ func _handle_collisions(area: Area2D) -> void:
 							return
 						
 						on_hit_invincibility_time_left = area.on_hit_invincibility_time
-						emit_signal("bullet_entered", area, area.bullet_type)
 						emit_signal("entering_bullet_processed", area, area.bullet_type)
+		
+		emit_signal("bullet_entered", area, area.bullet_type)
 
 
 "CLASS PUBLIC METHODS (SETTERS)"

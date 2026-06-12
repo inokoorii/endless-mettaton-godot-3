@@ -54,6 +54,19 @@ func can_fire_bullet() -> bool:
 
 
 "CLASS PRIVATE METHODS"
+func _update_sprite_playing() -> void:
+	if not Engine.editor_hint:
+		if (
+				is_instance_valid(heart_sprite)
+				and is_instance_valid(enemy_bullet_detector)
+		):
+			if not enemy_bullet_detector.can_monitor_bullets():
+				heart_sprite.playing = true
+			else:
+				heart_sprite.playing = false
+				heart_sprite.frame = 0
+
+
 func _handle_movement(delta: float) -> void:
 	if not Engine.editor_hint:
 		velocity = Vector2(
@@ -82,19 +95,6 @@ func _handle_bullet_firing(delta: float) -> void:
 			
 			bullet_firing_cooldown_time_left = bullet_firing_cooldown_time
 			emit_signal("bullet_fired", bullet)
-
-
-func _update_sprite_playing() -> void:
-	if not Engine.editor_hint:
-		if (
-				is_instance_valid(heart_sprite)
-				and is_instance_valid(enemy_bullet_detector)
-		):
-			if not enemy_bullet_detector.can_monitor_bullets():
-				heart_sprite.playing = true
-			else:
-				heart_sprite.playing = false
-				heart_sprite.frame = 0
 
 
 "CLASS PUBLIC METHODS (SETTERS)"

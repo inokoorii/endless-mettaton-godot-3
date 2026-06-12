@@ -24,7 +24,7 @@ var sway_intensity: float = 0.0
 
 var break_speed: float = 30.0 \
 		setget set_break_speed
-var break_fade_speed: float = 1.0 \
+var break_fade_speed: float = 1.5 \
 		setget set_break_fade_speed
 
 
@@ -59,13 +59,16 @@ func _ready() -> void:
 		enemy_bullet_detector.connect(
 				"bullet_entered",
 				self,
-				"_on_enemy_bullet_detector_bullet_entered")
+				"_handle_enemy_bullet_collisions")
 	
 	if is_instance_valid(heart_bullet_detector):
 		heart_bullet_detector.connect(
 				"bullet_entered",
 				self,
-				"_on_heart_bullet_detector_bullet_entered")
+				"_handle_heart_bullet_collisions")
+	
+	if is_instance_valid(visibility_notifier_2d):
+		visibility_notifier_2d.connect("screen_exited", self, "_handle_cleanup")
 
 
 func _physics_process(delta: float) -> void:
@@ -74,6 +77,18 @@ func _physics_process(delta: float) -> void:
 
 
 "SCRIPT PRIVATE METHODS"
+func _update_sprite_texture() -> void:
+	if is_instance_valid(box_sprite):
+		match box_type:
+			BoxTypes.BOX_TYPE_HOLLOW:
+				box_sprite.texture = preload(
+						"res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_hollow.png")
+			
+			BoxTypes.BOX_TYPE_SOLID:
+				box_sprite.texture = preload(
+						"res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_solid.png")
+
+
 func _handle_sway_animation(delta: float) -> void:
 	if not Engine.editor_hint and not destroyed:
 		_sway_elapsed_time += delta
@@ -114,29 +129,16 @@ func _handle_break_animation(delta: float) -> void:
 				queue_free()
 
 
-func _update_sprite_texture() -> void:
-	if is_instance_valid(box_sprite):
-		match box_type:
-			BoxTypes.BOX_TYPE_HOLLOW:
-				box_sprite.texture = preload(
-						"res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_hollow.png")
-			
-			BoxTypes.BOX_TYPE_SOLID:
-				box_sprite.texture = preload(
-						"res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_solid.png")
+func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int) -> void:
+	if box_type == BoxTypes.BOX_TYPE_SOLID and not destroyed:
+		if bullet.is_in_group("MettaPlusBombBeams"):
+			destroyed = true
 
 
-"SCRIPT PRIVATE METHODS (SIGNAL CONNECTIONS)"
-func _on_enemy_bullet_detector_bullet_entered(bullet: BattleEnemyBullet, bullet_type: int) -> void:
-	if box_type == BoxTypes.BOX_TYPE_SOLID:
-		pass
-
-
-func _on_heart_bullet_detector_bullet_entered(bullet: BattlePlayerHeartBullet) -> void:
-	if box_type == BoxTypes.BOX_TYPE_HOLLOW:
+func _handle_heart_bullet_collisions() -> void:
+	if box_type == BoxTypes.BOX_TYPE_HOLLOW and not destroyed:
 		movement_speed = 0.0
 		movement_direction = Vector2.ZERO
-		movement_rotation_degrees = 0.0
 		
 		if is_instance_valid(box_hitbox):
 			box_hitbox.queue_free()
@@ -147,10 +149,11 @@ func _on_heart_bullet_detector_bullet_entered(bullet: BattlePlayerHeartBullet) -
 		if is_instance_valid(heart_bullet_detector):
 			heart_bullet_detector.queue_free()
 		
-		if is_instance_valid(visibility_notifier_2d):
-			visibility_notifier_2d.queue_free()
-		
 		destroyed = true
+
+
+func _handle_cleanup() -> void:
+	queue_free()
 
 
 "SCRIPT PUBLIC METHODS (SETTERS)"
@@ -226,8 +229,6 @@ func _get_property_list() -> Array:
 				"name": "sway_intensity",
 				"type": TYPE_REAL,
 				"usage": PROPERTY_USAGE_DEFAULT,
-				"hint": PROPERTY_HINT_RANGE,
-				"hint_string": "-20.0,20.0,or_lesser,or_greater"
 			},
 			{
 				"name": "break_speed",
@@ -251,7 +252,7 @@ func _get_property_list_reverts() -> Dictionary:
 		"sway_speed": 0.0,
 		"sway_intensity": 0.0,
 		"break_speed": 30.0,
-		"break_fade_speed": 1.0,
+		"break_fade_speed": 1.5,
 	}
 	
 	property_list.merge(._get_property_list_reverts())

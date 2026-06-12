@@ -61,17 +61,6 @@ func _physics_process(delta: float) -> void:
 
 
 "CLASS PRIVATE METHODS"
-func _handle_movement(delta: float) -> void:
-	if not Engine.editor_hint:
-		velocity = (movement_direction * movement_speed) * delta
-		
-		if movement_rotate_velocity:
-			velocity = velocity.rotated(rotation)
-		
-		position += velocity
-		rotation_degrees += movement_rotation_degrees * delta
-
-
 func _update_modulate() -> void:
 	match bullet_color:
 		BulletColors.BULLET_COLOR_WHITE:
@@ -88,6 +77,17 @@ func _update_modulate() -> void:
 		
 		BulletColors.BULLET_COLOR_GRAY:
 			modulate = Color("7F7F7F")
+
+
+func _handle_movement(delta: float) -> void:
+	if not Engine.editor_hint:
+		velocity = (movement_direction * movement_speed) * delta
+		
+		if movement_rotate_velocity:
+			velocity = velocity.rotated(rotation)
+		
+		position += velocity
+		rotation_degrees += movement_rotation_degrees * delta
 
 
 "CLASS PUBLIC METHODS (SETTERS)"
