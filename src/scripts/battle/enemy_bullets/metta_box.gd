@@ -4,6 +4,7 @@ extends BattleEnemyBullet
 
 "SCRIPT SIGNALS"
 signal box_type_changed
+signal box_destroyed
 
 
 "SCRIPT ENUMERATIONS"
@@ -17,10 +18,22 @@ enum BoxTypes {
 var box_type: int = BoxTypes.BOX_TYPE_HOLLOW \
 		setget set_box_type
 
-var sway_anim_speed: float = 0.0 \
-		setget set_sway_anim_speed
-var sway_anim_intensity: float = 0.0 \
-		setget set_sway_anim_intensity
+var sway_speed: float = 0.0 \
+		setget set_sway_speed
+var sway_intensity: float = 0.0
+
+var break_speed: float = 30.0 \
+		setget set_break_speed
+var break_fade_speed: float = 1.0 \
+		setget set_break_fade_speed
+
+
+"SCRIPT REGULAR VARIABLES"
+var destroyed: bool = false \
+		setget set_destroyed
+
+var _sway_elapsed_time: float # In seconds!
+var _sway_x_offset: float
 
 
 "SCRIPT ONREADY VARIABLES"
@@ -43,9 +56,64 @@ func _ready() -> void:
 	
 	if is_instance_valid(enemy_bullet_detector):
 		enemy_bullet_detector.ignored_areas.append(self)
+		enemy_bullet_detector.connect(
+				"bullet_entered",
+				self,
+				"_on_enemy_bullet_detector_bullet_entered")
+	
+	if is_instance_valid(heart_bullet_detector):
+		heart_bullet_detector.connect(
+				"bullet_entered",
+				self,
+				"_on_heart_bullet_detector_bullet_entered")
+
+
+func _physics_process(delta: float) -> void:
+	_handle_swayation(delta)
+	_handle_breakation(delta)
 
 
 "SCRIPT PRIVATE METHODS"
+func _handle_swayation(delta: float) -> void:
+	if not Engine.editor_hint and not destroyed:
+		_sway_elapsed_time += delta
+		_sway_x_offset = sin(
+				_sway_elapsed_time * sway_speed) * sway_intensity
+		
+		if is_instance_valid(box_sprite):
+			box_sprite.position.x = _sway_x_offset
+		
+		if is_instance_valid(box_hitbox):
+			box_hitbox.position.x = _sway_x_offset
+		
+		if is_instance_valid(enemy_bullet_detector):
+			enemy_bullet_detector.position.x = _sway_x_offset
+		
+		if is_instance_valid(heart_bullet_detector):
+			heart_bullet_detector.position.x = _sway_x_offset
+		
+		if is_instance_valid(visibility_notifier_2d):
+			visibility_notifier_2d.position.x = _sway_x_offset
+
+
+func _handle_breakation(delta: float) -> void:
+	if not Engine.editor_hint and destroyed:
+		match box_type:
+			BoxTypes.BOX_TYPE_HOLLOW:
+				if is_instance_valid(box_sprite):
+					box_sprite.h_separation += break_speed * delta
+					box_sprite.v_separation += break_speed * delta
+				
+				modulate.a -= break_fade_speed * delta
+				modulate.a = clamp(modulate.a, 0.0, 0.8)
+				
+				if modulate.a <= 0.0:
+					queue_free()
+			
+			BoxTypes.BOX_TYPE_SOLID:
+				queue_free()
+
+
 func _update_sprite_texture() -> void:
 	if is_instance_valid(box_sprite):
 		match box_type:
@@ -58,6 +126,33 @@ func _update_sprite_texture() -> void:
 						"res://assets/sprites/battle/enemy_bullets/metta_box/metta_box_solid.png")
 
 
+"SCRIPT PRIVATE METHODS (SIGNAL CONNECTIONS)"
+func _on_enemy_bullet_detector_bullet_entered(bullet: BattleEnemyBullet, bullet_type: int) -> void:
+	if box_type == BoxTypes.BOX_TYPE_SOLID:
+		pass
+
+
+func _on_heart_bullet_detector_bullet_entered(bullet: BattlePlayerHeartBullet) -> void:
+	if box_type == BoxTypes.BOX_TYPE_HOLLOW:
+		movement_speed = 0.0
+		movement_direction = Vector2.ZERO
+		movement_rotation_degrees = 0.0
+		
+		if is_instance_valid(box_hitbox):
+			box_hitbox.queue_free()
+		
+		if is_instance_valid(enemy_bullet_detector):
+			enemy_bullet_detector.queue_free()
+		
+		if is_instance_valid(heart_bullet_detector):
+			heart_bullet_detector.queue_free()
+		
+		if is_instance_valid(visibility_notifier_2d):
+			visibility_notifier_2d.queue_free()
+		
+		destroyed = true
+
+
 "SCRIPT PUBLIC METHODS (SETTERS)"
 func set_box_type(value: int) -> void:
 	box_type = value
@@ -66,14 +161,27 @@ func set_box_type(value: int) -> void:
 	_update_sprite_texture()
 
 
-func set_sway_anim_speed(value: float) -> void:
-	sway_anim_speed = value
-	sway_anim_speed = clamp(sway_anim_speed, 0.0, INF)
+func set_destroyed(value: bool) -> void:
+#	Setting the value of `destroyed` is a ONE-WAY change!
+#	Once it has been set to `true`, you CAN NO LONGER change it back to `false!
+	if not destroyed:
+		destroyed = value
+		emit_signal("box_destroyed")
 
 
-func set_sway_anim_intensity(value: float) -> void:
-	sway_anim_intensity = value
-	sway_anim_intensity = clamp(sway_anim_intensity, 0.0, INF)
+func set_sway_speed(value: float) -> void:
+	sway_speed = value
+	sway_speed = clamp(sway_speed, 0.0, INF)
+
+
+func set_break_speed(value: float) -> void:
+	break_speed = value
+	break_speed = clamp(break_speed, 0.0, INF)
+
+
+func set_break_fade_speed(value: float) -> void:
+	break_fade_speed = value
+	break_fade_speed = clamp(break_fade_speed, 0.0, INF)
 
 
 "SCRIPT PRIVATE FUNCTIONS (PROPERTY LIST)"
@@ -105,18 +213,29 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "Sway Animation",
+				"name": "Animation Overrides",
 				"type": TYPE_NIL,
 				"usage": PROPERTY_USAGE_GROUP,
-				"hint_string": "sway_anim",
 			},
 			{
-				"name": "sway_anim_speed",
+				"name": "sway_speed",
 				"type": TYPE_REAL,
 				"usage": PROPERTY_USAGE_DEFAULT,
 			},
 			{
-				"name": "sway_anim_intensity",
+				"name": "sway_intensity",
+				"type": TYPE_REAL,
+				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_RANGE,
+				"hint_string": "-20.0,20.0,or_lesser,or_greater"
+			},
+			{
+				"name": "break_speed",
+				"type": TYPE_REAL,
+				"usage": PROPERTY_USAGE_DEFAULT,
+			},
+			{
+				"name": "break_fade_speed",
 				"type": TYPE_REAL,
 				"usage": PROPERTY_USAGE_DEFAULT,
 			},
@@ -129,8 +248,10 @@ func _get_property_list() -> Array:
 func _get_property_list_reverts() -> Dictionary:
 	var property_list: Dictionary = {
 		"box_type": BoxTypes.BOX_TYPE_HOLLOW,
-		"sway_anim_speed": 0.0,
-		"sway_anim_intensity": 0.0,
+		"sway_speed": 0.0,
+		"sway_intensity": 0.0,
+		"break_speed": 30.0,
+		"break_fade_speed": 1.0,
 	}
 	
 	property_list.merge(._get_property_list_reverts())

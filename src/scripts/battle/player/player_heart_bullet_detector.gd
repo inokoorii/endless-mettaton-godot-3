@@ -5,6 +5,7 @@ extends Area2D
 
 "CLASS SIGNALS"
 signal action_changed
+signal bullet_entered(bullet)
 signal entering_bullet_ignored(bullet)
 signal entering_bullet_destroyed
 signal entering_bullet_deflected
@@ -34,10 +35,12 @@ func _handle_collisions(area: Area2D) -> void:
 	if area is BattlePlayerHeartBullet:
 		match action:
 			Actions.ACTION_IGNORE:
+				emit_signal("bullet_entered", area)
 				emit_signal("entering_bullet_ignored", area)
 			
 			Actions.ACTION_DESTROY_BULLET:
 				area.queue_free()
+				emit_signal("bullet_entered", null)
 				emit_signal("entering_bullet_destroyed")
 			
 			Actions.ACTION_DEFLECT_BULLET:
@@ -50,6 +53,7 @@ func _handle_collisions(area: Area2D) -> void:
 				bullet_deflected.scale = area.scale
 				
 				area.queue_free()
+				emit_signal("bullet_entered", null)
 				emit_signal("entering_bullet_deflected")
 
 

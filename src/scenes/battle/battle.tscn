@@ -86,25 +86,160 @@ shape = SubResource( 3 )
 [node name="BattleBullets" type="Node2D" parent="."]
 
 [node name="MettaBox" parent="BattleBullets" instance=ExtResource( 7 )]
-box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
 
-[node name="MettaBoxBlue" parent="BattleBullets" instance=ExtResource( 7 )]
+[node name="MettaBox2" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -32, 0 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox3" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 32, 0 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox4" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 0, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox29" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 0, 64 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox30" parent="BattleBullets" instance=ExtResource( 7 )]
 modulate = Color( 0, 0.635294, 0.909804, 1 )
+position = Vector2( -16, 96 )
+sway_speed = 5.0
+sway_intensity = 5.0
 bullet_type = 1
 bullet_color = 1
-movement_speed = 120.0
-movement_direction = Vector2( 0, -1 )
-movement_rotation_degrees = -90.0
-movement_rotate_velocity = true
 
-[node name="MettaBoxOrange" parent="BattleBullets" instance=ExtResource( 7 )]
+[node name="MettaBox31" parent="BattleBullets" instance=ExtResource( 7 )]
 modulate = Color( 1, 0.662745, 0.0784314, 1 )
+position = Vector2( 16, 96 )
+sway_speed = 5.0
+sway_intensity = 5.0
 bullet_type = 2
 bullet_color = 2
-movement_speed = 120.0
-movement_direction = Vector2( 0, -1 )
-movement_rotation_degrees = 90.0
-movement_rotate_velocity = true
+
+[node name="MettaBox5" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -32, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox6" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 32, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox7" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 0, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox8" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -32, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox9" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 32, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox10" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -96, 0 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox11" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -128, 0 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox12" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -64, 0 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox13" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -96, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox14" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -128, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox15" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -64, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox16" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -96, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox17" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -128, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox18" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( -64, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox19" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 96, 0 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox20" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 64, 0 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox21" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 128, 0 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox22" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 96, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox23" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 64, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox24" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 128, 32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox25" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 96, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox26" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 64, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox27" parent="BattleBullets" instance=ExtResource( 7 )]
+position = Vector2( 128, -32 )
+sway_speed = 5.0
+sway_intensity = 5.0
 
 [node name="BattlePlayerHeart" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 129 )

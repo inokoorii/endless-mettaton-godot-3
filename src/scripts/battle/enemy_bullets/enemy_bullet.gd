@@ -36,7 +36,7 @@ var on_hit_damage: int = 0 \
 var on_hit_heal: int = 0 \
 		setget set_on_hit_heal
 var on_hit_invincibility_time: float = 1.0 \
-		setget set_on_hit_invincibility_time
+		setget set_on_hit_invincibility_time # In seconds!
 
 var movement_speed: float = 0.0 \
 		setget set_movement_speed
@@ -168,7 +168,7 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "On Hit Overrides",
+				"name": "On Hit",
 				"type": TYPE_NIL,
 				"usage": PROPERTY_USAGE_GROUP,
 				"hint": PROPERTY_HINT_NONE,

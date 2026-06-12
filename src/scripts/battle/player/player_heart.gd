@@ -18,7 +18,7 @@ var bullet_firing_offset: Vector2 = Vector2(0.0, -16.0)
 
 "CLASS REGULAR VARIABLES"
 var bullet_firing_cooldown_time_left: float \
-		setget set_bullet_firing_cooldown_time_left
+		setget set_bullet_firing_cooldown_time_left # ...also in seconds!
 
 var velocity: Vector2
 
@@ -175,10 +175,8 @@ func _get_property_list_reverts() -> Dictionary:
 
 
 func property_can_revert(property: String):
-	var property_list: Dictionary = _get_property_list_reverts()
 	return _get_property_list_reverts().has(property)
 
 
 func property_get_revert(property: String):
-	var property_list: Dictionary = _get_property_list_reverts()
 	return _get_property_list_reverts().get(property)
