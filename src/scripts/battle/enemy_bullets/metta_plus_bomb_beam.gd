@@ -24,6 +24,7 @@ func _ready() -> void:
 	add_to_group("MettaPlusBombBeams", true)
 	
 	if is_instance_valid(beam_sprite_center):
+		beam_sprite_center.connect("frame_changed", self, "_update_sprite_textures")
 		beam_sprite_center.connect("animation_finished", self, "_handle_cleanup")
 		
 		if not Engine.editor_hint:
@@ -31,7 +32,6 @@ func _ready() -> void:
 
 
 func _physics_process(delta: float) -> void:
-	_update_sprite_textures()
 	_update_hitboxes_disabled()
 
 

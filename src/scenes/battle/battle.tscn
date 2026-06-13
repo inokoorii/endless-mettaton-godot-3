@@ -88,7 +88,7 @@ shape = SubResource( 1 )
 
 [node name="MettaBoxes" type="Node2D" parent="."]
 position = Vector2( 0, -64 )
-z_index = 2
+z_index = 1
 
 [node name="Row1" type="Node2D" parent="MettaBoxes"]
 position = Vector2( 0, -32 )
@@ -312,144 +312,144 @@ box_type = 1
 sway_speed = 5.0
 sway_intensity = 5.0
 
-[node name="MettaPlusBoms" type="Node2D" parent="."]
-position = Vector2( 0, 72 )
-z_index = 3
+[node name="MettaPlusBombs" type="Node2D" parent="."]
+position = Vector2( 0, 64 )
+z_index = 2
 
-[node name="Row1" type="Node2D" parent="MettaPlusBoms"]
-position = Vector2( 0, -40 )
+[node name="Row1" type="Node2D" parent="MettaPlusBombs"]
+position = Vector2( 0, -32 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="MettaPlusBomb" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( -192, 0 )
 
-[node name="MettaPlusBomb2" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb2" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( -160, 0 )
 
-[node name="MettaPlusBomb3" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb3" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( -128, 0 )
 
-[node name="MettaPlusBomb4" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb4" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( -96, 0 )
 
-[node name="MettaPlusBomb5" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb5" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( -64, 0 )
 
-[node name="MettaPlusBomb6" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb6" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( -32, 0 )
 
-[node name="MettaPlusBomb7" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb7" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 
-[node name="MettaPlusBomb8" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb8" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( 32, 0 )
 
-[node name="MettaPlusBomb9" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb9" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( 64, 0 )
 
-[node name="MettaPlusBomb10" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb10" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( 96, 0 )
 
-[node name="MettaPlusBomb11" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb11" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( 128, 0 )
 
-[node name="MettaPlusBomb12" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb12" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( 160, 0 )
 
-[node name="MettaPlusBomb13" parent="MettaPlusBoms/Row1" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb13" parent="MettaPlusBombs/Row1" instance=ExtResource( 4 )]
 position = Vector2( 192, 0 )
 
-[node name="Row2" type="Node2D" parent="MettaPlusBoms"]
-position = Vector2( 0, -8 )
+[node name="Row2" type="Node2D" parent="MettaPlusBombs"]
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="MettaPlusBomb" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( -192, 0 )
 
-[node name="MettaPlusBomb2" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb2" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( -160, 0 )
 
-[node name="MettaPlusBomb3" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb3" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( -128, 0 )
 
-[node name="MettaPlusBomb4" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb4" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( -96, 0 )
 
-[node name="MettaPlusBomb5" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb5" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( -64, 0 )
 
-[node name="MettaPlusBomb6" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb6" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( -32, 0 )
 
-[node name="MettaPlusBomb7" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb7" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 
-[node name="MettaPlusBomb8" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb8" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( 32, 0 )
 
-[node name="MettaPlusBomb9" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb9" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( 64, 0 )
 
-[node name="MettaPlusBomb10" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb10" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( 96, 0 )
 
-[node name="MettaPlusBomb11" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb11" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( 128, 0 )
 
-[node name="MettaPlusBomb12" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb12" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( 160, 0 )
 
-[node name="MettaPlusBomb13" parent="MettaPlusBoms/Row2" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb13" parent="MettaPlusBombs/Row2" instance=ExtResource( 4 )]
 position = Vector2( 192, 0 )
 
-[node name="Row3" type="Node2D" parent="MettaPlusBoms"]
-position = Vector2( 0, 24 )
+[node name="Row3" type="Node2D" parent="MettaPlusBombs"]
+position = Vector2( 0, 32 )
 __meta__ = {
 "_edit_group_": true
 }
 
-[node name="MettaPlusBomb" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( -192, 0 )
 
-[node name="MettaPlusBomb2" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb2" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( -160, 0 )
 
-[node name="MettaPlusBomb3" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb3" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( -128, 0 )
 
-[node name="MettaPlusBomb4" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb4" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( -96, 0 )
 
-[node name="MettaPlusBomb5" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb5" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( -64, 0 )
 
-[node name="MettaPlusBomb6" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb6" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( -32, 0 )
 
-[node name="MettaPlusBomb7" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb7" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 
-[node name="MettaPlusBomb8" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb8" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( 32, 0 )
 
-[node name="MettaPlusBomb9" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb9" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( 64, 0 )
 
-[node name="MettaPlusBomb10" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb10" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( 96, 0 )
 
-[node name="MettaPlusBomb11" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb11" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( 128, 0 )
 
-[node name="MettaPlusBomb12" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb12" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( 160, 0 )
 
-[node name="MettaPlusBomb13" parent="MettaPlusBoms/Row3" instance=ExtResource( 4 )]
+[node name="MettaPlusBomb13" parent="MettaPlusBombs/Row3" instance=ExtResource( 4 )]
 position = Vector2( 192, 0 )
 
 [node name="ColoredBullets" type="Node2D" parent="."]
 position = Vector2( 0, 192 )
+z_index = 1
 
 [node name="Blue" parent="ColoredBullets" instance=ExtResource( 7 )]
 modulate = Color( 0, 0.635294, 0.909804, 1 )

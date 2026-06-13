@@ -5,7 +5,7 @@ extends Area2D
 
 "CLASS SIGNALS"
 signal action_changed
-signal bullet_entered
+signal bullet_entered  # Emitted regardless of `action`.
 signal entering_bullet_ignored(bullet)
 signal entering_bullet_destroyed
 signal entering_bullet_deflected

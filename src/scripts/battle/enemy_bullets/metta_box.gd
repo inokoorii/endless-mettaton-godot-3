@@ -24,7 +24,7 @@ var sway_intensity: float = 0.0
 
 var break_speed: float = 30.0 \
 		setget set_break_speed
-var break_fade_speed: float = 1.5 \
+var break_fade_speed: float = 1.25 \
 		setget set_break_fade_speed
 
 
@@ -139,6 +139,8 @@ func _handle_heart_bullet_collisions() -> void:
 	if box_type == BoxTypes.BOX_TYPE_HOLLOW and not destroyed:
 		movement_speed = 0.0
 		movement_direction = Vector2.ZERO
+		movement_rotation_degrees = 0.0
+		movement_rotate_velocity = false
 		
 		if is_instance_valid(box_hitbox):
 			box_hitbox.queue_free()
@@ -252,7 +254,7 @@ func _get_property_list_reverts() -> Dictionary:
 		"sway_speed": 0.0,
 		"sway_intensity": 0.0,
 		"break_speed": 30.0,
-		"break_fade_speed": 1.5,
+		"break_fade_speed": 1.25,
 	}
 	
 	property_list.merge(._get_property_list_reverts())
