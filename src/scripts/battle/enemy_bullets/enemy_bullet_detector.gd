@@ -35,21 +35,21 @@ var ignored_areas: Array
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	add_to_group("BattleEnemyBulletDetectors", true)
+	connect("area_entered", self, "_handle_collisions")
 
 
 func _physics_process(delta: float) -> void:
 	if not Engine.editor_hint:
 		set_on_hit_invincibility_time_left(on_hit_invincibility_time_left - delta)
 		
-		if monitoring and can_monitor_bullets():
+		if can_monitor_bullets():
 			for area in get_overlapping_areas():
-				if (not area in ignored_areas) and area is BattleEnemyBullet:
-					_handle_collisions(area)
+				_handle_collisions(area)
 
 
 "CLASS PUBLIC METHODS"
 func can_monitor_bullets() -> bool:
-	return on_hit_invincibility_time_left <= 0.0
+	return monitoring and on_hit_invincibility_time_left <= 0.0
 
 
 func is_moving() -> bool:
@@ -63,7 +63,7 @@ func is_moving() -> bool:
 
 "CLASS PRIVATE METHODS"
 func _handle_collisions(area: Area2D) -> void:
-	if area is BattleEnemyBullet:
+	if not ignored_areas.has(area) and area is BattleEnemyBullet:
 		match action:
 			Actions.ACTION_IGNORE:
 				emit_signal("entering_bullet_ignored", area, area.bullet_type)

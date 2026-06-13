@@ -50,12 +50,12 @@ func _handle_explosion(delta: float) -> void:
 		set_explosion_time_left(explosion_time_left - delta)
 		
 		if explosion_time_left <= 0.0:
-			var bomb_blast: BattleEnemyBullet = preload(
+			var bomb_beam: BattleEnemyBullet = preload(
 					"res://src/scenes/battle/enemy_bullets/metta_plus_bomb_beam.tscn") \
 							.instance()
 			
-			get_parent().add_child(bomb_blast)
-			bomb_blast.position = position
+			get_parent().add_child(bomb_beam)
+			bomb_beam.position = position
 			queue_free()
 
 
@@ -84,7 +84,7 @@ func set_explosion_time_left(value: float) -> void:
 
 
 func set_shot(value: bool) -> void:
-#	Setting the value of `destroyed` is a ONE-WAY change!
+#	Setting the value of `shot` is a ONE-WAY change!
 #	Once it has been set to `true`, you CAN NO LONGER change it back to `false!
 	if not shot:
 		shot = value
