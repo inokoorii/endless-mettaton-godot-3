@@ -60,7 +60,7 @@ func _update_sprite_playing() -> void:
 				is_instance_valid(heart_sprite)
 				and is_instance_valid(enemy_bullet_detector)
 		):
-			if not enemy_bullet_detector.can_monitor_bullets():
+			if not enemy_bullet_detector.on_hit_invincibility_time_left <= 0.0:
 				heart_sprite.playing = true
 			else:
 				heart_sprite.playing = false

@@ -42,14 +42,9 @@ func _physics_process(delta: float) -> void:
 	if not Engine.editor_hint:
 		set_on_hit_invincibility_time_left(on_hit_invincibility_time_left - delta)
 		
-		if can_monitor_bullets():
+		if monitoring:
 			for area in get_overlapping_areas():
 				_handle_collisions(area)
-
-
-"CLASS PUBLIC METHODS"
-func can_monitor_bullets() -> bool:
-	return monitoring and on_hit_invincibility_time_left <= 0.0
 
 
 func is_moving() -> bool:
@@ -72,24 +67,21 @@ func _handle_collisions(area: Area2D) -> void:
 #				Still unsure if the player damage/heal logic should be handled here
 #				or other scripts should handle it themselves...
 				
-				match area.bullet_type:
-					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE:
-						on_hit_invincibility_time_left = area.on_hit_invincibility_time
-						emit_signal("entering_bullet_processed", area, area.bullet_type)
-					
-					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE:
-						if not is_moving():
-							return
+				if on_hit_invincibility_time_left <= 0.0:
+					match area.bullet_type:
+						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE:
+							on_hit_invincibility_time_left = area.on_hit_invincibility_time
+							emit_signal("entering_bullet_processed", area, area.bullet_type)
 						
-						on_hit_invincibility_time_left = area.on_hit_invincibility_time
-						emit_signal("entering_bullet_processed", area, area.bullet_type)
-					
-					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE:
-						if is_moving():
-							return
+						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE:
+							if is_moving():
+								on_hit_invincibility_time_left = area.on_hit_invincibility_time
+								emit_signal("entering_bullet_processed", area, area.bullet_type)
 						
-						on_hit_invincibility_time_left = area.on_hit_invincibility_time
-						emit_signal("entering_bullet_processed", area, area.bullet_type)
+						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE:
+							if not is_moving():
+								on_hit_invincibility_time_left = area.on_hit_invincibility_time
+								emit_signal("entering_bullet_processed", area, area.bullet_type)
 		
 		emit_signal("bullet_entered", area, area.bullet_type)
 
