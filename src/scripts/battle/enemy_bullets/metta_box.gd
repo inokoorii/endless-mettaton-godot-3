@@ -168,7 +168,7 @@ func set_box_type(value: int) -> void:
 
 func set_destroyed(value: bool) -> void:
 #	Setting the value of `destroyed` is a ONE-WAY change!
-#	Once it has been set to `true`, you CAN NO LONGER change it back to `false!
+#	Once it has been set to `true`, you CAN NO LONGER change it back to `false`!
 	if not destroyed:
 		destroyed = value
 		emit_signal("box_destroyed")

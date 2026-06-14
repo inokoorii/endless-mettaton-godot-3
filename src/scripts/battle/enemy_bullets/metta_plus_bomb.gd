@@ -2,6 +2,10 @@ tool
 extends BattleEnemyBullet
 
 
+"SCRIPT SIGNALS"
+signal bomb_shot
+
+
 "SCRIPT EXPORTED VARIABLES"
 var explosion_time: float = 0.2 \
 		setget set_explosion_time # In seconds!
@@ -85,10 +89,10 @@ func set_explosion_time_left(value: float) -> void:
 
 func set_shot(value: bool) -> void:
 #	Setting the value of `shot` is a ONE-WAY change!
-#	Once it has been set to `true`, you CAN NO LONGER change it back to `false!
+#	Once it has been set to `true`, you CAN NO LONGER change it back to `false`!
 	if not shot:
 		shot = value
-		emit_signal("box_destroyed")
+		emit_signal("bomb_shot")
 
 
 "SCRIPT PRIVATE METHODS (PROPERTY LIST)"
