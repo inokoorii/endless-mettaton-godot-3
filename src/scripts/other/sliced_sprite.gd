@@ -49,72 +49,31 @@ func _ready() -> void:
 
 "CLASS PRIVATE METHODS"
 func _update_sprite_textures() -> void:
-	if is_instance_valid(top_left):
-		top_left.texture = texture
-	
-	if is_instance_valid(top_right):
-		top_right.texture = texture
-	
-	if is_instance_valid(bottom_left):
-		bottom_left.texture = texture
-	
-	if is_instance_valid(bottom_right):
-		bottom_right.texture = texture
+	for sprite in [top_left, top_right, bottom_left, bottom_right]:
+		if is_instance_valid(sprite):
+			sprite.texture = texture
 
 
 func _update_sprite_normal_maps() -> void:
-	if is_instance_valid(top_left):
-		top_left.normal_map = normal_map
-	
-	if is_instance_valid(top_right):
-		top_right.normal_map = normal_map
-	
-	if is_instance_valid(bottom_left):
-		bottom_left.normal_map = normal_map
-	
-	if is_instance_valid(bottom_right):
-		bottom_right.normal_map = normal_map
+	for sprite in [top_left, top_right, bottom_left, bottom_right]:
+		if is_instance_valid(sprite):
+			sprite.normal_map = normal_map
 
 
 func _update_sprite_offsets() -> void:
-	if is_instance_valid(top_left):
-		top_left.offset = offset
-		top_left.flip_h = flip_h
-		top_left.flip_v = flip_v
-	
-	if is_instance_valid(top_right):
-		top_right.offset = offset
-		top_right.flip_h = flip_h
-		top_right.flip_v = flip_v
-	
-	if is_instance_valid(bottom_left):
-		bottom_left.offset = offset
-		bottom_left.flip_h = flip_h
-		bottom_left.flip_v = flip_v
-	
-	if is_instance_valid(bottom_right):
-		bottom_right.offset = offset
-		bottom_right.flip_h = flip_h
-		bottom_right.flip_v = flip_v
+	for sprite in [top_left, top_right, bottom_left, bottom_right]:
+		if is_instance_valid(sprite):
+			sprite.offset = offset
+			sprite.flip_h = flip_h
+			sprite.flip_v = flip_v
 
 
 func _update_sprite_region_rects() -> void:
 	if not texture:
-		if is_instance_valid(top_left):
-			top_left.region_rect.size = Vector2.ZERO
-			top_left.region_rect.position = Vector2.ZERO
-		
-		if is_instance_valid(top_right):
-			top_right.region_rect.size = Vector2.ZERO
-			top_right.region_rect.position = Vector2.ZERO
-		
-		if is_instance_valid(bottom_left):
-			bottom_left.region_rect.size = Vector2.ZERO
-			bottom_left.region_rect.position = Vector2.ZERO
-		
-		if is_instance_valid(bottom_right):
-			bottom_right.region_rect.size = Vector2.ZERO
-			bottom_right.region_rect.position = Vector2.ZERO
+		for sprite in [top_left, top_right, bottom_left, bottom_right]:
+			if is_instance_valid(sprite):
+				sprite.region_rect.size = Vector2.ZERO
+				sprite.region_rect.position = Vector2.ZERO
 		
 	else:
 		var texture_width: int = (texture.get_width() / 2.0) as int
@@ -134,7 +93,7 @@ func _update_sprite_region_rects() -> void:
 			top_right.region_rect.position = Vector2(texture_width, 0.0)
 			
 			if flip_h:
-				top_right.region_rect.position.x = 0
+				top_right.region_rect.position.x = 0.0
 			if flip_v:
 				top_right.region_rect.position.y = texture_height
 		
@@ -145,51 +104,47 @@ func _update_sprite_region_rects() -> void:
 			if flip_h:
 				bottom_left.region_rect.position.x = texture_width
 			if flip_v:
-				bottom_left.region_rect.position.y = 0
+				bottom_left.region_rect.position.y = 0.0
 		
 		if is_instance_valid(bottom_right):
 			bottom_right.region_rect.size = Vector2(texture_width, texture_height)
 			bottom_right.region_rect.position = Vector2(texture_width, texture_height)
 			
 			if flip_h:
-				bottom_right.region_rect.position.x = 0
+				bottom_right.region_rect.position.x = 0.0
 			if flip_v:
-				bottom_right.region_rect.position.y = 0
+				bottom_right.region_rect.position.y = 0.0
 
 
 func _update_sprite_positions() -> void:
 	if not texture:
-		if is_instance_valid(top_left):
-			top_left.position = Vector2.ZERO
-		
-		if is_instance_valid(top_right):
-			top_right.position = Vector2.ZERO
-		
-		if is_instance_valid(bottom_left):
-			bottom_left.position = Vector2.ZERO
-		
-		if is_instance_valid(bottom_right):
-			bottom_right.position = Vector2.ZERO
+		for sprite in [top_left, top_right, bottom_left, bottom_right]:
+			if is_instance_valid(sprite):
+				sprite.position = Vector2.ZERO
 		
 	else:
 		var texture_width: float = texture.get_width() / 4.0
 		var texture_height: float = texture.get_height() / 4.0
 		
 		if is_instance_valid(top_left):
-			top_left.position = Vector2(ceil(-texture_width), ceil(-texture_height))
-			top_left.position += Vector2(-h_separation, -v_separation)
+			top_left.position = Vector2(
+					ceil(-texture_width) - h_separation,
+					ceil(-texture_height) - v_separation)
 		
 		if is_instance_valid(top_right):
-			top_right.position = Vector2(ceil(texture_width), ceil(-texture_height))
-			top_right.position += Vector2(+h_separation, -v_separation)
+			top_right.position = Vector2(
+					ceil(texture_width) + h_separation,
+					ceil(-texture_height) - v_separation)
 		
 		if is_instance_valid(bottom_left):
-			bottom_left.position = Vector2(ceil(-texture_width), ceil(texture_height))
-			bottom_left.position += Vector2(-h_separation, +v_separation)
+			bottom_left.position = Vector2(
+					ceil(-texture_width) - h_separation,
+					ceil(texture_height) + v_separation)
 		
 		if is_instance_valid(bottom_right):
-			bottom_right.position = Vector2(ceil(texture_width), ceil(texture_height))
-			bottom_right.position += Vector2(+h_separation, +v_separation)
+			bottom_right.position = Vector2(
+					ceil(texture_width) + h_separation,
+					ceil(texture_height) + v_separation)
 
 
 "CLASS PUBLIC METHODS (SETTERS)"

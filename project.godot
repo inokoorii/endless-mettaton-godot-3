@@ -9,6 +9,11 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Battle",
+"language": "GDScript",
+"path": "res://src/scripts/battle/battle.gd"
+}, {
 "base": "Area2D",
 "class": "BattleEnemyBullet",
 "language": "GDScript",
@@ -45,6 +50,7 @@ _global_script_classes=[ {
 "path": "res://src/scripts/other/sliced_sprite.gd"
 } ]
 _global_script_class_icons={
+"Battle": "",
 "BattleEnemyBullet": "",
 "BattleEnemyBulletDetector": "",
 "BattlePlayerHeart": "",
@@ -90,16 +96,6 @@ window/stretch/aspect="expand"
 [editor]
 
 scene_naming=2
-version_control_autoload_on_startup=true
-version_control_plugin_name="GitAPI"
-
-[editor_plugins]
-
-enabled=PoolStringArray(  )
-
-[gdnative]
-
-singletons=[  ]
 
 [gui]
 
@@ -193,6 +189,8 @@ pointing/emulate_touch_from_mouse=true
 2d_physics/layer_1="battle/player/heart"
 2d_physics/layer_2="battle/player/heart_bullet"
 2d_physics/layer_3="battle/player/heart_bullet_detector"
+2d_physics/layer_4="battle/enemy/bullet"
+2d_physics/layer_5="battle/enemy/bullet_detector"
 
 [physics]
 
