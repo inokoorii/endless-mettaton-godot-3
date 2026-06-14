@@ -56,16 +56,10 @@ func _ready() -> void:
 	
 	if is_instance_valid(enemy_bullet_detector):
 		enemy_bullet_detector.ignored_areas.append(self)
-		enemy_bullet_detector.connect(
-				"bullet_entered",
-				self,
-				"_handle_enemy_bullet_collisions")
+		enemy_bullet_detector.connect("bullet_entered", self, "_handle_enemy_bullet_collisions")
 	
 	if is_instance_valid(heart_bullet_detector):
-		heart_bullet_detector.connect(
-				"bullet_entered",
-				self,
-				"_handle_heart_bullet_collisions")
+		heart_bullet_detector.connect("bullet_entered", self, "_handle_heart_bullet_collisions")
 	
 	if is_instance_valid(visibility_notifier_2d):
 		visibility_notifier_2d.connect("screen_exited", self, "_handle_cleanup")

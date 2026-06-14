@@ -38,14 +38,16 @@ func _handle_collisions(area: Area2D) -> void:
 				emit_signal("entering_bullet_ignored", area)
 			
 			Actions.ACTION_DESTROY_BULLET:
+				area.monitoring = false
 				area.queue_free()
 				emit_signal("entering_bullet_destroyed")
-			
+				
 			Actions.ACTION_DEFLECT_BULLET:
 				var bullet_deflected: Node2D = \
 						preload("res://src/scenes/battle/player/player_heart_bullet_deflected.tscn") \
 								.instance()
 				
+				area.monitoring = false
 				area.get_parent().add_child(bullet_deflected)
 				bullet_deflected.position = area.position
 				bullet_deflected.scale = area.scale
