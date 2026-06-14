@@ -47,6 +47,7 @@ func _physics_process(delta: float) -> void:
 				_handle_collisions(area)
 
 
+"CLASS PUBLIC METHODS"
 func is_moving() -> bool:
 #	TODO: Switch to UNDERTALE's velocity-based movement detection.
 	return (
