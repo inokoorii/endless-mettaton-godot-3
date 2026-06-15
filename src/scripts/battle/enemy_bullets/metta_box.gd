@@ -125,7 +125,7 @@ func _handle_break_animation(delta: float) -> void:
 
 func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int) -> void:
 	if box_type == BoxTypes.BOX_TYPE_SOLID and not destroyed:
-		if bullet.is_in_group("MettaPlusBombBeams"):
+		if bullet.is_in_group("MettaPlusBombBlasts"):
 			destroyed = true
 
 

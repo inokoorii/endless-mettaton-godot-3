@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/metta_plus_bomb_beam_horizontal.png-3c13361a7e940c12708a4208d8694afe.stex"
+path="res://.import/metta_plus_bomb_blast_center_7.png-c5fffabaa06b223ae64cb03a9e0db138.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/masks/battle/enemy_bullets/metta_plus_bomb_beam_horizontal.png"
-dest_files=[ "res://.import/metta_plus_bomb_beam_horizontal.png-3c13361a7e940c12708a4208d8694afe.stex" ]
+source_file="res://assets/sprites/battle/enemy_bullets/metta_plus_bomb_blast/metta_plus_bomb_blast_center_7.png"
+dest_files=[ "res://.import/metta_plus_bomb_blast_center_7.png-c5fffabaa06b223ae64cb03a9e0db138.stex" ]
 
 [params]
 

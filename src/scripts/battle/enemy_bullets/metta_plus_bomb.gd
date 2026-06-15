@@ -51,12 +51,12 @@ func _handle_explosion(delta: float) -> void:
 		set_explosion_time_left(explosion_time_left - delta)
 		
 		if explosion_time_left <= 0.0:
-			var bomb_beam: BattleEnemyBullet = preload(
-					"res://src/scenes/battle/enemy_bullets/metta_plus_bomb_beam.tscn") \
+			var bomb_blast: BattleEnemyBullet = preload(
+					"res://src/scenes/battle/enemy_bullets/metta_plus_bomb_blast.tscn") \
 							.instance()
 			
-			get_parent().add_child(bomb_beam)
-			bomb_beam.position = position
+			get_parent().add_child(bomb_blast)
+			bomb_blast.position = position
 			queue_free()
 
 
