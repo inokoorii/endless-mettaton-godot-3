@@ -12,42 +12,42 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Battle",
 "language": "GDScript",
-"path": "res://src/scripts/battle/battle.gd"
+"path": "res://battle/source/battle.gd"
 }, {
 "base": "Area2D",
 "class": "BattleEnemyBullet",
 "language": "GDScript",
-"path": "res://src/scripts/battle/enemy_bullets/enemy_bullet.gd"
+"path": "res://battle/source/enemy_bullets/enemy_bullet.gd"
 }, {
-"base": "Area2D",
+"base": "Reference",
 "class": "BattleEnemyBulletDetector",
 "language": "GDScript",
-"path": "res://src/scripts/battle/enemy_bullets/enemy_bullet_detector.gd"
+"path": "res://battle/source/enemy_bullets/enemy_bullet_detector.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "BattlePlayerHeart",
 "language": "GDScript",
-"path": "res://src/scripts/battle/player/player_heart.gd"
+"path": "res://battle/source/player/heart/heart.gd"
 }, {
 "base": "Area2D",
 "class": "BattlePlayerHeartBullet",
 "language": "GDScript",
-"path": "res://src/scripts/battle/player/player_heart_bullet.gd"
+"path": "res://battle/source/player/heart_bullet/heart_bullet.gd"
 }, {
 "base": "Area2D",
 "class": "BattlePlayerHeartBulletDetector",
 "language": "GDScript",
-"path": "res://src/scripts/battle/player/player_heart_bullet_detector.gd"
+"path": "res://battle/source/player/heart_bullet/heart_bullet_detector.gd"
 }, {
 "base": "Control",
 "class": "MainScene",
 "language": "GDScript",
-"path": "res://src/scripts/core/main_scene.gd"
+"path": "res://core/source/main_scene.gd"
 }, {
 "base": "Node2D",
 "class": "SlicedSprite",
 "language": "GDScript",
-"path": "res://src/scripts/other/sliced_sprite.gd"
+"path": "res://shared/source/sliced_sprite/sliced_sprite.gd"
 } ]
 _global_script_class_icons={
 "Battle": "",
@@ -63,7 +63,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ENDLESS METTATON"
-run/main_scene="res://src/scenes/core/main_scene.tscn"
+run/main_scene="res://core/source/main_scene.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="inokoorii/games/endless-mettaton"
 run/delta_sync_after_draw=true
@@ -75,8 +75,8 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GlobalFunctions="*res://src/scripts/core/global/global_functions.gd"
-GlobalVariables="*res://src/scripts/core/global/global_variables.gd"
+GlobalFunctions="*res://core/source/global/global_functions.gd"
+GlobalVariables="*res://core/source/global/global_variables.gd"
 
 [debug]
 
