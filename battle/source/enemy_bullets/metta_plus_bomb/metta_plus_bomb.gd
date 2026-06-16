@@ -24,8 +24,8 @@ onready var bomb_sprite: AnimatedSprite = \
 		get_node_or_null("BombSprite")
 onready var bomb_hitbox: CollisionShape2D = \
 		get_node_or_null("BombHitbox")
-onready var heart_bullet_detector: BattlePlayerHeartBulletDetector = \
-		get_node_or_null("HeartBulletDetector")
+onready var heart_bullet_hurtbox: BattleHeartBulletHurtbox = \
+		get_node_or_null("HeartBulletHurtbox")
 onready var visibility_notifier_2d: VisibilityNotifier2D = \
 		get_node_or_null("VisibilityNotifier2D")
 
@@ -34,8 +34,8 @@ onready var visibility_notifier_2d: VisibilityNotifier2D = \
 func _ready() -> void:
 	add_to_group("MettaPlusBombs", true)
 	
-	if is_instance_valid(heart_bullet_detector):
-		heart_bullet_detector.connect("bullet_entered", self, "_handle_heart_bullet_collisions")
+	if is_instance_valid(heart_bullet_hurtbox):
+		heart_bullet_hurtbox.connect("bullet_entered", self, "_handle_heart_bullet_collisions")
 	
 	if is_instance_valid(visibility_notifier_2d):
 		visibility_notifier_2d.connect("screen_exited", self, "_handle_cleanup")

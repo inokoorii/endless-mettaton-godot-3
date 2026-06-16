@@ -2,7 +2,7 @@
 
 [ext_resource path="res://battle/source/enemy_bullets/metta_plus_bomb/metta_plus_bomb.gd" type="Script" id=1]
 [ext_resource path="res://battle/resources/enemy_bullets/metta_plus_bomb/sf_metta_plus_bomb.tres" type="SpriteFrames" id=2]
-[ext_resource path="res://battle/source/player/heart_bullet/heart_bullet_detector.gd" type="Script" id=3]
+[ext_resource path="res://battle/source/player/heart_bullet/heart_bullet_hurtbox.gd" type="Script" id=3]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 5, 5 )
@@ -15,7 +15,7 @@ script = ExtResource( 1 )
 explosion_time = 0.2
 bullet_type = 0
 bullet_color = 0
-on_hit_damage = 1
+on_hit_damage = 0
 on_hit_heal = 0
 on_hit_invincibility_time = 1.0
 movement_speed = 0.0
@@ -30,11 +30,11 @@ frames = ExtResource( 2 )
 position = Vector2( 0, 3 )
 shape = SubResource( 1 )
 
-[node name="HeartBulletDetector" type="Area2D" parent="." groups=["BattlePlayerHeartBulletDetectors"]]
+[node name="HeartBulletHurtbox" type="Area2D" parent="." groups=["BattleHeartBulletHurtboxes"]]
 script = ExtResource( 3 )
 action = 1
 
-[node name="Hurtbox" type="CollisionShape2D" parent="HeartBulletDetector"]
+[node name="Hurtbox" type="CollisionShape2D" parent="HeartBulletHurtbox"]
 shape = SubResource( 2 )
 
 [node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]

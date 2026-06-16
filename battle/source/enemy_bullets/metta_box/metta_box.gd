@@ -41,10 +41,10 @@ onready var box_sprite: SlicedSprite = \
 		get_node_or_null("BoxSprite")
 onready var box_hitbox: CollisionShape2D = \
 		get_node_or_null("BoxHitbox")
-onready var enemy_bullet_detector: BattleEnemyBulletDetector = \
-		get_node_or_null("EnemyBulletDetector")
-onready var heart_bullet_detector: BattlePlayerHeartBulletDetector = \
-		get_node_or_null("HeartBulletDetector")
+onready var enemy_bullet_hurtbox: BattleEnemyBulletHurtbox = \
+		get_node_or_null("EnemyBulletHurtbox")
+onready var heart_bullet_hurtbox: BattleHeartBulletHurtbox = \
+		get_node_or_null("HeartBulletHurtbox")
 onready var visibility_notifier_2d: VisibilityNotifier2D = \
 		get_node_or_null("VisibilityNotifier2D")
 
@@ -54,12 +54,12 @@ func _ready() -> void:
 	add_to_group("MettaBoxes", true)
 	_update_sprite_texture()
 	
-	if is_instance_valid(enemy_bullet_detector):
-		enemy_bullet_detector.ignored_areas.append(self)
-		enemy_bullet_detector.connect("bullet_entered", self, "_handle_enemy_bullet_collisions")
+	if is_instance_valid(enemy_bullet_hurtbox):
+		enemy_bullet_hurtbox.ignored_areas.append(self)
+		enemy_bullet_hurtbox.connect("bullet_entered", self, "_handle_enemy_bullet_collisions")
 	
-	if is_instance_valid(heart_bullet_detector):
-		heart_bullet_detector.connect("bullet_entered", self, "_handle_heart_bullet_collisions")
+	if is_instance_valid(heart_bullet_hurtbox):
+		heart_bullet_hurtbox.connect("bullet_entered", self, "_handle_heart_bullet_collisions")
 	
 	if is_instance_valid(visibility_notifier_2d):
 		visibility_notifier_2d.connect("screen_exited", self, "_handle_cleanup")
@@ -97,11 +97,11 @@ func _handle_sway_animation(delta: float) -> void:
 		if is_instance_valid(box_hitbox):
 			box_hitbox.position.x = _sway_x_offset
 		
-		if is_instance_valid(enemy_bullet_detector):
-			enemy_bullet_detector.position.x = _sway_x_offset
+		if is_instance_valid(enemy_bullet_hurtbox):
+			enemy_bullet_hurtbox.position.x = _sway_x_offset
 		
-		if is_instance_valid(heart_bullet_detector):
-			heart_bullet_detector.position.x = _sway_x_offset
+		if is_instance_valid(heart_bullet_hurtbox):
+			heart_bullet_hurtbox.position.x = _sway_x_offset
 		
 		if is_instance_valid(visibility_notifier_2d):
 			visibility_notifier_2d.position.x = _sway_x_offset
@@ -141,11 +141,11 @@ func _handle_heart_bullet_collisions() -> void:
 		if is_instance_valid(box_hitbox):
 			box_hitbox.queue_free()
 		
-		if is_instance_valid(enemy_bullet_detector):
-			enemy_bullet_detector.queue_free()
+		if is_instance_valid(enemy_bullet_hurtbox):
+			enemy_bullet_hurtbox.queue_free()
 		
-		if is_instance_valid(heart_bullet_detector):
-			heart_bullet_detector.queue_free()
+		if is_instance_valid(heart_bullet_hurtbox):
+			heart_bullet_hurtbox.queue_free()
 		
 		destroyed = true
 

@@ -1,13 +1,13 @@
 tool
-class_name BattleEnemyBulletDetector
+class_name BattleEnemyBulletHurtbox
 extends Area2D
 
 
 "CLASS SIGNALS"
 signal action_changed
 signal bullet_entered(bullet, bullet_type) # Emitted regardless of `action`.
-signal entering_bullet_ignored(bullet, bullet_type)
-signal entering_bullet_processed(bullet, bullet_type)
+signal bullet_entered_ignored(bullet, bullet_type)
+signal bullet_entered_processed(bullet, bullet_type)
 
 
 "CLASS ENUMERATIONS"
@@ -34,7 +34,7 @@ var ignored_areas: Array
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
-	add_to_group("BattleEnemyBulletDetectors", true)
+	add_to_group("BattleEnemyBulletHurtboxes", true)
 	connect("area_entered", self, "_handle_collisions")
 
 
@@ -60,9 +60,11 @@ func is_moving() -> bool:
 "CLASS PRIVATE METHODS"
 func _handle_collisions(area: Area2D) -> void:
 	if not ignored_areas.has(area) and area is BattleEnemyBullet:
+		emit_signal("bullet_entered", area, area.bullet_type)
+		
 		match action:
 			Actions.ACTION_IGNORE:
-				emit_signal("entering_bullet_ignored", area, area.bullet_type)
+				emit_signal("bullet_entered_ignored", area, area.bullet_type)
 			
 			Actions.ACTION_PROCESS_BULLET:
 #				Still unsure if the player damage/heal logic should be handled here
@@ -72,19 +74,17 @@ func _handle_collisions(area: Area2D) -> void:
 					match area.bullet_type:
 						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE:
 							on_hit_invincibility_time_left = area.on_hit_invincibility_time
-							emit_signal("entering_bullet_processed", area, area.bullet_type)
+							emit_signal("bullet_entered_processed", area, area.bullet_type)
 						
 						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE:
 							if is_moving():
 								on_hit_invincibility_time_left = area.on_hit_invincibility_time
-								emit_signal("entering_bullet_processed", area, area.bullet_type)
+								emit_signal("bullet_entered_processed", area, area.bullet_type)
 						
 						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE:
 							if not is_moving():
 								on_hit_invincibility_time_left = area.on_hit_invincibility_time
-								emit_signal("entering_bullet_processed", area, area.bullet_type)
-		
-		emit_signal("bullet_entered", area, area.bullet_type)
+								emit_signal("bullet_entered_processed", area, area.bullet_type)
 
 
 "CLASS PUBLIC METHODS (SETTERS)"
@@ -106,7 +106,7 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "BattleEnemyBulletDetector",
+				"name": "BattleEnemyBulletHurtbox",
 				"type": TYPE_NIL,
 				"usage": PROPERTY_USAGE_CATEGORY,
 			},

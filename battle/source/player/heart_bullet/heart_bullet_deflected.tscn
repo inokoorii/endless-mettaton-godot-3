@@ -3,7 +3,7 @@
 [ext_resource path="res://battle/source/player/heart_bullet/heart_bullet_deflected.gd" type="Script" id=1]
 [ext_resource path="res://battle/resources/player/heart_bullet/sf_heart_bullet.tres" type="SpriteFrames" id=2]
 
-[node name="BattlePlayerHeartBulletDeflected" type="Node2D" groups=["BattlePlayerHeartBulletDeflecteds"]]
+[node name="BattleHeartBulletDeflected" type="Node2D"]
 script = ExtResource( 1 )
 movement_speed = 540.0
 

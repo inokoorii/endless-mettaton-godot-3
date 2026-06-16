@@ -19,25 +19,25 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://battle/source/enemy_bullets/enemy_bullet.gd"
 }, {
-"base": "Reference",
-"class": "BattleEnemyBulletDetector",
+"base": "Area2D",
+"class": "BattleEnemyBulletHurtbox",
 "language": "GDScript",
-"path": "res://battle/source/enemy_bullets/enemy_bullet_detector.gd"
+"path": "res://battle/source/enemy_bullets/enemy_bullet_hurtbox.gd"
 }, {
 "base": "KinematicBody2D",
-"class": "BattlePlayerHeart",
+"class": "BattleHeart",
 "language": "GDScript",
 "path": "res://battle/source/player/heart/heart.gd"
 }, {
 "base": "Area2D",
-"class": "BattlePlayerHeartBullet",
+"class": "BattleHeartBullet",
 "language": "GDScript",
 "path": "res://battle/source/player/heart_bullet/heart_bullet.gd"
 }, {
 "base": "Area2D",
-"class": "BattlePlayerHeartBulletDetector",
+"class": "BattleHeartBulletHurtbox",
 "language": "GDScript",
-"path": "res://battle/source/player/heart_bullet/heart_bullet_detector.gd"
+"path": "res://battle/source/player/heart_bullet/heart_bullet_hurtbox.gd"
 }, {
 "base": "Control",
 "class": "MainScene",
@@ -52,10 +52,10 @@ _global_script_classes=[ {
 _global_script_class_icons={
 "Battle": "",
 "BattleEnemyBullet": "",
-"BattleEnemyBulletDetector": "",
-"BattlePlayerHeart": "",
-"BattlePlayerHeartBullet": "",
-"BattlePlayerHeartBulletDetector": "",
+"BattleEnemyBulletHurtbox": "",
+"BattleHeart": "",
+"BattleHeartBullet": "",
+"BattleHeartBulletHurtbox": "",
 "MainScene": "",
 "SlicedSprite": ""
 }
@@ -186,11 +186,11 @@ pointing/emulate_touch_from_mouse=true
 
 [layer_names]
 
-2d_physics/layer_1="battle/player/heart"
-2d_physics/layer_2="battle/player/heart_bullet"
-2d_physics/layer_3="battle/player/heart_bullet_detector"
+2d_physics/layer_1="battle/heart"
+2d_physics/layer_2="battle/heart/bullet"
+2d_physics/layer_3="battle/heart/bullet_hurtbox"
 2d_physics/layer_4="battle/enemy/bullet"
-2d_physics/layer_5="battle/enemy/bullet_detector"
+2d_physics/layer_5="battle/enemy/bullet_hurtbox"
 
 [physics]
 

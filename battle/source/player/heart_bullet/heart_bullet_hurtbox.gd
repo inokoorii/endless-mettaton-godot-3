@@ -1,14 +1,14 @@
 tool
-class_name BattlePlayerHeartBulletDetector
+class_name BattleHeartBulletHurtbox
 extends Area2D
 
 
 "CLASS SIGNALS"
 signal action_changed
-signal bullet_entered  # Emitted regardless of `action`.
-signal entering_bullet_ignored(bullet)
-signal entering_bullet_destroyed
-signal entering_bullet_deflected
+signal bullet_entered # Emitted regardless of `action`.
+signal bullet_entered_ignored(bullet)
+signal bullet_entered_destroyed
+signal bullet_entered_deflected
 
 
 "CLASS ENUMERATIONS"
@@ -26,21 +26,23 @@ var action: int = Actions.ACTION_IGNORE \
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
-	add_to_group("BattlePlayerHeartBulletDetectors", true)
+	add_to_group("BattleHeartBulletHurtboxes", true)
 	connect("area_entered", self, "_handle_collisions")
 
 
 "CLASS PRIVATE METHODS"
 func _handle_collisions(area: Area2D) -> void:
-	if area is BattlePlayerHeartBullet:
+	if area is BattleHeartBullet:
+		emit_signal("bullet_entered")
+		
 		match action:
 			Actions.ACTION_IGNORE:
-				emit_signal("entering_bullet_ignored", area)
+				emit_signal("bullet_entered_ignored", area)
 			
 			Actions.ACTION_DESTROY_BULLET:
 				area.monitoring = false
 				area.queue_free()
-				emit_signal("entering_bullet_destroyed")
+				emit_signal("bullet_entered_destroyed")
 				
 			Actions.ACTION_DEFLECT_BULLET:
 				var bullet_deflected: Node2D = preload(str(
@@ -53,9 +55,7 @@ func _handle_collisions(area: Area2D) -> void:
 				bullet_deflected.scale = area.scale
 				
 				area.queue_free()
-				emit_signal("entering_bullet_deflected")
-		
-		emit_signal("bullet_entered")
+				emit_signal("bullet_entered_deflected")
 
 
 "CLASS PUBLIC METHODS (SETTERS)"
@@ -72,7 +72,7 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "BattlePlayerHeartBulletDetector",
+				"name": "BattleHeartBulletHurtbox",
 				"type": TYPE_NIL,
 				"usage": PROPERTY_USAGE_CATEGORY,
 			},

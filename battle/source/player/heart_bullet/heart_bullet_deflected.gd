@@ -23,7 +23,7 @@ onready var visibility_notifier_2d: VisibilityNotifier2D = \
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
-	add_to_group("BattlePlayerHeartBulletDeflecteds", true)
+	add_to_group("BattleHeartBulletDeflecteds", true)
 	_setup_movement_direction()
 	_setup_movement_rotation()
 	
@@ -43,9 +43,9 @@ func _setup_movement_direction() -> void:
 	if not Engine.editor_hint:
 		var angle_left: float = -30.0 - rand_range(0.0, 40.0)
 		var angle_right: float = 30.0 + rand_range(0.0, 40.0)
+		var angle_chosen: float = deg2rad([angle_left, angle_right].pick_random())
 		
-		movement_direction = Vector2.DOWN.rotated(
-				deg2rad([angle_left, angle_right].pick_random()))
+		movement_direction = Vector2.DOWN.rotated(angle_chosen)
 
 
 func _setup_movement_rotation() -> void:
@@ -82,7 +82,7 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "BattlePlayerHeartBulletDeflected",
+				"name": "BattleHeartBulletDeflected",
 				"type": TYPE_NIL,
 				"usage": PROPERTY_USAGE_CATEGORY,
 			},

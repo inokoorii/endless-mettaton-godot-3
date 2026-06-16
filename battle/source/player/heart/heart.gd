@@ -1,5 +1,5 @@
 tool
-class_name BattlePlayerHeart
+class_name BattleHeart
 extends KinematicBody2D
 
 
@@ -26,13 +26,13 @@ var velocity: Vector2
 "CLASS ONREADY VARIABLES"
 onready var heart_sprite: AnimatedSprite = \
 		get_node_or_null("HeartSprite")
-onready var enemy_bullet_detector: BattleEnemyBulletDetector = \
-		get_node_or_null("EnemyBulletDetector")
+onready var enemy_bullet_hurtbox: BattleEnemyBulletHurtbox = \
+		get_node_or_null("EnemyBulletHurtbox")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
-	add_to_group("BattlePlayerHearts", true)
+	add_to_group("BattleHearts", true)
 
 
 func _process(delta: float) -> void:
@@ -47,8 +47,7 @@ func _physics_process(delta: float) -> void:
 "CLASS PUBLIC METHODS"
 func can_fire_bullet() -> bool:
 	var cooldown_finished: bool = bullet_firing_cooldown_time_left <= 0.0
-	var no_active_bullets: bool = \
-			get_tree().get_nodes_in_group("BattlePlayerHeartBullets").empty()
+	var no_active_bullets: bool = get_tree().get_nodes_in_group("BattleHeartBullets").empty()
 	
 	return cooldown_finished or no_active_bullets
 
@@ -58,9 +57,9 @@ func _update_sprite_playing() -> void:
 	if not Engine.editor_hint:
 		if (
 				is_instance_valid(heart_sprite)
-				and is_instance_valid(enemy_bullet_detector)
+				and is_instance_valid(enemy_bullet_hurtbox)
 		):
-			if not enemy_bullet_detector.on_hit_invincibility_time_left <= 0.0:
+			if not enemy_bullet_hurtbox.on_hit_invincibility_time_left <= 0.0:
 				heart_sprite.playing = true
 			else:
 				heart_sprite.playing = false
@@ -86,7 +85,7 @@ func _handle_bullet_firing(delta: float) -> void:
 				bullet_firing_cooldown_time_left - delta)
 		
 		if Input.is_action_just_pressed("action_confirm") and can_fire_bullet():
-			var bullet: BattlePlayerHeartBullet = preload(str(
+			var bullet: BattleHeartBullet = preload(str(
 					"res://battle/source/player/heart_bullet/",
 					"heart_bullet.tscn")).instance()
 			
@@ -120,7 +119,7 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "BattlePlayerHeart",
+				"name": "BattleHeart",
 				"type": TYPE_NIL,
 				"usage": PROPERTY_USAGE_CATEGORY,
 			},

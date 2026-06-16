@@ -6,7 +6,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 4, 8 )
 
-[node name="BattlePlayerHeartBullet" type="Area2D" groups=["BattlePlayerHeartBullets"]]
+[node name="BattleHeartBullet" type="Area2D" groups=["BattleHeartBullets"]]
 script = ExtResource( 1 )
 movement_speed = 480.0
 movement_acceleration = 6.0

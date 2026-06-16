@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://battle/source/battle.gd" type="Script" id=1]
-[ext_resource path="res://battle/source/player/heart/player_heart.tscn" type="PackedScene" id=2]
-[ext_resource path="res://battle/source/player/heart_bullet/heart_bullet_detector.gd" type="Script" id=3]
+[ext_resource path="res://battle/source/player/heart/heart.tscn" type="PackedScene" id=2]
+[ext_resource path="res://battle/source/player/heart_bullet/heart_bullet_hurtbox.gd" type="Script" id=3]
 [ext_resource path="res://battle/source/enemy_bullets/metta_plus_bomb/metta_plus_bomb.tscn" type="PackedScene" id=4]
 [ext_resource path="res://battle/assets/enemy_bullets/metta_box/spr_metta_box_solid.png" type="Texture" id=5]
 [ext_resource path="res://battle/source/enemy_bullets/metta_box/metta_box.tscn" type="PackedScene" id=7]
@@ -17,11 +17,11 @@ script = ExtResource( 1 )
 rotating = true
 current = true
 
-[node name="HeartBulletDetectors" type="Node2D" parent="."]
+[node name="HeartBulletHurtboxes" type="Node2D" parent="."]
 position = Vector2( 0, -192 )
 z_index = 1
 
-[node name="Ignore" type="Area2D" parent="HeartBulletDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
+[node name="Ignore" type="Area2D" parent="HeartBulletHurtboxes" groups=["BattleHeartBulletDetectors", "BattleHeartBulletHurtboxes", "BattlePlayerHeartBulletDetectors"]]
 position = Vector2( -80, 0 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -29,7 +29,7 @@ __meta__ = {
 }
 action = 0
 
-[node name="ColorRect" type="ColorRect" parent="HeartBulletDetectors/Ignore"]
+[node name="ColorRect" type="ColorRect" parent="HeartBulletHurtboxes/Ignore"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -40,17 +40,17 @@ margin_right = 32.0
 margin_bottom = 32.0
 color = Color( 1, 0, 0, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletDetectors/Ignore"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletHurtboxes/Ignore"]
 shape = SubResource( 1 )
 
-[node name="Destroy" type="Area2D" parent="HeartBulletDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
+[node name="Destroy" type="Area2D" parent="HeartBulletHurtboxes" groups=["BattleHeartBulletDetectors", "BattleHeartBulletHurtboxes", "BattlePlayerHeartBulletDetectors"]]
 script = ExtResource( 3 )
 __meta__ = {
 "_edit_group_": true
 }
 action = 1
 
-[node name="ColorRect" type="ColorRect" parent="HeartBulletDetectors/Destroy"]
+[node name="ColorRect" type="ColorRect" parent="HeartBulletHurtboxes/Destroy"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -61,10 +61,10 @@ margin_right = 32.0
 margin_bottom = 32.0
 color = Color( 0, 1, 0, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletDetectors/Destroy"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletHurtboxes/Destroy"]
 shape = SubResource( 1 )
 
-[node name="Deflect" type="Area2D" parent="HeartBulletDetectors" groups=["BattlePlayerHeartBulletDetectors"]]
+[node name="Deflect" type="Area2D" parent="HeartBulletHurtboxes" groups=["BattleHeartBulletDetectors", "BattleHeartBulletHurtboxes", "BattlePlayerHeartBulletDetectors"]]
 position = Vector2( 80, 0 )
 script = ExtResource( 3 )
 __meta__ = {
@@ -72,7 +72,7 @@ __meta__ = {
 }
 action = 2
 
-[node name="ColorRect" type="ColorRect" parent="HeartBulletDetectors/Deflect"]
+[node name="ColorRect" type="ColorRect" parent="HeartBulletHurtboxes/Deflect"]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
@@ -83,7 +83,7 @@ margin_right = 32.0
 margin_bottom = 32.0
 color = Color( 0, 0, 1, 1 )
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletDetectors/Deflect"]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletHurtboxes/Deflect"]
 shape = SubResource( 1 )
 
 [node name="MettaBoxes" type="Node2D" parent="."]
@@ -463,9 +463,8 @@ bullet_color = 1
 [node name="BoxSprite" parent="ColoredBullets/Blue" index="0"]
 texture = ExtResource( 5 )
 
-[node name="EnemyBulletDetector" parent="ColoredBullets/Blue" index="2"]
+[node name="EnemyBulletHurtbox" parent="ColoredBullets/Blue" index="2"]
 monitoring = false
-monitorable = false
 
 [node name="Orange" parent="ColoredBullets" instance=ExtResource( 7 )]
 modulate = Color( 1, 0.662745, 0.0784314, 1 )
@@ -479,9 +478,8 @@ bullet_color = 2
 [node name="BoxSprite" parent="ColoredBullets/Orange" index="0"]
 texture = ExtResource( 5 )
 
-[node name="EnemyBulletDetector" parent="ColoredBullets/Orange" index="2"]
+[node name="EnemyBulletHurtbox" parent="ColoredBullets/Orange" index="2"]
 monitoring = false
-monitorable = false
 
 [node name="BattlePlayerHeart" parent="." instance=ExtResource( 2 )]
 position = Vector2( 0, 192 )

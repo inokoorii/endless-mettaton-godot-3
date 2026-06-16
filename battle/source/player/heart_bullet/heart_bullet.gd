@@ -1,5 +1,5 @@
 tool
-class_name BattlePlayerHeartBullet
+class_name BattleHeartBullet
 extends Area2D
 
 
@@ -28,7 +28,7 @@ onready var visibility_notifier_2d: VisibilityNotifier2D = \
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
-	add_to_group("BattlePlayerHeartBullets", true)
+	add_to_group("BattleHeartBullets", true)
 	
 	if is_instance_valid(visibility_notifier_2d):
 		visibility_notifier_2d.connect("screen_exited", self, "_handle_cleanup")
@@ -75,7 +75,7 @@ func _get_property_list() -> Array:
 	property_list.append_array(
 		[
 			{
-				"name": "BattlePlayerHeartBullet",
+				"name": "BattleHeartBullet",
 				"type": TYPE_NIL,
 				"usage": PROPERTY_USAGE_CATEGORY,
 			},
