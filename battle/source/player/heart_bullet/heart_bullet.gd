@@ -22,6 +22,7 @@ onready var heart_bullet_sprite: AnimatedSprite = \
 		get_node_or_null("HeartBulletSprite")
 onready var heart_bullet_hitbox: CollisionShape2D = \
 		get_node_or_null("HeartBulletHitbox")
+
 onready var visibility_notifier_2d: VisibilityNotifier2D = \
 		get_node_or_null("VisibilityNotifier2D")
 
@@ -44,7 +45,6 @@ func _handle_movement(delta: float) -> void:
 	if not Engine.editor_hint:
 		movement_speed += movement_acceleration * delta
 		velocity = (movement_direction * movement_speed) * delta
-		
 		position += velocity
 
 

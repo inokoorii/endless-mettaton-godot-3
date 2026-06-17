@@ -24,6 +24,7 @@ onready var bomb_sprite: AnimatedSprite = \
 		get_node_or_null("BombSprite")
 onready var bomb_hitbox: CollisionShape2D = \
 		get_node_or_null("BombHitbox")
+
 onready var heart_bullet_hurtbox: BattleHeartBulletHurtbox = \
 		get_node_or_null("HeartBulletHurtbox")
 onready var visibility_notifier_2d: VisibilityNotifier2D = \

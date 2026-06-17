@@ -5,7 +5,7 @@ extends Node2D
 
 
 "CLASS SIGNALS"
-signal texture_changed()
+signal texture_changed
 
 
 "CLASS EXPORTED VARIABLES"

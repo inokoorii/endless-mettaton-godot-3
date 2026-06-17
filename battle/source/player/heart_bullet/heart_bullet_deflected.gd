@@ -17,6 +17,7 @@ var velocity: Vector2
 "SCRIPT ONREADY VARIABLES"
 onready var heart_bullet_sprite: AnimatedSprite = \
 		get_node_or_null("HeartBulletSprite")
+
 onready var visibility_notifier_2d: VisibilityNotifier2D = \
 		get_node_or_null("VisibilityNotifier2D")
 

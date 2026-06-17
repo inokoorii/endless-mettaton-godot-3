@@ -17,8 +17,8 @@ var health: int = 4 \
 func set_health_max(value: int) -> void:
 	health_max = value
 	health_max = clamp(health_max, 0, INF) as int
-	health = clamp(health, 0, INF) as int
 	emit_signal("health_max_changed")
+	health = clamp(health, 0, health_max) as int
 
 
 func set_health(value: int) -> void:

@@ -26,6 +26,7 @@ var velocity: Vector2
 "CLASS ONREADY VARIABLES"
 onready var heart_sprite: AnimatedSprite = \
 		get_node_or_null("HeartSprite")
+
 onready var enemy_bullet_hurtbox: BattleEnemyBulletHurtbox = \
 		get_node_or_null("EnemyBulletHurtbox")
 

@@ -10,6 +10,7 @@ var _last_window_position: Vector2
 "CLASS ONREADY VARIABLES"
 onready var clear_color: ColorRect = \
 		get_node_or_null("ClearColor")
+
 onready var game_viewport_container: ViewportContainer = \
 		get_node_or_null("GameViewportContainer")
 onready var game_viewport: Viewport = \

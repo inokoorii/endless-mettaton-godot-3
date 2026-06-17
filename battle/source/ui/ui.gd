@@ -1,4 +1,22 @@
+tool
 extends Node2D
+
+
+"SCRIPT SIGNALS"
+signal health_text_padding_mode_changed
+
+
+"SCRIPT ENUMERATIONS"
+enum HealthTextPaddingMode {
+	PADDING_MODE_TO_TWO_DIGITS,
+	PADDING_MODE_TO_MAX_HEALTH_DIGITS,
+	PADDING_MODE_NONE,
+}
+
+
+"SCRIPT EXPORTED VARIABLES"
+var health_text_padding_mode: int = HealthTextPaddingMode.PADDING_MODE_TO_TWO_DIGITS \
+		setget set_health_text_padding_mode
 
 
 "SCRIPT ONREADY VARIABLES"
@@ -13,25 +31,113 @@ onready var hud_health_text: Label = \
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	_update_hud_name()
-	_update_hud_health()
+	_update_hud_health_bar()
+	_update_hud_health_text()
 	
-	if is_instance_valid(SaveFileManager.file):
-		SaveFileManager.file.connect("player_name_changed", self, "_update_hud_name")
-	
-	BattleGlobals.connect("health_max_changed", self, "_update_hud_health")
-	BattleGlobals.connect("health_changed", self, "_update_hud_health")
+	if not Engine.editor_hint:
+		if is_instance_valid(SaveFileManager.file):
+			SaveFileManager.file.connect("player_name_changed", self, "_update_hud_name")
+		
+		BattleGlobals.connect("health_max_changed", self, "_update_hud_health_bar")
+		BattleGlobals.connect("health_changed", self, "_update_hud_health_bar")
+		BattleGlobals.connect("health_max_changed", self, "_update_hud_health_text")
+		BattleGlobals.connect("health_changed", self, "_update_hud_health_text")
 
 
 "SCRIPT PRIVATE METHODS"
 func _update_hud_name() -> void:
-	if is_instance_valid(hud_name) and is_instance_valid(SaveFileManager.file):
-		hud_name.text = "%s   LV 1" % SaveFileManager.file.player_name
+	if not Engine.editor_hint:
+		if is_instance_valid(hud_name) and is_instance_valid(SaveFileManager.file):
+			hud_name.text = "%s   LV 1" % SaveFileManager.file.player_name
 
 
-func _update_hud_health() -> void:
-	if is_instance_valid(hud_health_bar):
-		hud_health_bar.max_value = BattleGlobals.health_max
-		hud_health_bar.value = BattleGlobals.health
+func _update_hud_health_bar() -> void:
+	if not Engine.editor_hint:
+		if is_instance_valid(hud_health_bar):
+			hud_health_bar.max_value = BattleGlobals.health_max
+			hud_health_bar.value = BattleGlobals.health
+
+
+func _update_hud_health_text() -> void:
+	if not Engine.editor_hint:
+		if is_instance_valid(hud_health_text):
+			match health_text_padding_mode:
+				HealthTextPaddingMode.PADDING_MODE_TO_TWO_DIGITS:
+					hud_health_text.text = "%02d / %02d" % [
+						BattleGlobals.health,
+						BattleGlobals.health_max,
+					]
+				
+				HealthTextPaddingMode.PADDING_MODE_TO_MAX_HEALTH_DIGITS:
+					hud_health_text.text = "%0*d / %02d" % [
+						max(2, str(BattleGlobals.health_max).length()) as int,
+						BattleGlobals.health,
+						BattleGlobals.health_max
+					]
+				
+				HealthTextPaddingMode.PADDING_MODE_NONE:
+					hud_health_text.text = "%d / %d" % [
+						BattleGlobals.health,
+						BattleGlobals.health_max,
+					]
+
+
+"SCRIPT PUBLIC METHODS (SETTERS)"
+func set_health_text_padding_mode(value: int) -> void:
+	health_text_padding_mode = value
+	health_text_padding_mode = clamp(
+			health_text_padding_mode, 0, HealthTextPaddingMode.size() - 1) as int
 	
-	if is_instance_valid(hud_health_text):
-		hud_health_text.text = "%02d / %02d" % [BattleGlobals.health, BattleGlobals.health_max]
+	emit_signal("health_text_padding_mode_changed")
+	_update_hud_health_text()
+
+
+"SCRIPT PRIVATE METHODS (PROPERTY LIST)"
+func _get_property_list() -> Array:
+	var property_list: Array = []
+	
+	property_list.append_array(
+		[
+			{
+				"name": "BattleUI",
+				"type": TYPE_NIL,
+				"usage": PROPERTY_USAGE_CATEGORY,
+			},
+		]
+	)
+	
+	property_list.append_array(
+		[
+			{
+				"name": "Health Text",
+				"type": TYPE_NIL,
+				"usage": PROPERTY_USAGE_GROUP,
+				"hint_string": "health_text",
+			},
+			{
+				"name": "health_text_padding_mode",
+				"type": TYPE_INT,
+				"usage": PROPERTY_USAGE_DEFAULT,
+				"hint": PROPERTY_HINT_ENUM,
+				"hint_string": "To Two Digits,To Max Health Digits,None"
+			},
+		]
+	)
+	
+	return property_list
+
+
+func _get_property_list_reverts() -> Dictionary:
+	var property_list: Dictionary = {
+		"health_text_padding_mode": HealthTextPaddingMode.PADDING_MODE_TO_TWO_DIGITS,
+	}
+	
+	return property_list
+
+
+func property_can_revert(property: String):
+	return _get_property_list_reverts().has(property)
+
+
+func property_get_revert(property: String):
+	return _get_property_list_reverts().get(property)

@@ -5,6 +5,7 @@ extends Area2D
 
 "CLASS SIGNALS"
 signal action_changed
+
 signal bullet_entered(bullet, bullet_type) # Emitted regardless of `action`.
 signal bullet_entered_ignored(bullet, bullet_type)
 signal bullet_entered_processed(bullet, bullet_type)
@@ -40,7 +41,7 @@ func _ready() -> void:
 func _physics_process(delta: float) -> void:
 	if not Engine.editor_hint:
 		set_on_hit_invincibility_time_left(on_hit_invincibility_time_left - delta)
-		
+	
 	if monitoring:
 		for area in get_overlapping_areas():
 			_handle_collisions(area)

@@ -13,6 +13,7 @@ onready var blast_sprite_vertical_top: TextureRect = \
 		get_node_or_null("BlastSprites/VerticalTop")
 onready var blast_sprite_vertical_bottom: TextureRect = \
 		get_node_or_null("BlastSprites/VerticalBottom")
+
 onready var blast_hitbox_horizontal: CollisionShape2D = \
 		get_node_or_null("BlastHitboxHorizontal")
 onready var blast_hitbox_vertical: CollisionShape2D = \
