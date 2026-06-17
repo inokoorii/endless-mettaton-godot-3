@@ -1,9 +1,5 @@
 extends Node
 
 
-"CORE"
+"AUTOLOAD REGULAR VARIABLES"
 var main_scene: MainScene
-
-
-"BATTLE"
-var battle: Battle

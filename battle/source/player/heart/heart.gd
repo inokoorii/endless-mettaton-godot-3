@@ -33,6 +33,10 @@ onready var enemy_bullet_hurtbox: BattleEnemyBulletHurtbox = \
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	add_to_group("BattleHearts", true)
+	
+	if is_instance_valid(enemy_bullet_hurtbox):
+		enemy_bullet_hurtbox.connect(
+				"bullet_entered_processed", self, "_handle_enemy_bullet_collisions")
 
 
 func _process(delta: float) -> void:
@@ -94,6 +98,25 @@ func _handle_bullet_firing(delta: float) -> void:
 			
 			bullet_firing_cooldown_time_left = bullet_firing_cooldown_time
 			emit_signal("bullet_fired", bullet)
+
+
+func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int) -> void:
+	var BULLET_TYPE_DAMAGE: int = \
+			BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE
+	var BULLET_TYPE_DAMAGE_ON_IDLE: int = \
+			BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE
+	var BULLET_TYPE_DAMAGE_ON_MOVE: int = \
+			BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE
+	var BULLET_TYPE_HEAL: int = \
+			BattleEnemyBullet.BulletTypes.BULLET_TYPE_HEAL
+	
+	match bullet_type:
+		BULLET_TYPE_DAMAGE, BULLET_TYPE_DAMAGE_ON_IDLE, BULLET_TYPE_DAMAGE_ON_MOVE:
+			BattleGlobals.health -= bullet.on_hit_damage
+		
+		BULLET_TYPE_HEAL:
+			BattleGlobals.health += bullet.on_hit_heal
+			bullet.queue_free()
 
 
 "CLASS PUBLIC METHODS (SETTERS)"

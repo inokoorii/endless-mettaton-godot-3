@@ -52,6 +52,7 @@ onready var visibility_notifier_2d: VisibilityNotifier2D = \
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	add_to_group("MettaBoxes", true)
+	
 	_update_sprite_texture()
 	
 	if is_instance_valid(enemy_bullet_hurtbox):

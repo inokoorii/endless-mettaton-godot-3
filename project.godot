@@ -44,6 +44,16 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://core/source/main_scene.gd"
 }, {
+"base": "Reference",
+"class": "MovementUtils",
+"language": "GDScript",
+"path": "res://shared/source/utils/movement_utils.gd"
+}, {
+"base": "Resource",
+"class": "SaveFile",
+"language": "GDScript",
+"path": "res://game/source/save/save_file.gd"
+}, {
 "base": "Node2D",
 "class": "SlicedSprite",
 "language": "GDScript",
@@ -57,6 +67,8 @@ _global_script_class_icons={
 "BattleHeartBullet": "",
 "BattleHeartBulletHurtbox": "",
 "MainScene": "",
+"MovementUtils": "",
+"SaveFile": "",
 "SlicedSprite": ""
 }
 
@@ -75,8 +87,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-GlobalFunctions="*res://core/source/global/global_functions.gd"
-GlobalVariables="*res://core/source/global/global_variables.gd"
+BattleGlobals="*res://battle/source/battle_globals.gd"
+MainGlobals="*res://core/source/main_globals.gd"
+SaveFileManager="*res://game/source/save/save_file_manager.gd"
 
 [debug]
 
@@ -187,10 +200,11 @@ pointing/emulate_touch_from_mouse=true
 [layer_names]
 
 2d_physics/layer_1="battle/heart"
-2d_physics/layer_2="battle/heart/bullet"
-2d_physics/layer_3="battle/heart/bullet_hurtbox"
-2d_physics/layer_4="battle/enemy/bullet"
-2d_physics/layer_5="battle/enemy/bullet_hurtbox"
+2d_physics/layer_2="battle/heart_detector"
+2d_physics/layer_3="battle/heart/bullet"
+2d_physics/layer_4="battle/heart/bullet_hurtbox"
+2d_physics/layer_5="battle/enemy/bullet"
+2d_physics/layer_6="battle/enemy/bullet_hurtbox"
 
 [physics]
 

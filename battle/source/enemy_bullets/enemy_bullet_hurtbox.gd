@@ -35,16 +35,15 @@ var ignored_areas: Array
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	add_to_group("BattleEnemyBulletHurtboxes", true)
-	connect("area_entered", self, "_handle_collisions")
 
 
 func _physics_process(delta: float) -> void:
 	if not Engine.editor_hint:
 		set_on_hit_invincibility_time_left(on_hit_invincibility_time_left - delta)
 		
-		if monitoring:
-			for area in get_overlapping_areas():
-				_handle_collisions(area)
+	if monitoring:
+		for area in get_overlapping_areas():
+			_handle_collisions(area)
 
 
 "CLASS PUBLIC METHODS"
@@ -67,24 +66,35 @@ func _handle_collisions(area: Area2D) -> void:
 				emit_signal("bullet_entered_ignored", area, area.bullet_type)
 			
 			Actions.ACTION_PROCESS_BULLET:
-#				Still unsure if the player damage/heal logic should be handled here
-#				or other scripts should handle it themselves...
+				var BULLET_TYPE_DAMAGE: int = \
+						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE
+				var BULLET_TYPE_DAMAGE_ON_IDLE: int = \
+						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE
+				var BULLET_TYPE_DAMAGE_ON_MOVE: int = \
+						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE
+				var BULLET_TYPE_HEAL: int = \
+						BattleEnemyBullet.BulletTypes.BULLET_TYPE_HEAL
+				var BULLET_TYPE_NO_DAMAGE: int = \
+						BattleEnemyBullet.BulletTypes.BULLET_TYPE_NO_DAMAGE
 				
 				if on_hit_invincibility_time_left <= 0.0:
 					match area.bullet_type:
-						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE:
+						BULLET_TYPE_DAMAGE:
 							on_hit_invincibility_time_left = area.on_hit_invincibility_time
 							emit_signal("bullet_entered_processed", area, area.bullet_type)
 						
-						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE:
+						BULLET_TYPE_DAMAGE_ON_IDLE:
 							if is_moving():
 								on_hit_invincibility_time_left = area.on_hit_invincibility_time
 								emit_signal("bullet_entered_processed", area, area.bullet_type)
 						
-						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE:
+						BULLET_TYPE_DAMAGE_ON_MOVE:
 							if not is_moving():
 								on_hit_invincibility_time_left = area.on_hit_invincibility_time
 								emit_signal("bullet_entered_processed", area, area.bullet_type)
+						
+						BULLET_TYPE_HEAL, BULLET_TYPE_NO_DAMAGE:
+							emit_signal("bullet_entered_processed", area, area.bullet_type)
 
 
 "CLASS PUBLIC METHODS (SETTERS)"

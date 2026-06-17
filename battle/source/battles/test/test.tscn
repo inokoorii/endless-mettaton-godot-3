@@ -121,8 +121,11 @@ sway_speed = 5.0
 sway_intensity = -10.0
 
 [node name="MettaBox7" parent="MettaBoxes/Row1" index="6" instance=ExtResource( 3 )]
+modulate = Color( 0, 1, 0, 1 )
 sway_speed = 5.0
 sway_intensity = -10.0
+bullet_type = 3
+bullet_color = 3
 
 [node name="MettaBox8" parent="MettaBoxes/Row1" index="7" instance=ExtResource( 3 )]
 position = Vector2( 32, 0 )
@@ -190,8 +193,11 @@ sway_speed = 5.0
 sway_intensity = 10.0
 
 [node name="MettaBox7" parent="MettaBoxes/Row2" index="6" instance=ExtResource( 3 )]
+modulate = Color( 0, 1, 0, 1 )
 sway_speed = 5.0
 sway_intensity = 10.0
+bullet_type = 3
+bullet_color = 3
 
 [node name="MettaBox8" parent="MettaBoxes/Row2" index="7" instance=ExtResource( 3 )]
 position = Vector2( 32, 0 )
@@ -266,9 +272,12 @@ sway_speed = 5.0
 sway_intensity = 5.0
 
 [node name="MettaBox7" parent="MettaBoxes/Row3" index="6" instance=ExtResource( 3 )]
+modulate = Color( 0, 1, 0, 1 )
 box_type = 1
 sway_speed = 5.0
 sway_intensity = 5.0
+bullet_type = 3
+bullet_color = 3
 
 [node name="MettaBox8" parent="MettaBoxes/Row3" index="7" instance=ExtResource( 3 )]
 position = Vector2( 32, 0 )
