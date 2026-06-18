@@ -1,0 +1,491 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://source/battle/player/heart_bullet/heart_bullet_hurtbox.gd" type="Script" id=1]
+[ext_resource path="res://assets/battle/sprites/enemy_bullets/metta_box/spr_metta_box_solid.png" type="Texture" id=2]
+[ext_resource path="res://source/battle/enemy_bullets/metta_box/metta_box.tscn" type="PackedScene" id=3]
+[ext_resource path="res://source/battle/enemy_bullets/metta_plus_bomb/metta_plus_bomb.tscn" type="PackedScene" id=4]
+[ext_resource path="res://source/battle/battle.tscn" type="PackedScene" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 32, 32 )
+
+[node name="Demo" instance=ExtResource( 5 )]
+
+[node name="HeartBulletHurtboxes" type="Node2D" parent="." index="2"]
+position = Vector2( 0, -192 )
+z_index = 1
+
+[node name="Ignore" type="Area2D" parent="HeartBulletHurtboxes" index="0" groups=["BattleHeartBulletDetectors", "BattleHeartBulletHurtboxes", "BattlePlayerHeartBulletDetectors"]]
+position = Vector2( -80, 0 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+action = 0
+
+[node name="ColorRect" type="ColorRect" parent="HeartBulletHurtboxes/Ignore" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+color = Color( 1, 0, 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletHurtboxes/Ignore" index="1"]
+shape = SubResource( 1 )
+
+[node name="Destroy" type="Area2D" parent="HeartBulletHurtboxes" index="1" groups=["BattleHeartBulletDetectors", "BattleHeartBulletHurtboxes", "BattlePlayerHeartBulletDetectors"]]
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+action = 1
+
+[node name="ColorRect" type="ColorRect" parent="HeartBulletHurtboxes/Destroy" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+color = Color( 0, 1, 0, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletHurtboxes/Destroy" index="1"]
+shape = SubResource( 1 )
+
+[node name="Deflect" type="Area2D" parent="HeartBulletHurtboxes" index="2" groups=["BattleHeartBulletDetectors", "BattleHeartBulletHurtboxes", "BattlePlayerHeartBulletDetectors"]]
+position = Vector2( 80, 0 )
+script = ExtResource( 1 )
+__meta__ = {
+"_edit_group_": true
+}
+action = 2
+
+[node name="ColorRect" type="ColorRect" parent="HeartBulletHurtboxes/Deflect" index="0"]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -32.0
+margin_top = -32.0
+margin_right = 32.0
+margin_bottom = 32.0
+color = Color( 0, 0, 1, 1 )
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="HeartBulletHurtboxes/Deflect" index="1"]
+shape = SubResource( 1 )
+
+[node name="MettaBoxes" type="Node2D" parent="." index="3"]
+position = Vector2( 0, -88 )
+z_index = 1
+
+[node name="Row1" type="Node2D" parent="MettaBoxes" index="0"]
+position = Vector2( 0, -32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaBox" parent="MettaBoxes/Row1" index="0" instance=ExtResource( 3 )]
+position = Vector2( -192, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox2" parent="MettaBoxes/Row1" index="1" instance=ExtResource( 3 )]
+position = Vector2( -160, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox3" parent="MettaBoxes/Row1" index="2" instance=ExtResource( 3 )]
+position = Vector2( -128, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox4" parent="MettaBoxes/Row1" index="3" instance=ExtResource( 3 )]
+position = Vector2( -96, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox5" parent="MettaBoxes/Row1" index="4" instance=ExtResource( 3 )]
+position = Vector2( -64, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox6" parent="MettaBoxes/Row1" index="5" instance=ExtResource( 3 )]
+position = Vector2( -32, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox7" parent="MettaBoxes/Row1" index="6" instance=ExtResource( 3 )]
+modulate = Color( 0, 1, 0, 1 )
+sway_speed = 5.0
+sway_intensity = -10.0
+bullet_type = 3
+bullet_color = 3
+
+[node name="MettaBox8" parent="MettaBoxes/Row1" index="7" instance=ExtResource( 3 )]
+position = Vector2( 32, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox9" parent="MettaBoxes/Row1" index="8" instance=ExtResource( 3 )]
+position = Vector2( 64, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox10" parent="MettaBoxes/Row1" index="9" instance=ExtResource( 3 )]
+position = Vector2( 96, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox11" parent="MettaBoxes/Row1" index="10" instance=ExtResource( 3 )]
+position = Vector2( 128, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox12" parent="MettaBoxes/Row1" index="11" instance=ExtResource( 3 )]
+position = Vector2( 160, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="MettaBox13" parent="MettaBoxes/Row1" index="12" instance=ExtResource( 3 )]
+position = Vector2( 192, 0 )
+sway_speed = 5.0
+sway_intensity = -10.0
+
+[node name="Row2" type="Node2D" parent="MettaBoxes" index="1"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaBox" parent="MettaBoxes/Row2" index="0" instance=ExtResource( 3 )]
+position = Vector2( -192, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox2" parent="MettaBoxes/Row2" index="1" instance=ExtResource( 3 )]
+position = Vector2( -160, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox3" parent="MettaBoxes/Row2" index="2" instance=ExtResource( 3 )]
+position = Vector2( -128, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox4" parent="MettaBoxes/Row2" index="3" instance=ExtResource( 3 )]
+position = Vector2( -96, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox5" parent="MettaBoxes/Row2" index="4" instance=ExtResource( 3 )]
+position = Vector2( -64, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox6" parent="MettaBoxes/Row2" index="5" instance=ExtResource( 3 )]
+position = Vector2( -32, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox7" parent="MettaBoxes/Row2" index="6" instance=ExtResource( 3 )]
+modulate = Color( 0, 1, 0, 1 )
+sway_speed = 5.0
+sway_intensity = 10.0
+bullet_type = 3
+bullet_color = 3
+
+[node name="MettaBox8" parent="MettaBoxes/Row2" index="7" instance=ExtResource( 3 )]
+position = Vector2( 32, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox9" parent="MettaBoxes/Row2" index="8" instance=ExtResource( 3 )]
+position = Vector2( 64, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox10" parent="MettaBoxes/Row2" index="9" instance=ExtResource( 3 )]
+position = Vector2( 96, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox11" parent="MettaBoxes/Row2" index="10" instance=ExtResource( 3 )]
+position = Vector2( 128, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox12" parent="MettaBoxes/Row2" index="11" instance=ExtResource( 3 )]
+position = Vector2( 160, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="MettaBox13" parent="MettaBoxes/Row2" index="12" instance=ExtResource( 3 )]
+position = Vector2( 192, 0 )
+sway_speed = 5.0
+sway_intensity = 10.0
+
+[node name="Row3" type="Node2D" parent="MettaBoxes" index="2"]
+position = Vector2( 0, 32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaBox" parent="MettaBoxes/Row3" index="0" instance=ExtResource( 3 )]
+position = Vector2( -192, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox2" parent="MettaBoxes/Row3" index="1" instance=ExtResource( 3 )]
+position = Vector2( -160, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox3" parent="MettaBoxes/Row3" index="2" instance=ExtResource( 3 )]
+position = Vector2( -128, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox4" parent="MettaBoxes/Row3" index="3" instance=ExtResource( 3 )]
+position = Vector2( -96, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox5" parent="MettaBoxes/Row3" index="4" instance=ExtResource( 3 )]
+position = Vector2( -64, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox6" parent="MettaBoxes/Row3" index="5" instance=ExtResource( 3 )]
+position = Vector2( -32, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox7" parent="MettaBoxes/Row3" index="6" instance=ExtResource( 3 )]
+modulate = Color( 0, 1, 0, 1 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+bullet_type = 3
+bullet_color = 3
+
+[node name="MettaBox8" parent="MettaBoxes/Row3" index="7" instance=ExtResource( 3 )]
+position = Vector2( 32, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox9" parent="MettaBoxes/Row3" index="8" instance=ExtResource( 3 )]
+position = Vector2( 64, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox10" parent="MettaBoxes/Row3" index="9" instance=ExtResource( 3 )]
+position = Vector2( 96, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox11" parent="MettaBoxes/Row3" index="10" instance=ExtResource( 3 )]
+position = Vector2( 128, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox12" parent="MettaBoxes/Row3" index="11" instance=ExtResource( 3 )]
+position = Vector2( 160, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaBox13" parent="MettaBoxes/Row3" index="12" instance=ExtResource( 3 )]
+position = Vector2( 192, 0 )
+box_type = 1
+sway_speed = 5.0
+sway_intensity = 5.0
+
+[node name="MettaPlusBombs" type="Node2D" parent="." index="4"]
+position = Vector2( 0, 32 )
+z_index = 2
+
+[node name="Row1" type="Node2D" parent="MettaPlusBombs" index="0"]
+position = Vector2( 0, -32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaPlusBomb" parent="MettaPlusBombs/Row1" index="0" instance=ExtResource( 4 )]
+position = Vector2( -192, 0 )
+
+[node name="MettaPlusBomb2" parent="MettaPlusBombs/Row1" index="1" instance=ExtResource( 4 )]
+position = Vector2( -160, 0 )
+
+[node name="MettaPlusBomb3" parent="MettaPlusBombs/Row1" index="2" instance=ExtResource( 4 )]
+position = Vector2( -128, 0 )
+
+[node name="MettaPlusBomb4" parent="MettaPlusBombs/Row1" index="3" instance=ExtResource( 4 )]
+position = Vector2( -96, 0 )
+
+[node name="MettaPlusBomb5" parent="MettaPlusBombs/Row1" index="4" instance=ExtResource( 4 )]
+position = Vector2( -64, 0 )
+
+[node name="MettaPlusBomb6" parent="MettaPlusBombs/Row1" index="5" instance=ExtResource( 4 )]
+position = Vector2( -32, 0 )
+
+[node name="MettaPlusBomb7" parent="MettaPlusBombs/Row1" index="6" instance=ExtResource( 4 )]
+
+[node name="MettaPlusBomb8" parent="MettaPlusBombs/Row1" index="7" instance=ExtResource( 4 )]
+position = Vector2( 32, 0 )
+
+[node name="MettaPlusBomb9" parent="MettaPlusBombs/Row1" index="8" instance=ExtResource( 4 )]
+position = Vector2( 64, 0 )
+
+[node name="MettaPlusBomb10" parent="MettaPlusBombs/Row1" index="9" instance=ExtResource( 4 )]
+position = Vector2( 96, 0 )
+
+[node name="MettaPlusBomb11" parent="MettaPlusBombs/Row1" index="10" instance=ExtResource( 4 )]
+position = Vector2( 128, 0 )
+
+[node name="MettaPlusBomb12" parent="MettaPlusBombs/Row1" index="11" instance=ExtResource( 4 )]
+position = Vector2( 160, 0 )
+
+[node name="MettaPlusBomb13" parent="MettaPlusBombs/Row1" index="12" instance=ExtResource( 4 )]
+position = Vector2( 192, 0 )
+
+[node name="Row2" type="Node2D" parent="MettaPlusBombs" index="1"]
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaPlusBomb" parent="MettaPlusBombs/Row2" index="0" instance=ExtResource( 4 )]
+position = Vector2( -192, 0 )
+
+[node name="MettaPlusBomb2" parent="MettaPlusBombs/Row2" index="1" instance=ExtResource( 4 )]
+position = Vector2( -160, 0 )
+
+[node name="MettaPlusBomb3" parent="MettaPlusBombs/Row2" index="2" instance=ExtResource( 4 )]
+position = Vector2( -128, 0 )
+
+[node name="MettaPlusBomb4" parent="MettaPlusBombs/Row2" index="3" instance=ExtResource( 4 )]
+position = Vector2( -96, 0 )
+
+[node name="MettaPlusBomb5" parent="MettaPlusBombs/Row2" index="4" instance=ExtResource( 4 )]
+position = Vector2( -64, 0 )
+
+[node name="MettaPlusBomb6" parent="MettaPlusBombs/Row2" index="5" instance=ExtResource( 4 )]
+position = Vector2( -32, 0 )
+
+[node name="MettaPlusBomb7" parent="MettaPlusBombs/Row2" index="6" instance=ExtResource( 4 )]
+
+[node name="MettaPlusBomb8" parent="MettaPlusBombs/Row2" index="7" instance=ExtResource( 4 )]
+position = Vector2( 32, 0 )
+
+[node name="MettaPlusBomb9" parent="MettaPlusBombs/Row2" index="8" instance=ExtResource( 4 )]
+position = Vector2( 64, 0 )
+
+[node name="MettaPlusBomb10" parent="MettaPlusBombs/Row2" index="9" instance=ExtResource( 4 )]
+position = Vector2( 96, 0 )
+
+[node name="MettaPlusBomb11" parent="MettaPlusBombs/Row2" index="10" instance=ExtResource( 4 )]
+position = Vector2( 128, 0 )
+
+[node name="MettaPlusBomb12" parent="MettaPlusBombs/Row2" index="11" instance=ExtResource( 4 )]
+position = Vector2( 160, 0 )
+
+[node name="MettaPlusBomb13" parent="MettaPlusBombs/Row2" index="12" instance=ExtResource( 4 )]
+position = Vector2( 192, 0 )
+
+[node name="Row3" type="Node2D" parent="MettaPlusBombs" index="2"]
+position = Vector2( 0, 32 )
+__meta__ = {
+"_edit_group_": true
+}
+
+[node name="MettaPlusBomb" parent="MettaPlusBombs/Row3" index="0" instance=ExtResource( 4 )]
+position = Vector2( -192, 0 )
+
+[node name="MettaPlusBomb2" parent="MettaPlusBombs/Row3" index="1" instance=ExtResource( 4 )]
+position = Vector2( -160, 0 )
+
+[node name="MettaPlusBomb3" parent="MettaPlusBombs/Row3" index="2" instance=ExtResource( 4 )]
+position = Vector2( -128, 0 )
+
+[node name="MettaPlusBomb4" parent="MettaPlusBombs/Row3" index="3" instance=ExtResource( 4 )]
+position = Vector2( -96, 0 )
+
+[node name="MettaPlusBomb5" parent="MettaPlusBombs/Row3" index="4" instance=ExtResource( 4 )]
+position = Vector2( -64, 0 )
+
+[node name="MettaPlusBomb6" parent="MettaPlusBombs/Row3" index="5" instance=ExtResource( 4 )]
+position = Vector2( -32, 0 )
+
+[node name="MettaPlusBomb7" parent="MettaPlusBombs/Row3" index="6" instance=ExtResource( 4 )]
+
+[node name="MettaPlusBomb8" parent="MettaPlusBombs/Row3" index="7" instance=ExtResource( 4 )]
+position = Vector2( 32, 0 )
+
+[node name="MettaPlusBomb9" parent="MettaPlusBombs/Row3" index="8" instance=ExtResource( 4 )]
+position = Vector2( 64, 0 )
+
+[node name="MettaPlusBomb10" parent="MettaPlusBombs/Row3" index="9" instance=ExtResource( 4 )]
+position = Vector2( 96, 0 )
+
+[node name="MettaPlusBomb11" parent="MettaPlusBombs/Row3" index="10" instance=ExtResource( 4 )]
+position = Vector2( 128, 0 )
+
+[node name="MettaPlusBomb12" parent="MettaPlusBombs/Row3" index="11" instance=ExtResource( 4 )]
+position = Vector2( 160, 0 )
+
+[node name="MettaPlusBomb13" parent="MettaPlusBombs/Row3" index="12" instance=ExtResource( 4 )]
+position = Vector2( 192, 0 )
+
+[node name="ColoredBullets" type="Node2D" parent="." index="5"]
+position = Vector2( 0, 120 )
+z_index = 1
+
+[node name="Blue" parent="ColoredBullets" index="0" instance=ExtResource( 3 )]
+modulate = Color( 0, 0.635294, 0.909804, 1 )
+position = Vector2( -96, 0 )
+box_type = 1
+sway_speed = 2.5
+sway_intensity = -50.0
+bullet_type = 1
+bullet_color = 1
+
+[node name="BoxSprite" parent="ColoredBullets/Blue" index="0"]
+texture = ExtResource( 2 )
+
+[node name="EnemyBulletHurtbox" parent="ColoredBullets/Blue" index="2"]
+monitoring = false
+
+[node name="Orange" parent="ColoredBullets" index="1" instance=ExtResource( 3 )]
+modulate = Color( 1, 0.662745, 0.0784314, 1 )
+position = Vector2( 96, 0 )
+box_type = 1
+sway_speed = 2.5
+sway_intensity = 50.0
+bullet_type = 2
+bullet_color = 2
+
+[node name="BoxSprite" parent="ColoredBullets/Orange" index="0"]
+texture = ExtResource( 2 )
+
+[node name="EnemyBulletHurtbox" parent="ColoredBullets/Orange" index="2"]
+monitoring = false
+
+[node name="BattleHeart" parent="." index="6"]
+position = Vector2( 0, 120 )
+
+[editable path="ColoredBullets/Blue"]
+[editable path="ColoredBullets/Orange"]

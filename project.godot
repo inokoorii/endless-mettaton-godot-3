@@ -12,52 +12,52 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Battle",
 "language": "GDScript",
-"path": "res://battle/source/battle.gd"
+"path": "res://source/battle/battle.gd"
 }, {
 "base": "Area2D",
 "class": "BattleEnemyBullet",
 "language": "GDScript",
-"path": "res://battle/source/enemy_bullets/enemy_bullet.gd"
+"path": "res://source/battle/enemy_bullets/enemy_bullet.gd"
 }, {
 "base": "Area2D",
 "class": "BattleEnemyBulletHurtbox",
 "language": "GDScript",
-"path": "res://battle/source/enemy_bullets/enemy_bullet_hurtbox.gd"
+"path": "res://source/battle/enemy_bullets/enemy_bullet_hurtbox.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "BattleHeart",
 "language": "GDScript",
-"path": "res://battle/source/player/heart/heart.gd"
+"path": "res://source/battle/player/heart/heart.gd"
 }, {
 "base": "Area2D",
 "class": "BattleHeartBullet",
 "language": "GDScript",
-"path": "res://battle/source/player/heart_bullet/heart_bullet.gd"
+"path": "res://source/battle/player/heart_bullet/heart_bullet.gd"
 }, {
 "base": "Area2D",
 "class": "BattleHeartBulletHurtbox",
 "language": "GDScript",
-"path": "res://battle/source/player/heart_bullet/heart_bullet_hurtbox.gd"
+"path": "res://source/battle/player/heart_bullet/heart_bullet_hurtbox.gd"
 }, {
 "base": "Control",
 "class": "MainScene",
 "language": "GDScript",
-"path": "res://core/source/main_scene.gd"
+"path": "res://source/game/main/main_scene.gd"
 }, {
 "base": "Reference",
 "class": "MovementUtils",
 "language": "GDScript",
-"path": "res://shared/source/utils/movement_utils.gd"
+"path": "res://source/shared/utils/movement_utils.gd"
 }, {
 "base": "Resource",
 "class": "SaveFile",
 "language": "GDScript",
-"path": "res://game/source/save/save_file.gd"
+"path": "res://source/game/save/save_file.gd"
 }, {
 "base": "Node2D",
 "class": "SlicedSprite",
 "language": "GDScript",
-"path": "res://shared/source/sliced_sprite/sliced_sprite.gd"
+"path": "res://source/shared/effects/sliced_sprite/sliced_sprite.gd"
 } ]
 _global_script_class_icons={
 "Battle": "",
@@ -75,7 +75,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ENDLESS METTATON"
-run/main_scene="res://core/source/main_scene.tscn"
+run/main_scene="res://source/game/main/main_scene.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="inokoorii/games/endless-mettaton"
 run/delta_sync_after_draw=true
@@ -87,9 +87,9 @@ config/icon="res://icon.png"
 
 [autoload]
 
-BattleGlobals="*res://battle/source/battle_globals.gd"
-MainGlobals="*res://core/source/main_globals.gd"
-SaveFileManager="*res://game/source/save/save_file_manager.gd"
+BattleGlobals="*res://source/battle/battle_globals.gd"
+MainGlobals="*res://source/game/main/main_globals.gd"
+SaveFileManager="*res://source/game/save/save_file_manager.gd"
 
 [debug]
 

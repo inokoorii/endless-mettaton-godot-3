@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/shared/effects/sliced_sprite/sliced_sprite.gd" type="Script" id=1]
+
+[node name="SlicedSprite" type="Node2D"]
+script = ExtResource( 1 )
+texture = null
+normal_map = null
+offset = Vector2( 0, 0 )
+flip_h = false
+flip_v = false
+h_separation = 0.0
+v_separation = 0.0
+
+[node name="TopLeft" type="Sprite" parent="."]
+region_enabled = true
+
+[node name="TopRight" type="Sprite" parent="."]
+region_enabled = true
+
+[node name="BottomLeft" type="Sprite" parent="."]
+region_enabled = true
+
+[node name="BottomRight" type="Sprite" parent="."]
+region_enabled = true
