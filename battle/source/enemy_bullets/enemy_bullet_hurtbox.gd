@@ -59,6 +59,7 @@ func is_moving() -> bool:
 
 "CLASS PRIVATE METHODS"
 func _handle_collisions(area: Area2D) -> void:
+#	TODO: Fix collisions being registered more/less depending on physics tick rate.
 	if not ignored_areas.has(area) and area is BattleEnemyBullet:
 		emit_signal("bullet_entered", area, area.bullet_type)
 		
