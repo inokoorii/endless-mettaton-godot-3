@@ -9,10 +9,15 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Node2D",
+"base": "Reference",
 "class": "Battle",
 "language": "GDScript",
-"path": "res://source/battle/battle.gd"
+"path": "res://source/battle/battles/battle.gd"
+}, {
+"base": "Node2D",
+"class": "BattleBoard",
+"language": "GDScript",
+"path": "res://source/battle/board/board.gd"
 }, {
 "base": "Area2D",
 "class": "BattleEnemyBullet",
@@ -61,6 +66,7 @@ _global_script_classes=[ {
 } ]
 _global_script_class_icons={
 "Battle": "",
+"BattleBoard": "",
 "BattleEnemyBullet": "",
 "BattleEnemyBulletHurtbox": "",
 "BattleHeart": "",
@@ -200,11 +206,11 @@ pointing/emulate_touch_from_mouse=true
 [layer_names]
 
 2d_physics/layer_1="battle/heart"
-2d_physics/layer_2="battle/heart_detector"
-2d_physics/layer_3="battle/heart/bullet"
-2d_physics/layer_4="battle/heart/bullet_hurtbox"
-2d_physics/layer_5="battle/enemy/bullet"
-2d_physics/layer_6="battle/enemy/bullet_hurtbox"
+2d_physics/layer_2="battle/heart/bullet"
+2d_physics/layer_3="battle/heart/bullet_hurtbox"
+2d_physics/layer_4="battle/enemy/bullet"
+2d_physics/layer_5="battle/enemy/bullet_hurtbox"
+2d_physics/layer_6="battle/board"
 
 [physics]
 

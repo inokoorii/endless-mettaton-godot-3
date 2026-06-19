@@ -6,7 +6,7 @@
 [ext_resource path="res://resources/battle/spriteframes/ui/sprf_ui_button_fight.tres" type="SpriteFrames" id=4]
 [ext_resource path="res://resources/battle/spriteframes/ui/sprf_ui_button_mercy.tres" type="SpriteFrames" id=5]
 [ext_resource path="res://resources/battle/spriteframes/ui/sprf_ui_button_act.tres" type="SpriteFrames" id=6]
-[ext_resource path="res://resources/battle/fonts/mars/fnt_mars_size_24_px.tres" type="DynamicFont" id=7]
+[ext_resource path="res://resources/battle/fonts/mars/fnt_mars_size24.tres" type="DynamicFont" id=7]
 [ext_resource path="res://assets/battle/sprites/ui/label_hp/spr_ui_label_hp.png" type="Texture" id=8]
 [ext_resource path="res://resources/battle/stylebox/ui/sbox_ui_health_bar_fg.tres" type="StyleBox" id=9]
 [ext_resource path="res://resources/battle/stylebox/ui/sbox_ui_health_bar_bg.tres" type="StyleBox" id=10]
@@ -57,7 +57,7 @@ custom_styles/fg = ExtResource( 9 )
 custom_styles/bg = ExtResource( 10 )
 max_value = 20.0
 step = 1.0
-value = 10.0
+value = 20.0
 percent_visible = false
 
 [node name="HealthText" type="Label" parent="HUD/Health/HBoxContainer"]

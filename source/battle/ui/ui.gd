@@ -8,18 +8,18 @@ signal health_text_padding_mode_changed
 
 "SCRIPT ENUMERATIONS"
 enum HealthTextPaddingModes {
-	PADDING_MODE_TWO_DIGITS,
-	PADDING_MODE_MAX_HEALTH,
-	PADDING_MODE_CUSTOM_LENGTH,
-	PADDING_MODE_NONE,
+	PADDING_MODE_TO_TWO_DIGITS,
+	PADDING_MODE_TO_MAX_HEALTH_DIGITS,
+	PADDING_MODE_TO_CUSTOM_LENGTH,
+	PADDING_MODE_NONE, 
 }
 
 
 "SCRIPT EXPORTED VARIABLES"
-var health_text_padding_mode: int = HealthTextPaddingModes.PADDING_MODE_TWO_DIGITS \
+var health_text_padding_mode: int = HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS \
 		setget set_health_text_padding_mode
-var health_text_padding_length: int = 0 \
-		setget set_health_text_padding_length
+var health_text_padding_custom_length: int = 0 \
+		setget set_health_text_padding_custom_length
 
 
 "SCRIPT ONREADY VARIABLES"
@@ -65,25 +65,23 @@ func _update_hud_health_text() -> void:
 	if not Engine.editor_hint:
 		if is_instance_valid(hud_health_text):
 			match health_text_padding_mode:
-				HealthTextPaddingModes.PADDING_MODE_TWO_DIGITS:
+				HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS:
 					hud_health_text.text = "%02d / %02d" % [
 						BattleGlobals.health,
 						BattleGlobals.health_max,
 					]
 				
-				HealthTextPaddingModes.PADDING_MODE_MAX_HEALTH:
+				HealthTextPaddingModes.PADDING_MODE_TO_MAX_HEALTH_DIGITS:
 					hud_health_text.text = "%0*d / %02d" % [
 						max(2, str(BattleGlobals.health_max).length()) as int,
 						BattleGlobals.health,
 						BattleGlobals.health_max
 					]
 				
-				HealthTextPaddingModes.PADDING_MODE_CUSTOM_LENGTH:
-					hud_health_text.text = "%0*d / %0*d" % [
-						health_text_padding_length,
-						BattleGlobals.health,
-						health_text_padding_length,
-						BattleGlobals.health_max,
+				HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
+					hud_health_text.text = "%s / %s" % [
+						str(BattleGlobals.health).pad_zeros(health_text_padding_custom_length),
+						str(BattleGlobals.health_max).pad_zeros(health_text_padding_custom_length),
 					]
 				
 				HealthTextPaddingModes.PADDING_MODE_NONE:
@@ -104,9 +102,9 @@ func set_health_text_padding_mode(value: int) -> void:
 	property_list_changed_notify()
 
 
-func set_health_text_padding_length(value: int) -> void:
-	health_text_padding_length = value
-	health_text_padding_length = clamp(health_text_padding_length, 0, INF) as int
+func set_health_text_padding_custom_length(value: int) -> void:
+	health_text_padding_custom_length = value
+	health_text_padding_custom_length = clamp(health_text_padding_custom_length, 0, INF) as int
 	_update_hud_health_text()
 
 
@@ -137,15 +135,15 @@ func _get_property_list() -> Array:
 				"type": TYPE_INT,
 				"usage": PROPERTY_USAGE_DEFAULT,
 				"hint": PROPERTY_HINT_ENUM,
-				"hint_string": "Two Digits,Max Health,Custom Length,None",
+				"hint_string": "To Two Digits,To Max Health Digits,To Custom Length,None",
 			},
 		]
 	)
-	if health_text_padding_mode == HealthTextPaddingModes.PADDING_MODE_CUSTOM_LENGTH:
+	if health_text_padding_mode == HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
 		property_list.append_array(
 			[
 				{
-					"name": "health_text_padding_length",
+					"name": "health_text_padding_custom_length",
 					"type": TYPE_INT,
 					"usage": PROPERTY_USAGE_DEFAULT,
 				},
@@ -157,8 +155,8 @@ func _get_property_list() -> Array:
 
 func _get_property_list_reverts() -> Dictionary:
 	var property_list: Dictionary = {
-		"health_text_padding_mode": HealthTextPaddingModes.PADDING_MODE_TWO_DIGITS,
-		"health_text_padding_length": 0,
+		"health_text_padding_mode": HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS,
+		"health_text_padding_custom_length": 0,
 	}
 	
 	return property_list

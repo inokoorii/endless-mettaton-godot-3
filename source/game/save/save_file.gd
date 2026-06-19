@@ -6,10 +6,6 @@ extends Resource
 signal player_name_changed
 
 
-"RESOURCE CONSTANTS"
-const FILE_VERSION: int = 1
-
-
 "RESOURCE VARIABLES"
 var player_name: String = "Chara" \
 		setget set_player_name

@@ -1,15 +1,17 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://source/battle/player/heart_bullet/heart_bullet_hurtbox.gd" type="Script" id=1]
 [ext_resource path="res://assets/battle/sprites/enemy_bullets/metta_box/spr_metta_box_solid.png" type="Texture" id=2]
 [ext_resource path="res://source/battle/enemy_bullets/metta_box/metta_box.tscn" type="PackedScene" id=3]
 [ext_resource path="res://source/battle/enemy_bullets/metta_plus_bomb/metta_plus_bomb.tscn" type="PackedScene" id=4]
-[ext_resource path="res://source/battle/battle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://source/battle/battles/battle.tscn" type="PackedScene" id=5]
+[ext_resource path="res://source/battle/battles/demo/demo.gd" type="Script" id=6]
 
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 32, 32 )
 
 [node name="Demo" instance=ExtResource( 5 )]
+script = ExtResource( 6 )
 
 [node name="HeartBulletHurtboxes" type="Node2D" parent="." index="2"]
 position = Vector2( 0, -192 )
@@ -484,7 +486,7 @@ texture = ExtResource( 2 )
 [node name="EnemyBulletHurtbox" parent="ColoredBullets/Orange" index="2"]
 monitoring = false
 
-[node name="BattleHeart" parent="." index="6"]
+[node name="BattleHeart" parent="." index="7"]
 position = Vector2( 0, 120 )
 
 [editable path="ColoredBullets/Blue"]
