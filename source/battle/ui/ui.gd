@@ -41,9 +41,9 @@ func _ready() -> void:
 		if is_instance_valid(SaveFileManager.file):
 			SaveFileManager.file.connect("player_name_changed", self, "_update_hud_name")
 		
-		BattleGlobals.connect("health_max_changed", self, "_update_hud_health_bar")
+		BattleGlobals.connect("max_health_changed", self, "_update_hud_health_bar")
 		BattleGlobals.connect("health_changed", self, "_update_hud_health_bar")
-		BattleGlobals.connect("health_max_changed", self, "_update_hud_health_text")
+		BattleGlobals.connect("max_health_changed", self, "_update_hud_health_text")
 		BattleGlobals.connect("health_changed", self, "_update_hud_health_text")
 
 
@@ -55,40 +55,38 @@ func _update_hud_name() -> void:
 
 
 func _update_hud_health_bar() -> void:
-	if not Engine.editor_hint:
-		if is_instance_valid(hud_health_bar):
-			hud_health_bar.max_value = BattleGlobals.health_max
-			hud_health_bar.value = BattleGlobals.health
+	if not Engine.editor_hint and is_instance_valid(hud_health_bar):
+		hud_health_bar.max_value = BattleGlobals.max_health
+		hud_health_bar.value = BattleGlobals.health
 
 
 func _update_hud_health_text() -> void:
-	if not Engine.editor_hint:
-		if is_instance_valid(hud_health_text):
-			match health_text_padding_mode:
-				HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS:
-					hud_health_text.text = "%02d / %02d" % [
-						BattleGlobals.health,
-						BattleGlobals.health_max,
-					]
-				
-				HealthTextPaddingModes.PADDING_MODE_TO_MAX_HEALTH_DIGITS:
-					hud_health_text.text = "%0*d / %02d" % [
-						max(2, str(BattleGlobals.health_max).length()) as int,
-						BattleGlobals.health,
-						BattleGlobals.health_max
-					]
-				
-				HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
-					hud_health_text.text = "%s / %s" % [
-						str(BattleGlobals.health).pad_zeros(health_text_padding_custom_length),
-						str(BattleGlobals.health_max).pad_zeros(health_text_padding_custom_length),
-					]
-				
-				HealthTextPaddingModes.PADDING_MODE_NONE:
-					hud_health_text.text = "%d / %d" % [
-						BattleGlobals.health,
-						BattleGlobals.health_max,
-					]
+	if not Engine.editor_hint and is_instance_valid(hud_health_text):
+		match health_text_padding_mode:
+			HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS:
+				hud_health_text.text = "%02d / %02d" % [
+					BattleGlobals.health,
+					BattleGlobals.max_health,
+				]
+			
+			HealthTextPaddingModes.PADDING_MODE_TO_MAX_HEALTH_DIGITS:
+				hud_health_text.text = "%0*d / %02d" % [
+					max(2, str(BattleGlobals.max_health).length()) as int,
+					BattleGlobals.health,
+					BattleGlobals.max_health
+				]
+			
+			HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
+				hud_health_text.text = "%s / %s" % [
+					str(BattleGlobals.health).pad_zeros(health_text_padding_custom_length),
+					str(BattleGlobals.max_health).pad_zeros(health_text_padding_custom_length),
+				]
+			
+			HealthTextPaddingModes.PADDING_MODE_NONE:
+				hud_health_text.text = "%d / %d" % [
+					BattleGlobals.health,
+					BattleGlobals.max_health,
+				]
 
 
 "SCRIPT PUBLIC METHODS (SETTERS)"

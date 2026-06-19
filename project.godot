@@ -9,7 +9,7 @@
 config_version=4
 
 _global_script_classes=[ {
-"base": "Reference",
+"base": "Node2D",
 "class": "Battle",
 "language": "GDScript",
 "path": "res://source/battle/battles/battle.gd"
@@ -94,7 +94,7 @@ config/icon="res://icon.png"
 [autoload]
 
 BattleGlobals="*res://source/battle/battle_globals.gd"
-MainGlobals="*res://source/game/main/main_globals.gd"
+GameGlobals="*res://source/game/game_globals.gd"
 SaveFileManager="*res://source/game/save/save_file_manager.gd"
 
 [debug]
