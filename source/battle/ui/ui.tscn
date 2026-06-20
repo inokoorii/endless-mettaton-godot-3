@@ -1,7 +1,7 @@
-[gd_scene load_steps=11 format=2]
+[gd_scene load_steps=12 format=2]
 
 [ext_resource path="res://source/battle/ui/ui.gd" type="Script" id=1]
-[ext_resource path="res://references/battle/battles/mettaton/ref_battle_mettaton.png" type="Texture" id=2]
+[ext_resource path="res://references/battle/scenes/battle/mettaton/ref_battle_mettaton.png" type="Texture" id=2]
 [ext_resource path="res://resources/battle/spriteframes/ui/sprf_ui_button_item.tres" type="SpriteFrames" id=3]
 [ext_resource path="res://resources/battle/spriteframes/ui/sprf_ui_button_fight.tres" type="SpriteFrames" id=4]
 [ext_resource path="res://resources/battle/spriteframes/ui/sprf_ui_button_mercy.tres" type="SpriteFrames" id=5]
@@ -10,12 +10,14 @@
 [ext_resource path="res://assets/battle/sprites/ui/label_hp/spr_ui_label_hp.png" type="Texture" id=8]
 [ext_resource path="res://resources/battle/stylebox/ui/sbox_ui_health_bar_fg.tres" type="StyleBox" id=9]
 [ext_resource path="res://resources/battle/stylebox/ui/sbox_ui_health_bar_bg.tres" type="StyleBox" id=10]
+[ext_resource path="res://addons/folder_nodes/source/folder_2d.gd" type="Script" id=11]
 
 [node name="BattleUI" type="Node2D"]
 script = ExtResource( 1 )
 health_text_padding_mode = 0
 
 [node name="HUD" type="Node2D" parent="."]
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }
@@ -23,7 +25,7 @@ __meta__ = {
 [node name="Name" type="Label" parent="HUD"]
 margin_left = -290.0
 margin_top = 160.0
-margin_right = -230.0
+margin_right = -134.0
 margin_bottom = 184.0
 custom_fonts/font = ExtResource( 7 )
 text = "CHARA   LV 1"
@@ -70,6 +72,7 @@ text = "20 / 20"
 uppercase = true
 
 [node name="Buttons" type="Node2D" parent="."]
+script = ExtResource( 11 )
 __meta__ = {
 "_edit_lock_": true
 }

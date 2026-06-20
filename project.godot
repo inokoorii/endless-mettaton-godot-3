@@ -12,47 +12,47 @@ _global_script_classes=[ {
 "base": "Node2D",
 "class": "Battle",
 "language": "GDScript",
-"path": "res://source/battle/battles/battle.gd"
+"path": "res://source/battle/scenes/battle/battle.gd"
 }, {
 "base": "Node2D",
 "class": "BattleBoard",
 "language": "GDScript",
-"path": "res://source/battle/board/board.gd"
+"path": "res://source/battle/gameplay/board/board.gd"
 }, {
 "base": "Area2D",
 "class": "BattleEnemyBullet",
 "language": "GDScript",
-"path": "res://source/battle/enemy_bullets/enemy_bullet.gd"
+"path": "res://source/battle/gameplay/enemy_bullet/enemy_bullet.gd"
 }, {
 "base": "Area2D",
 "class": "BattleEnemyBulletHurtbox",
 "language": "GDScript",
-"path": "res://source/battle/enemy_bullets/enemy_bullet_hurtbox.gd"
+"path": "res://source/battle/gameplay/enemy_bullet/enemy_bullet_hurtbox.gd"
 }, {
 "base": "KinematicBody2D",
 "class": "BattleHeart",
 "language": "GDScript",
-"path": "res://source/battle/player/heart/heart.gd"
+"path": "res://source/battle/gameplay/player/heart/heart.gd"
 }, {
 "base": "Area2D",
 "class": "BattleHeartBullet",
 "language": "GDScript",
-"path": "res://source/battle/player/heart_bullet/heart_bullet.gd"
+"path": "res://source/battle/gameplay/player_bullet/heart_bullet/heart_bullet.gd"
 }, {
 "base": "Area2D",
 "class": "BattleHeartBulletHurtbox",
 "language": "GDScript",
-"path": "res://source/battle/player/heart_bullet/heart_bullet_hurtbox.gd"
+"path": "res://source/battle/gameplay/player_bullet/heart_bullet_hurtbox.gd"
 }, {
 "base": "Control",
 "class": "MainScene",
 "language": "GDScript",
-"path": "res://source/game/main/main_scene.gd"
+"path": "res://source/game/main_scene/main_scene.gd"
 }, {
 "base": "Reference",
 "class": "MovementUtils",
 "language": "GDScript",
-"path": "res://source/shared/utils/movement_utils.gd"
+"path": "res://source/game/utils/movement_utils.gd"
 }, {
 "base": "Resource",
 "class": "SaveFile",
@@ -81,7 +81,7 @@ _global_script_class_icons={
 [application]
 
 config/name="ENDLESS METTATON"
-run/main_scene="res://source/game/main/main_scene.tscn"
+run/main_scene="res://source/game/main_scene/main_scene.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="inokoorii/games/endless-mettaton"
 run/delta_sync_after_draw=true
@@ -115,6 +115,10 @@ window/stretch/aspect="expand"
 [editor]
 
 scene_naming=2
+
+[editor_plugins]
+
+enabled=PoolStringArray( "res://addons/folder_nodes/plugin.cfg" )
 
 [gui]
 
