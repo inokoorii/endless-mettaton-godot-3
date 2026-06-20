@@ -112,12 +112,26 @@ func _handle_break_animation(delta: float) -> void:
 	if not Engine.editor_hint and destroyed:
 		match box_type:
 			BoxTypes.BOX_TYPE_HOLLOW:
+				movement_speed = 0.0
+				movement_direction = Vector2.ZERO
+				movement_rotation_degrees = 0.0
+				movement_rotate_velocity = false
+				
+				modulate.a -= break_fade_speed * delta
+				modulate.a = clamp(modulate.a, 0.0, 0.8)
+				
 				if is_instance_valid(box_sprite):
 					box_sprite.h_separation += break_speed * delta
 					box_sprite.v_separation += break_speed * delta
 				
-				modulate.a -= break_fade_speed * delta
-				modulate.a = clamp(modulate.a, 0.0, 0.8)
+				if is_instance_valid(box_hitbox):
+					box_hitbox.queue_free()
+				
+				if is_instance_valid(enemy_bullet_hurtbox):
+					enemy_bullet_hurtbox.queue_free()
+				
+				if is_instance_valid(heart_bullet_hurtbox):
+					heart_bullet_hurtbox.queue_free()
 				
 				if modulate.a <= 0.0:
 					queue_free()
@@ -134,20 +148,6 @@ func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int
 
 func _handle_heart_bullet_collisions() -> void:
 	if box_type == BoxTypes.BOX_TYPE_HOLLOW and not destroyed:
-		movement_speed = 0.0
-		movement_direction = Vector2.ZERO
-		movement_rotation_degrees = 0.0
-		movement_rotate_velocity = false
-		
-		if is_instance_valid(box_hitbox):
-			box_hitbox.queue_free()
-		
-		if is_instance_valid(enemy_bullet_hurtbox):
-			enemy_bullet_hurtbox.queue_free()
-		
-		if is_instance_valid(heart_bullet_hurtbox):
-			heart_bullet_hurtbox.queue_free()
-		
 		destroyed = true
 
 

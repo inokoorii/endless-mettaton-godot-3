@@ -58,16 +58,6 @@ func can_fire_bullet() -> bool:
 
 
 "CLASS PRIVATE METHODS"
-func _update_sprite_playing() -> void:
-	if not Engine.editor_hint:
-		if is_instance_valid(heart_sprite) and is_instance_valid(enemy_bullet_hurtbox):
-			if not enemy_bullet_hurtbox.on_hit_invincibility_time_left <= 0.0:
-				heart_sprite.playing = true
-			else:
-				heart_sprite.playing = false
-				heart_sprite.frame = 0
-
-
 func _handle_movement(delta: float) -> void:
 	if not Engine.editor_hint:
 		velocity = Vector2(
@@ -79,6 +69,23 @@ func _handle_movement(delta: float) -> void:
 		
 		velocity *= movement_speed
 		move_and_slide(velocity, Vector2.UP)
+
+
+func _handle_bullet_firing(delta: float) -> void:
+	if not Engine.editor_hint:
+		set_bullet_firing_cooldown_time_left(
+				bullet_firing_cooldown_time_left - delta)
+		
+		if Input.is_action_just_pressed("action_confirm") and can_fire_bullet():
+			var bullet: BattleHeartBullet = preload(str(
+					"res://source/battle/gameplay/player_bullet/heart_bullet/",
+					"heart_bullet.tscn")).instance()
+			
+			get_parent().add_child(bullet)
+			bullet.position = position + bullet_firing_offset
+			
+			bullet_firing_cooldown_time_left = bullet_firing_cooldown_time
+			emit_signal("bullet_fired", bullet)
 
 
 func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int) -> void:
@@ -100,21 +107,14 @@ func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int
 			bullet.queue_free()
 
 
-func _handle_bullet_firing(delta: float) -> void:
+func _update_sprite_playing() -> void:
 	if not Engine.editor_hint:
-		set_bullet_firing_cooldown_time_left(
-				bullet_firing_cooldown_time_left - delta)
-		
-		if Input.is_action_just_pressed("action_confirm") and can_fire_bullet():
-			var bullet: BattleHeartBullet = preload(str(
-					"res://source/battle/gameplay/player_bullet/heart_bullet/",
-					"heart_bullet.tscn")).instance()
-			
-			get_parent().add_child(bullet)
-			bullet.position = position + bullet_firing_offset
-			
-			bullet_firing_cooldown_time_left = bullet_firing_cooldown_time
-			emit_signal("bullet_fired", bullet)
+		if is_instance_valid(heart_sprite) and is_instance_valid(enemy_bullet_hurtbox):
+			if enemy_bullet_hurtbox.is_invincibility_expired():
+				heart_sprite.playing = false
+				heart_sprite.frame = 0
+			else:
+				heart_sprite.playing = true
 
 
 "CLASS PUBLIC METHODS (SETTERS)"

@@ -57,6 +57,10 @@ func is_moving() -> bool:
 			or Input.is_action_pressed("move_down"))
 
 
+func is_invincibility_expired() -> bool:
+	return on_hit_invincibility_time_left <= 0.0
+
+
 "CLASS PRIVATE METHODS"
 func _handle_collisions(area: Area2D) -> void:
 #	TODO: Fix collisions being registered more/less depending on physics tick rate.
@@ -79,7 +83,7 @@ func _handle_collisions(area: Area2D) -> void:
 				var BULLET_TYPE_NO_DAMAGE: int = \
 						BattleEnemyBullet.BulletTypes.BULLET_TYPE_NO_DAMAGE
 				
-				if on_hit_invincibility_time_left <= 0.0:
+				if is_invincibility_expired():
 					match area.bullet_type:
 						BULLET_TYPE_DAMAGE:
 							on_hit_invincibility_time_left = area.on_hit_invincibility_time

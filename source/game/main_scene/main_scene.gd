@@ -4,8 +4,8 @@ extends Control
 
 
 "CLASS REGULAR VARIABLES"
-var _last_window_size: Vector2
-var _last_window_position: Vector2
+var _pre_fullscreen_window_size: Vector2
+var _pre_fullscreen_window_position: Vector2
 
 
 "CLASS ONREADY VARIABLES"
@@ -25,8 +25,8 @@ func _input(event: InputEvent) -> void:
 		if not OS.window_fullscreen:
 #			Saving the window's position and size before entering fullscreen mode.
 #			It will be used for later.
-			_last_window_size = OS.window_size
-			_last_window_position = OS.window_position
+			_pre_fullscreen_window_size = OS.window_size
+			_pre_fullscreen_window_position = OS.window_position
 			
 			yield(get_tree(), "idle_frame")
 			OS.window_fullscreen = true
@@ -38,7 +38,6 @@ func _input(event: InputEvent) -> void:
 #			the game's main viewport width and height may get set to the
 #			monitor's resolution when exiting fullscreen mode.
 			yield(get_tree(), "idle_frame")
-			OS.window_size = _last_window_size
-			
+			OS.window_size = _pre_fullscreen_window_size
 			yield(get_tree(), "idle_frame")
-			OS.window_position = _last_window_position
+			OS.window_position = _pre_fullscreen_window_position

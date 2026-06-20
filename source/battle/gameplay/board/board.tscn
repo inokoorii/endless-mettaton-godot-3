@@ -2,16 +2,16 @@
 
 [ext_resource path="res://source/battle/gameplay/board/board.gd" type="Script" id=1]
 [ext_resource path="res://references/battle/scenes/battle/mettaton/ref_battle_mettaton.png" type="Texture" id=2]
-[ext_resource path="res://resources/battle/stylebox/board/sbox_board.tres" type="StyleBox" id=3]
+[ext_resource path="res://resources/battle/styleboxes/board/sbox_board.tres" type="StyleBox" id=3]
 
 [node name="BattleBoard" type="Node2D" groups=["BattleBoards"]]
 script = ExtResource( 1 )
 resize_mode = 0
-resize_speed = 0.0
-margin_left = -20
-margin_top = -20
-margin_bottom = 20
-margin_right = 20
+resize_speed = 480.0
+ideal_size_left = -287
+ideal_size_top = -70
+ideal_size_right = 287
+ideal_size_bottom = 70
 
 [node name="BoardPanel" type="Panel" parent="."]
 anchor_left = 0.5

@@ -3,16 +3,16 @@ extends EditorPlugin
 
 
 "PLUGIN CONSTANTS"
-const PLUGIN_PATH: String = "res://addons/folder_nodes/"
+const ADDON_PATH: String = "res://addons/folder_nodes/"
 
-const FOLDER_SCRIPT_PATH: String = PLUGIN_PATH + "source/folder.gd"
-const FOLDER_ICON_PATH: String = PLUGIN_PATH + "assets/icons/icon_folder.svg"
+const FOLDER_SCRIPT_PATH: String = ADDON_PATH + "source/folder.gd"
+const FOLDER_ICON_PATH: String = ADDON_PATH + "assets/icons/icon_folder.svg"
 
-const FOLDER_2D_SCRIPT_PATH: String = PLUGIN_PATH + "source/folder_2d.gd"
-const FOLDER_2D_ICON_PATH: String = PLUGIN_PATH + "assets/icons/icon_folder_2d.svg"
+const FOLDER_2D_SCRIPT_PATH: String = ADDON_PATH + "source/folder_2d.gd"
+const FOLDER_2D_ICON_PATH: String = ADDON_PATH + "assets/icons/icon_folder_2d.svg"
 
-const FOLDER_3D_SCRIPT_PATH: String = PLUGIN_PATH + "source/folder_3d.gd"
-const FOLDER_3D_ICON_PATH: String = PLUGIN_PATH + "assets/icons/icon_folder_3d.svg"
+const FOLDER_3D_SCRIPT_PATH: String = ADDON_PATH + "source/folder_3d.gd"
+const FOLDER_3D_ICON_PATH: String = ADDON_PATH + "assets/icons/icon_folder_3d.svg"
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"

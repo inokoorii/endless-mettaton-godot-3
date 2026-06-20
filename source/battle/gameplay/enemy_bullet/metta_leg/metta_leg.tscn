@@ -1,0 +1,42 @@
+[gd_scene load_steps=6 format=2]
+
+[ext_resource path="res://source/battle/gameplay/enemy_bullet/metta_leg/metta_leg.gd" type="Script" id=1]
+[ext_resource path="res://assets/battle/sprites/enemy_bullet/metta_leg/spr_metta_leg.png" type="Texture" id=2]
+[ext_resource path="res://source/battle/gameplay/player_bullet/heart_bullet_hurtbox.gd" type="Script" id=3]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 104, 7.5 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 104, 7.5 )
+
+[node name="MettaLeg" type="Area2D" groups=["BattleEnemyBullets", "MettaLegs"]]
+script = ExtResource( 1 )
+bullet_type = 0
+bullet_color = 0
+on_hit_damage = 1
+on_hit_heal = 0
+on_hit_invincibility_time = 1.0
+movement_speed = 0.0
+movement_direction = Vector2( 0, 0 )
+movement_rotation_degrees = 0.0
+movement_rotate_velocity = false
+
+[node name="LegSprite" type="Sprite" parent="."]
+texture = ExtResource( 2 )
+
+[node name="LegHitbox" type="CollisionShape2D" parent="."]
+position = Vector2( -4, -3.5 )
+shape = SubResource( 1 )
+
+[node name="HeartBulletHurtbox" type="Area2D" parent="." groups=["BattleHeartBulletHurtboxes"]]
+script = ExtResource( 3 )
+action = 1
+
+[node name="Hurtbox" type="CollisionShape2D" parent="HeartBulletHurtbox"]
+position = Vector2( -4, -3.5 )
+shape = SubResource( 2 )
+
+[node name="VisibilityNotifier2D" type="VisibilityNotifier2D" parent="."]
+position = Vector2( -0.999996, 1.19209e-07 )
+scale = Vector2( 10.7, 1.3 )

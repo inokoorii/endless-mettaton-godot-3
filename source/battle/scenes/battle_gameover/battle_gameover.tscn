@@ -1,0 +1,6 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://source/battle/scenes/battle_gameover/battle_gameover.gd" type="Script" id=1]
+
+[node name="BattleGameOver" type="Node2D"]
+script = ExtResource( 1 )
