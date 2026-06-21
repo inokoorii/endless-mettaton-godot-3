@@ -28,35 +28,38 @@ var action: int = Actions.ACTION_IGNORE \
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
 	add_to_group("BattleHeartBulletHurtboxes", true)
-	connect("area_entered", self, "_handle_collisions")
+	connect("area_entered", self, "_handle_bullet_collisions")
 
 
 "CLASS PRIVATE METHODS"
-func _handle_collisions(area: Area2D) -> void:
-	if area is BattleHeartBullet:
-		emit_signal("bullet_entered")
-		
-		match action:
-			Actions.ACTION_IGNORE:
-				emit_signal("bullet_entered_ignored", area)
+func _handle_bullet_collisions(area: Area2D) -> void:
+	if not area is BattleHeartBullet:
+		return
+	
+	emit_signal("bullet_entered")
+	
+	match action:
+		Actions.ACTION_IGNORE:
+			emit_signal("bullet_entered_ignored", area)
 			
-			Actions.ACTION_DESTROY_BULLET:
-				area.monitoring = false
-				area.queue_free()
-				emit_signal("bullet_entered_destroyed")
+		Actions.ACTION_DESTROY_BULLET:
+			area.monitoring = false
+			area.queue_free()
+			emit_signal("bullet_entered_destroyed")
 				
-			Actions.ACTION_DEFLECT_BULLET:
-				var bullet_deflected: Node2D = preload(str(
-						"res://source/battle/gameplay/player_bullet/heart_bullet_deflected/",
-						"heart_bullet_deflected.tscn")).instance()
-				
-				area.monitoring = false
-				area.get_parent().add_child(bullet_deflected)
-				bullet_deflected.position = area.position
-				bullet_deflected.scale = area.scale
-				
-				area.queue_free()
-				emit_signal("bullet_entered_deflected")
+		Actions.ACTION_DEFLECT_BULLET:
+			var bullet_deflected: Node2D = preload(str(
+					"res://source/battle/gameplay/player_bullet/heart_bullet_deflected/",
+					"heart_bullet_deflected.tscn")).instance()
+			
+			area.monitoring = false
+			area.get_parent().add_child(bullet_deflected)
+			
+			bullet_deflected.position = area.position
+			bullet_deflected.scale = area.scale
+			
+			area.queue_free()
+			emit_signal("bullet_entered_deflected")
 
 
 "CLASS PUBLIC METHODS (SETTERS)"
@@ -70,37 +73,33 @@ func set_action(value: int) -> void:
 func _get_property_list() -> Array:
 	var property_list: Array = []
 	
-	property_list.append_array(
-		[
-			{
-				"name": "BattleHeartBulletHurtbox",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_CATEGORY,
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "BattleHeartBulletHurtbox",
+			"type": TYPE_NIL,
+			"usage": PROPERTY_USAGE_CATEGORY,
+		},
+	])
 	
-	property_list.append_array(
-		[
-			{
-				"name": "action",
-				"type": TYPE_INT,
-				"usage": PROPERTY_USAGE_DEFAULT,
-				"hint": PROPERTY_HINT_ENUM,
-				"hint_string": "Ignore,Destroy Bullet,Deflect Bullet",
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "action",
+			"type": TYPE_INT,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": "Ignore,Destroy Bullet,Deflect Bullet",
+		},
+	])
 	
 	return property_list
 
 
 func _get_property_list_reverts() -> Dictionary:
-	var property_list: Dictionary = {
+	var property_list_reverts: Dictionary = {
 		"action": Actions.ACTION_IGNORE,
 	}
 	
-	return property_list
+	return property_list_reverts
 
 
 func property_can_revert(property: String):

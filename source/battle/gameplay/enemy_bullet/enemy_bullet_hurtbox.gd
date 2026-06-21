@@ -44,7 +44,7 @@ func _physics_process(delta: float) -> void:
 	
 	if monitoring:
 		for area in get_overlapping_areas():
-			_handle_collisions(area)
+			_handle_bullet_collisions(area)
 
 
 "CLASS PUBLIC METHODS"
@@ -57,50 +57,56 @@ func is_moving() -> bool:
 			or Input.is_action_pressed("move_down"))
 
 
-func is_invincibility_expired() -> bool:
-	return on_hit_invincibility_time_left <= 0.0
+func is_invincible() -> bool:
+	return on_hit_invincibility_time_left > 0.0
 
 
 "CLASS PRIVATE METHODS"
-func _handle_collisions(area: Area2D) -> void:
+func _handle_bullet_collisions(area: Area2D) -> void:
 #	TODO: Fix collisions being registered more/less depending on physics tick rate.
-	if not ignored_areas.has(area) and area is BattleEnemyBullet:
-		emit_signal("bullet_entered", area, area.bullet_type)
+	if ignored_areas.has(area):
+		return
+	if not area is BattleEnemyBullet:
+		return
+	
+	emit_signal("bullet_entered", area, area.bullet_type)
+	
+	match action:
+		Actions.ACTION_IGNORE:
+			emit_signal("bullet_entered_ignored", area, area.bullet_type)
 		
-		match action:
-			Actions.ACTION_IGNORE:
-				emit_signal("bullet_entered_ignored", area, area.bullet_type)
+		Actions.ACTION_PROCESS_BULLET:
+			var BULLET_TYPE_DAMAGE: int = \
+					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE
+			var BULLET_TYPE_DAMAGE_ON_IDLE: int = \
+					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE
+			var BULLET_TYPE_DAMAGE_ON_MOVE: int = \
+					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE
+			var BULLET_TYPE_HEAL: int = \
+					BattleEnemyBullet.BulletTypes.BULLET_TYPE_HEAL
+			var BULLET_TYPE_NO_DAMAGE: int = \
+					BattleEnemyBullet.BulletTypes.BULLET_TYPE_NO_DAMAGE
 			
-			Actions.ACTION_PROCESS_BULLET:
-				var BULLET_TYPE_DAMAGE: int = \
-						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE
-				var BULLET_TYPE_DAMAGE_ON_IDLE: int = \
-						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE
-				var BULLET_TYPE_DAMAGE_ON_MOVE: int = \
-						BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE
-				var BULLET_TYPE_HEAL: int = \
-						BattleEnemyBullet.BulletTypes.BULLET_TYPE_HEAL
-				var BULLET_TYPE_NO_DAMAGE: int = \
-						BattleEnemyBullet.BulletTypes.BULLET_TYPE_NO_DAMAGE
+			if is_invincible():
+				return
+			
+			match area.bullet_type:
+				BULLET_TYPE_DAMAGE:
+					on_hit_invincibility_time_left = area.on_hit_invincibility_time
+					emit_signal("bullet_entered_processed", area, area.bullet_type)
 				
-				if is_invincibility_expired():
-					match area.bullet_type:
-						BULLET_TYPE_DAMAGE:
-							on_hit_invincibility_time_left = area.on_hit_invincibility_time
-							emit_signal("bullet_entered_processed", area, area.bullet_type)
-						
-						BULLET_TYPE_DAMAGE_ON_IDLE:
-							if is_moving():
-								on_hit_invincibility_time_left = area.on_hit_invincibility_time
-								emit_signal("bullet_entered_processed", area, area.bullet_type)
-						
-						BULLET_TYPE_DAMAGE_ON_MOVE:
-							if not is_moving():
-								on_hit_invincibility_time_left = area.on_hit_invincibility_time
-								emit_signal("bullet_entered_processed", area, area.bullet_type)
-						
-						BULLET_TYPE_HEAL, BULLET_TYPE_NO_DAMAGE:
-							emit_signal("bullet_entered_processed", area, area.bullet_type)
+				BULLET_TYPE_DAMAGE_ON_IDLE:
+					if is_moving():
+						on_hit_invincibility_time_left = area.on_hit_invincibility_time
+						emit_signal("bullet_entered_processed", area, area.bullet_type)
+				
+				BULLET_TYPE_DAMAGE_ON_MOVE:
+					if not is_moving():
+						on_hit_invincibility_time_left = area.on_hit_invincibility_time
+						emit_signal("bullet_entered_processed", area, area.bullet_type)
+				
+				BULLET_TYPE_HEAL, BULLET_TYPE_NO_DAMAGE:
+					emit_signal("bullet_entered_processed", area, area.bullet_type)
 
 
 "CLASS PUBLIC METHODS (SETTERS)"
@@ -119,37 +125,33 @@ func set_on_hit_invincibility_time_left(value: float) -> void:
 func _get_property_list() -> Array:
 	var property_list: Array = []
 	
-	property_list.append_array(
-		[
-			{
-				"name": "BattleEnemyBulletHurtbox",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_CATEGORY,
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "BattleEnemyBulletHurtbox",
+			"type": TYPE_NIL,
+			"usage": PROPERTY_USAGE_CATEGORY,
+		},
+	])
 	
-	property_list.append_array(
-		[
-			{
-				"name": "action",
-				"type": TYPE_INT,
-				"usage": PROPERTY_USAGE_DEFAULT,
-				"hint": PROPERTY_HINT_ENUM,
-				"hint_string": "Ignore,Process Bullet",
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "action",
+			"type": TYPE_INT,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": "Ignore,Process Bullet",
+		},
+	])
 	
 	return property_list
 
 
 func _get_property_list_reverts() -> Dictionary:
-	var property_list: Dictionary = {
+	var property_list_reverts: Dictionary = {
 		"action": Actions.ACTION_IGNORE,
 	}
 	
-	return property_list
+	return property_list_reverts
 
 
 func property_can_revert(property: String):

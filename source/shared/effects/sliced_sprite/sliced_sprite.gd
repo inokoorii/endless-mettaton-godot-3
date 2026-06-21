@@ -1,4 +1,3 @@
-# TODO: Refactor/clean this up at some point.
 tool
 class_name SlicedSprite
 extends Node2D
@@ -74,46 +73,46 @@ func _update_sprite_region_rects() -> void:
 			if is_instance_valid(sprite):
 				sprite.region_rect.size = Vector2.ZERO
 				sprite.region_rect.position = Vector2.ZERO
+		return
+	
+	var texture_width: int = (texture.get_width() / 2.0) as int
+	var texture_height: int = (texture.get_height() / 2.0) as int
+	
+	if is_instance_valid(top_left):
+		top_left.region_rect.size = Vector2(texture_width, texture_height)
+		top_left.region_rect.position = Vector2.ZERO
+	
+		if flip_h:
+			top_left.region_rect.position.x = texture_width
+		if flip_v:
+			top_left.region_rect.position.y = texture_height
+	
+	if is_instance_valid(top_right):
+		top_right.region_rect.size = Vector2(texture_width, texture_height)
+		top_right.region_rect.position = Vector2(texture_width, 0.0)
 		
-	else:
-		var texture_width: int = (texture.get_width() / 2.0) as int
-		var texture_height: int = (texture.get_height() / 2.0) as int
+		if flip_h:
+			top_right.region_rect.position.x = 0.0
+		if flip_v:
+			top_right.region_rect.position.y = texture_height
+	
+	if is_instance_valid(bottom_left):
+		bottom_left.region_rect.size = Vector2(texture_width, texture_height)
+		bottom_left.region_rect.position = Vector2(0.0, texture_height)
 		
-		if is_instance_valid(top_left):
-			top_left.region_rect.size = Vector2(texture_width, texture_height)
-			top_left.region_rect.position = Vector2.ZERO
-			
-			if flip_h:
-				top_left.region_rect.position.x = texture_width
-			if flip_v:
-				top_left.region_rect.position.y = texture_height
+		if flip_h:
+			bottom_left.region_rect.position.x = texture_width
+		if flip_v:
+			bottom_left.region_rect.position.y = 0.0
+	
+	if is_instance_valid(bottom_right):
+		bottom_right.region_rect.size = Vector2(texture_width, texture_height)
+		bottom_right.region_rect.position = Vector2(texture_width, texture_height)
 		
-		if is_instance_valid(top_right):
-			top_right.region_rect.size = Vector2(texture_width, texture_height)
-			top_right.region_rect.position = Vector2(texture_width, 0.0)
-			
-			if flip_h:
-				top_right.region_rect.position.x = 0.0
-			if flip_v:
-				top_right.region_rect.position.y = texture_height
-		
-		if is_instance_valid(bottom_left):
-			bottom_left.region_rect.size = Vector2(texture_width, texture_height)
-			bottom_left.region_rect.position = Vector2(0.0, texture_height)
-			
-			if flip_h:
-				bottom_left.region_rect.position.x = texture_width
-			if flip_v:
-				bottom_left.region_rect.position.y = 0.0
-		
-		if is_instance_valid(bottom_right):
-			bottom_right.region_rect.size = Vector2(texture_width, texture_height)
-			bottom_right.region_rect.position = Vector2(texture_width, texture_height)
-			
-			if flip_h:
-				bottom_right.region_rect.position.x = 0.0
-			if flip_v:
-				bottom_right.region_rect.position.y = 0.0
+		if flip_h:
+			bottom_right.region_rect.position.x = 0.0
+		if flip_v:
+			bottom_right.region_rect.position.y = 0.0
 
 
 func _update_sprite_positions() -> void:
@@ -121,30 +120,30 @@ func _update_sprite_positions() -> void:
 		for sprite in [top_left, top_right, bottom_left, bottom_right]:
 			if is_instance_valid(sprite):
 				sprite.position = Vector2.ZERO
-		
-	else:
-		var texture_width: float = texture.get_width() / 4.0
-		var texture_height: float = texture.get_height() / 4.0
-		
-		if is_instance_valid(top_left):
-			top_left.position = Vector2(
-					ceil(-texture_width) - h_separation,
-					ceil(-texture_height) - v_separation)
-		
-		if is_instance_valid(top_right):
-			top_right.position = Vector2(
-					ceil(texture_width) + h_separation,
-					ceil(-texture_height) - v_separation)
-		
-		if is_instance_valid(bottom_left):
-			bottom_left.position = Vector2(
-					ceil(-texture_width) - h_separation,
-					ceil(texture_height) + v_separation)
-		
-		if is_instance_valid(bottom_right):
-			bottom_right.position = Vector2(
-					ceil(texture_width) + h_separation,
-					ceil(texture_height) + v_separation)
+		return
+	
+	var texture_width: float = texture.get_width() / 4.0
+	var texture_height: float = texture.get_height() / 4.0
+	
+	if is_instance_valid(top_left):
+		top_left.position = Vector2(
+				ceil(-texture_width) - h_separation,
+				ceil(-texture_height) - v_separation)
+	
+	if is_instance_valid(top_right):
+		top_right.position = Vector2(
+				ceil(texture_width) + h_separation,
+				ceil(-texture_height) - v_separation)
+	
+	if is_instance_valid(bottom_left):
+		bottom_left.position = Vector2(
+				ceil(-texture_width) - h_separation,
+				ceil(texture_height) + v_separation)
+	
+	if is_instance_valid(bottom_right):
+		bottom_right.position = Vector2(
+				ceil(texture_width) + h_separation,
+				ceil(texture_height) + v_separation)
 
 
 "CLASS PUBLIC METHODS (SETTERS)"
@@ -192,85 +191,77 @@ func set_v_separation(value: float) -> void:
 func _get_property_list() -> Array:
 	var property_list: Array = []
 
-	property_list.append_array(
-		[
-			{
-				"name": "SlicedSprite",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_CATEGORY,
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "SlicedSprite",
+			"type": TYPE_NIL,
+			"usage": PROPERTY_USAGE_CATEGORY,
+		},
+	])
 	
-	property_list.append_array(
-		[
-			{
-				"name": "texture",
-				"type": TYPE_OBJECT,
-				"usage": PROPERTY_USAGE_DEFAULT,
-				"hint": PROPERTY_HINT_RESOURCE_TYPE,
-				"hint_string": "Texture",
-			},
-			{
-				"name": "normal_map",
-				"type": TYPE_OBJECT,
-				"usage": PROPERTY_USAGE_DEFAULT,
-				"hint": PROPERTY_HINT_RESOURCE_TYPE,
-				"hint_string": "Texture",
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "texture",
+			"type": TYPE_OBJECT,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_RESOURCE_TYPE,
+			"hint_string": "Texture",
+		},
+		{
+			"name": "normal_map",
+			"type": TYPE_OBJECT,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_RESOURCE_TYPE,
+			"hint_string": "Texture",
+		},
+	])
 	
-	property_list.append_array(
-		[
-			{
-				"name": "Offset",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_GROUP,
-			},
-			{
-				"name": "offset",
-				"type": TYPE_VECTOR2,
-				"usage": PROPERTY_USAGE_DEFAULT,
-			},
-			{
-				"name": "flip_h",
-				"type": TYPE_BOOL,
-				"usage": PROPERTY_USAGE_DEFAULT,
-			},
-			{
-				"name": "flip_v",
-				"type": TYPE_BOOL,
-				"usage": PROPERTY_USAGE_DEFAULT,
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "Offset",
+			"type": TYPE_NIL,
+			"usage": PROPERTY_USAGE_GROUP,
+		},
+		{
+			"name": "offset",
+			"type": TYPE_VECTOR2,
+			"usage": PROPERTY_USAGE_DEFAULT,
+		},
+		{
+			"name": "flip_h",
+			"type": TYPE_BOOL,
+			"usage": PROPERTY_USAGE_DEFAULT,
+		},
+		{
+			"name": "flip_v",
+			"type": TYPE_BOOL,
+			"usage": PROPERTY_USAGE_DEFAULT,
+		},
+	])
 	
-	property_list.append_array(
-		[
-			{
-				"name": "Separation",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_GROUP,
-			},
-			{
-				"name": "h_separation",
-				"type": TYPE_REAL,
-				"usage": PROPERTY_USAGE_DEFAULT,
-			},
-			{
-				"name": "v_separation",
-				"type": TYPE_REAL,
-				"usage": PROPERTY_USAGE_DEFAULT,
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "Separation",
+			"type": TYPE_NIL,
+			"usage": PROPERTY_USAGE_GROUP,
+		},
+		{
+			"name": "h_separation",
+			"type": TYPE_REAL,
+			"usage": PROPERTY_USAGE_DEFAULT,
+		},
+		{
+			"name": "v_separation",
+			"type": TYPE_REAL,
+			"usage": PROPERTY_USAGE_DEFAULT,
+		},
+	])
 	
 	return property_list
 
 
 func _get_property_list_reverts() -> Dictionary:
-	var property_list: Dictionary = {
+	var property_list_reverts: Dictionary = {
 		"texture": null,
 		"normal_map": null,
 		"offset": Vector2.ZERO,
@@ -280,7 +271,7 @@ func _get_property_list_reverts() -> Dictionary:
 		"v_separation": 0.0,
 	}
 	
-	return property_list
+	return property_list_reverts
 
 
 func property_can_revert(property: String):

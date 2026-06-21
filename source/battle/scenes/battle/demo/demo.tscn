@@ -1,13 +1,14 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://source/battle/gameplay/enemy_bullet/metta_plus_bomb/metta_plus_bomb.tscn" type="PackedScene" id=1]
+[ext_resource path="res://source/battle/gameplay/enemy_bullet/metta_box/metta_box.tscn" type="PackedScene" id=2]
 [ext_resource path="res://source/battle/scenes/battle/battle.tscn" type="PackedScene" id=5]
 [ext_resource path="res://source/battle/scenes/battle/demo/demo.gd" type="Script" id=6]
 
 [node name="Demo" instance=ExtResource( 5 )]
 script = ExtResource( 6 )
 
-[node name="EnemyBullets" parent="." index="3"]
+[node name="EnemyBullets" parent="." index="4"]
 position = Vector2( 0, -40 )
 
 [node name="MettaPlusBomb" parent="EnemyBullets" index="0" instance=ExtResource( 1 )]
@@ -35,3 +36,22 @@ position = Vector2( 0, -48 )
 
 [node name="MettaPlusBomb9" parent="EnemyBullets" index="8" instance=ExtResource( 1 )]
 position = Vector2( 24, -48 )
+
+[node name="MettaBox" parent="EnemyBullets" index="9" instance=ExtResource( 2 )]
+position = Vector2( 0, 32 )
+box_type = 1
+
+[node name="MettaBox2" parent="EnemyBullets" index="10" instance=ExtResource( 2 )]
+position = Vector2( -48, 72 )
+
+[node name="MettaBox3" parent="EnemyBullets" index="11" instance=ExtResource( 2 )]
+position = Vector2( -24, 72 )
+
+[node name="MettaBox4" parent="EnemyBullets" index="12" instance=ExtResource( 2 )]
+position = Vector2( 0, 72 )
+
+[node name="MettaBox5" parent="EnemyBullets" index="13" instance=ExtResource( 2 )]
+position = Vector2( 24, 72 )
+
+[node name="MettaBox6" parent="EnemyBullets" index="14" instance=ExtResource( 2 )]
+position = Vector2( 48, 72 )

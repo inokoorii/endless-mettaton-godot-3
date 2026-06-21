@@ -25,48 +25,54 @@ func _ready() -> void:
 	add_to_group("MettaPlusBombBlasts", true)
 	
 	if is_instance_valid(blast_sprite_center):
-		blast_sprite_center.connect("frame_changed", self, "_update_sprite_textures")
-		blast_sprite_center.connect("animation_finished", self, "_handle_cleanup")
+		blast_sprite_center.connect("frame_changed", self, "_update_blast_sprite_textures")
+		blast_sprite_center.connect("animation_finished", self, "_handle_node_cleanup")
 		
 		if not Engine.editor_hint:
 			blast_sprite_center.play("blast_center")
 
 
 func _physics_process(delta: float) -> void:
-	_update_hitboxes_disabled()
+	_update_blast_hitboxes_disabled()
 
 
 "SCRIPT PRIVATE METHODS"
-func _update_sprite_textures() -> void:
-	if is_instance_valid(blast_sprite_center):
-		var texture: StreamTexture = load(str(
-				"res://assets/battle/sprites/enemy_bullet/metta_plus_bomb_blast/",
-				"spr_metta_plus_bomb_blast_%s.png" % blast_sprite_center.frame))
+func _update_blast_sprite_textures() -> void:
+	if not is_instance_valid(blast_sprite_center):
+		return
+	
+	var blast_texture: StreamTexture = load(str(
+			"res://assets/battle/sprites/enemy_bullet/metta_plus_bomb_blast/",
+			"spr_metta_plus_bomb_blast_%s.png" % blast_sprite_center.frame))
+	
+	if is_instance_valid(blast_sprite_horizontal_left):
+		blast_sprite_horizontal_left.texture = blast_texture
 		
-		if is_instance_valid(blast_sprite_horizontal_left):
-			blast_sprite_horizontal_left.texture = texture
-		
-		if is_instance_valid(blast_sprite_horizontal_right):
-			blast_sprite_horizontal_right.texture = texture
-		
-		if is_instance_valid(blast_sprite_vertical_top):
-			blast_sprite_vertical_top.texture = texture
-		
-		if is_instance_valid(blast_sprite_vertical_bottom):
-			blast_sprite_vertical_bottom.texture = texture
+	if is_instance_valid(blast_sprite_horizontal_right):
+		blast_sprite_horizontal_right.texture = blast_texture
+	
+	if is_instance_valid(blast_sprite_vertical_top):
+		blast_sprite_vertical_top.texture = blast_texture
+	
+	if is_instance_valid(blast_sprite_vertical_bottom):
+		blast_sprite_vertical_bottom.texture = blast_texture
 
 
-func _update_hitboxes_disabled() -> void:
-	if is_instance_valid(blast_sprite_center):
-		var disabled: bool = blast_sprite_center.frame != 2
-		
-		if is_instance_valid(blast_hitbox_horizontal):
-			blast_hitbox_horizontal.disabled = disabled
-		
-		if is_instance_valid(blast_hitbox_vertical):
-			blast_hitbox_vertical.disabled = disabled
+func _update_blast_hitboxes_disabled() -> void:
+	if not is_instance_valid(blast_sprite_center):
+		return
+	
+	var is_damage_frame: bool = blast_sprite_center.frame != 2
+	
+	if is_instance_valid(blast_hitbox_horizontal):
+		blast_hitbox_horizontal.disabled = is_damage_frame
+	
+	if is_instance_valid(blast_hitbox_vertical):
+		blast_hitbox_vertical.disabled = is_damage_frame
 
 
-func _handle_cleanup() -> void:
-	if not Engine.editor_hint:
-		queue_free()
+func _handle_node_cleanup() -> void:
+	if Engine.editor_hint:
+		return
+	
+	queue_free()

@@ -37,56 +37,69 @@ func _ready() -> void:
 	_update_hud_health_bar()
 	_update_hud_health_text()
 	
-	if not Engine.editor_hint:
-		if is_instance_valid(SaveFileManager.file):
-			SaveFileManager.file.connect("player_name_changed", self, "_update_hud_name")
-		
-		BattleGlobals.connect("max_health_changed", self, "_update_hud_health_bar")
-		BattleGlobals.connect("health_changed", self, "_update_hud_health_bar")
-		BattleGlobals.connect("max_health_changed", self, "_update_hud_health_text")
-		BattleGlobals.connect("health_changed", self, "_update_hud_health_text")
+	if Engine.editor_hint:
+		return
+	
+	if is_instance_valid(SaveFileManager.file):
+		SaveFileManager.file.connect("player_name_changed", self, "_update_hud_name")
+	
+	BattleGlobals.connect("max_health_changed", self, "_update_hud_health_bar")
+	BattleGlobals.connect("health_changed", self, "_update_hud_health_bar")
+	BattleGlobals.connect("max_health_changed", self, "_update_hud_health_text")
+	BattleGlobals.connect("health_changed", self, "_update_hud_health_text")
 
 
 "SCRIPT PRIVATE METHODS"
 func _update_hud_name() -> void:
-	if not Engine.editor_hint:
-		if is_instance_valid(hud_name) and is_instance_valid(SaveFileManager.file):
-			hud_name.text = "%s   LV 1" % SaveFileManager.file.player_name
+	if Engine.editor_hint:
+		return
+	if not is_instance_valid(hud_name) or not is_instance_valid(SaveFileManager.file):
+		return
+	
+	hud_name.text = "%s   LV 1" % SaveFileManager.file.player_name
 
 
 func _update_hud_health_bar() -> void:
-	if not Engine.editor_hint and is_instance_valid(hud_health_bar):
-		hud_health_bar.max_value = BattleGlobals.max_health
-		hud_health_bar.value = BattleGlobals.health
+	if Engine.editor_hint:
+		return
+	if not is_instance_valid(hud_health_bar):
+		return
+	
+	hud_health_bar.max_value = BattleGlobals.max_health
+	hud_health_bar.value = BattleGlobals.health
 
 
 func _update_hud_health_text() -> void:
-	if not Engine.editor_hint and is_instance_valid(hud_health_text):
-		match health_text_padding_mode:
-			HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS:
-				hud_health_text.text = "%02d / %02d" % [
-					BattleGlobals.health,
-					BattleGlobals.max_health,
-				]
-			
-			HealthTextPaddingModes.PADDING_MODE_TO_MAX_HEALTH_DIGITS:
-				hud_health_text.text = "%0*d / %02d" % [
-					max(2, str(BattleGlobals.max_health).length()) as int,
-					BattleGlobals.health,
-					BattleGlobals.max_health
-				]
-			
-			HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
-				hud_health_text.text = "%s / %s" % [
-					str(BattleGlobals.health).pad_zeros(health_text_padding_custom_length),
-					str(BattleGlobals.max_health).pad_zeros(health_text_padding_custom_length),
-				]
-			
-			HealthTextPaddingModes.PADDING_MODE_NONE:
-				hud_health_text.text = "%d / %d" % [
-					BattleGlobals.health,
-					BattleGlobals.max_health,
-				]
+	if Engine.editor_hint:
+		return
+	if not is_instance_valid(hud_health_text):
+		return
+	
+	match health_text_padding_mode:
+		HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS:
+			hud_health_text.text = "%02d / %02d" % [
+				BattleGlobals.health,
+				BattleGlobals.max_health,
+			]
+		
+		HealthTextPaddingModes.PADDING_MODE_TO_MAX_HEALTH_DIGITS:
+			hud_health_text.text = "%0*d / %02d" % [
+				max(2, str(BattleGlobals.max_health).length()) as int,
+				BattleGlobals.health,
+				BattleGlobals.max_health
+			]
+		
+		HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
+			hud_health_text.text = "%s / %s" % [
+				str(BattleGlobals.health).pad_zeros(health_text_padding_custom_length),
+				str(BattleGlobals.max_health).pad_zeros(health_text_padding_custom_length),
+			]
+		
+		HealthTextPaddingModes.PADDING_MODE_NONE:
+			hud_health_text.text = "%d / %d" % [
+				BattleGlobals.health,
+				BattleGlobals.max_health,
+			]
 
 
 "SCRIPT PUBLIC METHODS (SETTERS)"
@@ -110,54 +123,49 @@ func set_health_text_padding_custom_length(value: int) -> void:
 func _get_property_list() -> Array:
 	var property_list: Array = []
 	
-	property_list.append_array(
-		[
-			{
-				"name": "BattleUI",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_CATEGORY,
-			},
-		]
-	)
+	property_list.append_array([
+		{
+			"name": "BattleUI",
+			"type": TYPE_NIL,
+			"usage": PROPERTY_USAGE_CATEGORY,
+		},
+	])
 	
-	property_list.append_array(
-		[
+	property_list.append_array([
+		{
+			"name": "Health Text",
+			"type": TYPE_NIL,
+			"usage": PROPERTY_USAGE_GROUP,
+			"hint_string": "health_text",
+		},
+		{
+			"name": "health_text_padding_mode",
+			"type": TYPE_INT,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_ENUM,
+			"hint_string": "To Two Digits,To Max Health Digits,To Custom Length,None",
+		},
+	])
+	
+	if health_text_padding_mode == HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
+		property_list.append_array([
 			{
-				"name": "Health Text",
-				"type": TYPE_NIL,
-				"usage": PROPERTY_USAGE_GROUP,
-				"hint_string": "health_text",
-			},
-			{
-				"name": "health_text_padding_mode",
+				"name": "health_text_padding_custom_length",
 				"type": TYPE_INT,
 				"usage": PROPERTY_USAGE_DEFAULT,
-				"hint": PROPERTY_HINT_ENUM,
-				"hint_string": "To Two Digits,To Max Health Digits,To Custom Length,None",
-			},
-		]
-	)
-	if health_text_padding_mode == HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
-		property_list.append_array(
-			[
-				{
-					"name": "health_text_padding_custom_length",
-					"type": TYPE_INT,
-					"usage": PROPERTY_USAGE_DEFAULT,
-				},
-			]
-		)
+			}
+		])
 	
 	return property_list
 
 
 func _get_property_list_reverts() -> Dictionary:
-	var property_list: Dictionary = {
+	var property_list_reverts: Dictionary = {
 		"health_text_padding_mode": HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS,
 		"health_text_padding_custom_length": 0,
 	}
 	
-	return property_list
+	return property_list_reverts
 
 
 func property_can_revert(property: String):

@@ -1,15 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://source/battle/gameplay/board/board.gd" type="Script" id=1]
 [ext_resource path="res://references/battle/scenes/battle/mettaton/ref_battle_mettaton.png" type="Texture" id=2]
 [ext_resource path="res://resources/battle/styleboxes/board/sbox_board.tres" type="StyleBox" id=3]
+[ext_resource path="res://addons/folder_nodes/source/folder_2d.gd" type="Script" id=4]
 
 [node name="BattleBoard" type="Node2D" groups=["BattleBoards"]]
 script = ExtResource( 1 )
 resize_mode = 0
 resize_speed = 480.0
-ideal_size_left = -287
-ideal_size_top = -70
+ideal_size_left = 287
+ideal_size_top = 70
 ideal_size_right = 287
 ideal_size_bottom = 70
 
@@ -24,6 +25,17 @@ margin_right = 287.5
 margin_bottom = 70.0
 rect_min_size = Vector2( 26, 26 )
 custom_styles/panel = ExtResource( 3 )
+
+[node name="BoardColliders" type="Node2D" parent="."]
+script = ExtResource( 4 )
+
+[node name="Left" type="StaticBody2D" parent="BoardColliders"]
+
+[node name="Top" type="StaticBody2D" parent="BoardColliders"]
+
+[node name="Right" type="StaticBody2D" parent="BoardColliders"]
+
+[node name="Bottom" type="StaticBody2D" parent="BoardColliders"]
 
 [node name="Reference" type="Sprite" parent="."]
 visible = false

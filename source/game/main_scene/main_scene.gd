@@ -11,7 +11,6 @@ var _pre_fullscreen_window_position: Vector2
 "CLASS ONREADY VARIABLES"
 onready var clear_color: ColorRect = \
 		get_node_or_null("ClearColor")
-
 onready var game_viewport_container: ViewportContainer = \
 		get_node_or_null("GameViewportContainer")
 onready var game_viewport: Viewport = \
@@ -35,8 +34,8 @@ func _input(event: InputEvent) -> void:
 			OS.window_fullscreen = false
 			
 #			Hacky workaround/fix for a bug I've encountered on Linux where
-#			the game's main viewport width and height may get set to the
-#			monitor's resolution when exiting fullscreen mode.
+#			the game's main viewport width and height may not return to their
+#			initial values when exiting fullscreen mode.
 			yield(get_tree(), "idle_frame")
 			OS.window_size = _pre_fullscreen_window_size
 			yield(get_tree(), "idle_frame")
