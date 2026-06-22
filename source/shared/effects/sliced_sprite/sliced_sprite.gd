@@ -146,7 +146,7 @@ func _update_sprite_positions() -> void:
 				ceil(texture_height) + v_separation)
 
 
-"CLASS PUBLIC METHODS (SETTERS)"
+"CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_texture(value: Texture) -> void:
 	texture = value
 	emit_signal("texture_changed")

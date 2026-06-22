@@ -109,7 +109,7 @@ func _handle_bullet_collisions(area: Area2D) -> void:
 					emit_signal("bullet_entered_processed", area, area.bullet_type)
 
 
-"CLASS PUBLIC METHODS (SETTERS)"
+"CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_action(value: int) -> void:
 	action = value
 	action = clamp(action, 0, Actions.size() - 1) as int

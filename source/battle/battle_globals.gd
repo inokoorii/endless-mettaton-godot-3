@@ -19,7 +19,7 @@ var health: int = 4 \
 		setget set_health
 
 
-"AUTOLOAD PUBLIC METHODS (SETTERS)"
+"AUTOLOAD PUBLIC METHODS (PROPERTY SETTERS)"
 func set_max_health(value: int) -> void:
 	var previous_max_health: int = max_health
 	

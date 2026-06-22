@@ -122,7 +122,7 @@ func _update_heart_sprite_playing() -> void:
 		heart_sprite.frame = 0
 
 
-"CLASS PUBLIC METHODS (SETTERS)"
+"CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_movement_speed(value: float) -> void:
 	movement_speed = value
 	movement_speed = clamp(movement_speed, 0.0, INF)

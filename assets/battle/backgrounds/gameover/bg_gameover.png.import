@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/spr_gameover.png-d8b4c1daf1c6e605f7752d9185cd9f09.stex"
+path="res://.import/bg_gameover.png-5fb1952c9d31ad23bc7b1f8018e86b9f.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/battle/sprites/gameover/spr_gameover.png"
-dest_files=[ "res://.import/spr_gameover.png-d8b4c1daf1c6e605f7752d9185cd9f09.stex" ]
+source_file="res://assets/battle/backgrounds/gameover/bg_gameover.png"
+dest_files=[ "res://.import/bg_gameover.png-5fb1952c9d31ad23bc7b1f8018e86b9f.stex" ]
 
 [params]
 

@@ -102,7 +102,7 @@ func _update_hud_health_text() -> void:
 			]
 
 
-"SCRIPT PUBLIC METHODS (SETTERS)"
+"SCRIPT PUBLIC METHODS (PROPERTY SETTERS)"
 func set_health_text_padding_mode(value: int) -> void:
 	health_text_padding_mode = value
 	health_text_padding_mode = clamp(

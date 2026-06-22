@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://source/battle/gameplay/board/board_background.gd" type="Script" id=1]
+[ext_resource path="res://resources/battle/styleboxes/board/sbox_board_bg.tres" type="StyleBox" id=2]
+
+[node name="BattleBoardBackground" type="Node2D"]
+script = ExtResource( 1 )
+board = NodePath("")
+
+[node name="Background" type="Panel" parent="."]
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+margin_left = -20.0
+margin_top = -20.0
+margin_right = 20.0
+margin_bottom = 20.0
+custom_styles/panel = ExtResource( 2 )

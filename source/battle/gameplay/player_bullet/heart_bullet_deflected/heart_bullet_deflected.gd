@@ -74,7 +74,7 @@ func _handle_node_cleanup() -> void:
 	queue_free()
 
 
-"SCRIPT PUBLIC METHODS (SETTERS)"
+"SCRIPT PUBLIC METHODS (PROPERTY SETTERS)"
 func set_movement_speed(value: float) -> void:
 	movement_speed = value
 	movement_speed = clamp(movement_speed, 0.0, INF)

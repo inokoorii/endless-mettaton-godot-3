@@ -92,7 +92,7 @@ func _handle_bullet_movement(delta: float) -> void:
 	rotation_degrees += movement_rotation_degrees * delta
 
 
-"CLASS PUBLIC METHODS (SETTERS)"
+"CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_bullet_type(value: int) -> void:
 	bullet_type = value
 	bullet_type = clamp(bullet_type, 0, BulletTypes.size() - 1) as int

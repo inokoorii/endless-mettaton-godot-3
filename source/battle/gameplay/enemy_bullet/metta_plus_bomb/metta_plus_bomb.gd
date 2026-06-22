@@ -79,7 +79,7 @@ func _handle_node_cleanup() -> void:
 	queue_free()
 
 
-"SCRIPT PUBLIC METHODS (SETTERS)"
+"SCRIPT PUBLIC METHODS (PROPERTY SETTERS)"
 func set_explosion_time(value: float) -> void:
 	explosion_time = value
 	explosion_time = clamp(explosion_time, 0.0, INF)

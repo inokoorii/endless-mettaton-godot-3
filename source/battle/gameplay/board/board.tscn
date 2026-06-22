@@ -1,9 +1,22 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://source/battle/gameplay/board/board.gd" type="Script" id=1]
 [ext_resource path="res://references/battle/scenes/battle/mettaton/ref_battle_mettaton.png" type="Texture" id=2]
-[ext_resource path="res://resources/battle/styleboxes/board/sbox_board.tres" type="StyleBox" id=3]
+[ext_resource path="res://resources/battle/styleboxes/board/sbox_board_border.tres" type="StyleBox" id=3]
 [ext_resource path="res://addons/folder_nodes/source/folder_2d.gd" type="Script" id=4]
+[ext_resource path="res://icon.png" type="Texture" id=5]
+
+[sub_resource type="RectangleShape2D" id=1]
+extents = Vector2( 960, 1280 )
+
+[sub_resource type="RectangleShape2D" id=2]
+extents = Vector2( 1280, 960 )
+
+[sub_resource type="RectangleShape2D" id=3]
+extents = Vector2( 960, 1280 )
+
+[sub_resource type="RectangleShape2D" id=4]
+extents = Vector2( 1280, 960 )
 
 [node name="BattleBoard" type="Node2D" groups=["BattleBoards"]]
 script = ExtResource( 1 )
@@ -13,29 +26,73 @@ ideal_size_left = 287
 ideal_size_top = 70
 ideal_size_right = 287
 ideal_size_bottom = 70
+collider_offset_left = 5
+collider_offset_top = 5
+collider_offset_right = 5
+collider_offset_bottom = 5
+anchor_markers_visible = false
+anchor_markers_modulate = Color( 1, 1, 1, 1 )
 
 [node name="BoardPanel" type="Panel" parent="."]
 anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-margin_left = -287.5
+margin_left = -287.0
 margin_top = -70.0
-margin_right = 287.5
+margin_right = 287.0
 margin_bottom = 70.0
 rect_min_size = Vector2( 26, 26 )
+rect_pivot_offset = Vector2( 287, 70 )
 custom_styles/panel = ExtResource( 3 )
 
-[node name="BoardColliders" type="Node2D" parent="."]
+[node name="BoardColliders" type="StaticBody2D" parent="BoardPanel"]
+physics_interpolation_mode = 2
+visible = false
+
+[node name="Left" type="CollisionShape2D" parent="BoardPanel/BoardColliders"]
+position = Vector2( -955, 70 )
+shape = SubResource( 1 )
+
+[node name="Top" type="CollisionShape2D" parent="BoardPanel/BoardColliders"]
+position = Vector2( 287, -955 )
+shape = SubResource( 2 )
+
+[node name="Right" type="CollisionShape2D" parent="BoardPanel/BoardColliders"]
+position = Vector2( 1529, 70 )
+shape = SubResource( 3 )
+
+[node name="Bottom" type="CollisionShape2D" parent="BoardPanel/BoardColliders"]
+position = Vector2( 287, 1095 )
+shape = SubResource( 4 )
+
+[node name="AnchorMarkers" type="Node2D" parent="BoardPanel"]
+visible = false
 script = ExtResource( 4 )
 
-[node name="Left" type="StaticBody2D" parent="BoardColliders"]
+[node name="TopLeft" type="Sprite" parent="BoardPanel/AnchorMarkers"]
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
 
-[node name="Top" type="StaticBody2D" parent="BoardColliders"]
+[node name="TopRight" type="Sprite" parent="BoardPanel/AnchorMarkers"]
+position = Vector2( 574, 0 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
 
-[node name="Right" type="StaticBody2D" parent="BoardColliders"]
+[node name="Center" type="Sprite" parent="BoardPanel/AnchorMarkers"]
+position = Vector2( 287, 70 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
 
-[node name="Bottom" type="StaticBody2D" parent="BoardColliders"]
+[node name="BottomLeft" type="Sprite" parent="BoardPanel/AnchorMarkers"]
+position = Vector2( 0, 140 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
+
+[node name="BottomRight" type="Sprite" parent="BoardPanel/AnchorMarkers"]
+position = Vector2( 574, 140 )
+scale = Vector2( 0.5, 0.5 )
+texture = ExtResource( 5 )
 
 [node name="Reference" type="Sprite" parent="."]
 visible = false

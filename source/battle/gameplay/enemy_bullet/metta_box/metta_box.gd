@@ -120,12 +120,26 @@ func _handle_box_break_animation(delta: float) -> void:
 	
 	match box_type:
 		BoxTypes.BOX_TYPE_HOLLOW:
-			modulate.a -= break_fade_speed * delta
-			modulate.a = clamp(modulate.a, 0.0, 0.8)
+			movement_speed = 0.0
+			movement_direction = Vector2.ZERO
+			movement_rotation_degrees = 0.0
+			movement_rotate_velocity = false
 			
 			if is_instance_valid(box_sprite):
 				box_sprite.h_separation += break_speed * delta
 				box_sprite.v_separation += break_speed * delta
+			
+			if is_instance_valid(box_hitbox):
+				box_hitbox.queue_free()
+				
+			if is_instance_valid(enemy_bullet_hurtbox):
+				enemy_bullet_hurtbox.queue_free()
+			
+			if is_instance_valid(heart_bullet_hurtbox):
+				heart_bullet_hurtbox.queue_free()
+			
+			modulate.a -= break_fade_speed * delta
+			modulate.a = clamp(modulate.a, 0.0, 0.8)
 			
 			if modulate.a <= 0.0:
 				queue_free()
@@ -151,20 +165,6 @@ func _handle_heart_bullet_collisions() -> void:
 	if not box_type == BoxTypes.BOX_TYPE_HOLLOW:
 		return
 	
-	movement_speed = 0.0
-	movement_direction = Vector2.ZERO
-	movement_rotation_degrees = 0.0
-	movement_rotate_velocity = false
-	
-	if is_instance_valid(box_hitbox):
-		box_hitbox.queue_free()
-	
-	if is_instance_valid(enemy_bullet_hurtbox):
-		enemy_bullet_hurtbox.queue_free()
-	
-	if is_instance_valid(heart_bullet_hurtbox):
-		heart_bullet_hurtbox.queue_free()
-	
 	destroyed = true
 
 
@@ -172,7 +172,7 @@ func _handle_node_cleanup() -> void:
 	queue_free()
 
 
-"SCRIPT PUBLIC METHODS (SETTERS)"
+"SCRIPT PUBLIC METHODS (PROPERTY SETTERS)"
 func set_box_type(value: int) -> void:
 	box_type = value
 	box_type = clamp(box_type, 0, BoxTypes.size() - 1) as int
