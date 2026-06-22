@@ -118,7 +118,7 @@ scene_naming=2
 
 [editor_plugins]
 
-enabled=PoolStringArray( "res://addons/folder_nodes/plugin.cfg" )
+enabled=PoolStringArray( "res://addons/Todo_Manager/plugin.cfg", "res://addons/folder_nodes/plugin.cfg" )
 
 [gui]
 

@@ -63,7 +63,7 @@ func is_invincible() -> bool:
 
 "CLASS PRIVATE METHODS"
 func _handle_bullet_collisions(area: Area2D) -> void:
-#	TODO: Fix collisions being registered more/less depending on physics tick rate.
+#	FIXME: Collisions being processed at different rates depending on physics FPS.
 	if ignored_areas.has(area):
 		return
 	if not area is BattleEnemyBullet:

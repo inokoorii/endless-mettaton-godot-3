@@ -1,4 +1,4 @@
-# NOTE: This script has temporary code!
+# This script has temporary code!
 extends Battle
 
 

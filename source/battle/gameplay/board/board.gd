@@ -5,21 +5,24 @@ extends Node2D
 
 "CLASS SIGNALS"
 signal resize_mode_changed
+
+# FIXME: Signals not being emitted when `resize_mode` is set to
+# `ResizeModes.RESIZE_MODE_INSTANT`.
 signal resize_began
 signal resize_finished
 
 
 "CLASS ENUMERATIONS"
 enum ResizeModes {
-	WIDTH_BEFORE_HEIGHT,
-	WIDTH_AFTER_HEIGHT,
-	WIDTH_AND_HEIGHT,
-	INSTANT,
+	RESIZE_MODE_WIDTH_BEFORE_HEIGHT,
+	RESIZE_MODE_WIDTH_AFTER_HEIGHT,
+	RESIZE_MODE_WIDTH_AND_HEIGHT,
+	RESIZE_MODE_INSTANT,
 }
 
 
 "CLASS EXPORTED VARIABLES"
-var resize_mode: int = ResizeModes.WIDTH_BEFORE_HEIGHT \
+var resize_mode: int = ResizeModes.RESIZE_MODE_WIDTH_BEFORE_HEIGHT \
 		setget set_resize_mode
 var resize_speed: float = 480.0 \
 		setget set_resize_speed
@@ -114,8 +117,8 @@ func get_panel_top_left_position() -> Vector2:
 				"Cannot get panel top-left position: "
 				+ "'anchor_marker_top_left' node is invalid or null.")
 		return Vector2.ZERO
-	else:
-		return anchor_marker_top_left.global_position
+	
+	return anchor_marker_top_left.global_position
 
 
 func get_panel_top_right_position() -> Vector2:
@@ -124,8 +127,8 @@ func get_panel_top_right_position() -> Vector2:
 				"Cannot get panel top-right position: "
 				+ "'anchor_marker_top_right' node is invalid or null.")
 		return Vector2.ZERO
-	else:
-		return anchor_marker_top_right.global_position
+	
+	return anchor_marker_top_right.global_position
 
 
 func get_panel_center_position() -> Vector2:
@@ -134,8 +137,8 @@ func get_panel_center_position() -> Vector2:
 				"Cannot get panel center position: "
 				+ "'anchor_marker_center' node is invalid or null.")
 		return Vector2.ZERO
-	else:
-		return anchor_marker_center.global_position
+	
+	return anchor_marker_center.global_position
 
 
 func get_panel_bottom_left_position() -> Vector2:
@@ -144,8 +147,8 @@ func get_panel_bottom_left_position() -> Vector2:
 				"Cannot get panel bottom-left position: "
 				+ "'anchor_marker_bottom_left' node is invalid or null.")
 		return Vector2.ZERO
-	else:
-		return anchor_marker_bottom_left.global_position
+	
+	return anchor_marker_bottom_left.global_position
 
 
 func get_panel_bottom_right_position() -> Vector2:
@@ -154,8 +157,8 @@ func get_panel_bottom_right_position() -> Vector2:
 				"Cannot get panel bottom-right position: "
 				+ "'anchor_marker_bottom_right' node is invalid or null.")
 		return Vector2.ZERO
-	else:
-		return anchor_marker_bottom_right.global_position
+	
+	return anchor_marker_bottom_right.global_position
 
 
 "CLASS PRIVATE METHODS"
@@ -164,23 +167,23 @@ func _handle_panel_resize(delta: float) -> void:
 		return
 	
 	match resize_mode:
-		ResizeModes.WIDTH_BEFORE_HEIGHT:
+		ResizeModes.RESIZE_MODE_WIDTH_BEFORE_HEIGHT:
 			if not is_width_resized():
 				_move_panel_margins_width(delta)
 			else:
 				_move_panel_margins_height(delta)
 		
-		ResizeModes.WIDTH_AFTER_HEIGHT:
+		ResizeModes.RESIZE_MODE_WIDTH_AFTER_HEIGHT:
 			if not is_height_resized():
 				_move_panel_margins_height(delta)
 			else:
 				_move_panel_margins_width(delta)
 		
-		ResizeModes.WIDTH_AND_HEIGHT:
+		ResizeModes.RESIZE_MODE_WIDTH_AND_HEIGHT:
 			_move_panel_margins_width(delta)
 			_move_panel_margins_height(delta)
 		
-		ResizeModes.INSTANT:
+		ResizeModes.RESIZE_MODE_INSTANT:
 			_snap_panel_margins_width()
 			_snap_panel_margins_height()
 	
@@ -436,7 +439,7 @@ func _get_property_list() -> Array:
 
 func _get_property_list_reverts() -> Dictionary:
 	var property_list_reverts: Dictionary = {
-		"resize_mode": ResizeModes.WIDTH_BEFORE_HEIGHT,
+		"resize_mode": ResizeModes.RESIZE_MODE_WIDTH_BEFORE_HEIGHT,
 		"resize_speed": 480.0,
 		"ideal_size_left": 287,
 		"ideal_size_top": 70,

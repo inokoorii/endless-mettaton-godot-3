@@ -12,9 +12,10 @@ signal health_increased
 
 
 "AUTOLOAD REGULAR VARIABLES"
+var battle: Battle
+
 var max_health: int = 4 \
 		setget set_max_health
-
 var health: int = 4 \
 		setget set_health
 
