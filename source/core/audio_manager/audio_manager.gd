@@ -8,9 +8,12 @@ func _ready() -> void:
 	if Engine.editor_hint:
 		return
 	
-	print(JSON.print(DirectoryIndexer.index_directory("res://assets/battle/sound_effects", true, ["import"]), "\t"))
+	var index: Dictionary = DirectoryIndexer.index_directory(
+			"res://",
+			true,
+			["import"])
+	
+	print(JSON.print(index, "\t"))
 
 
 "SCRIPT PUBLIC METHODS"
-
-
