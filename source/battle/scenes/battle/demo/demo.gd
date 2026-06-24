@@ -1,4 +1,4 @@
-# This script has temporary code!
+# Temporary code!
 extends Battle
 
 
@@ -29,7 +29,7 @@ func _on_trigger_bullet_entered() -> void:
 	trigger_shot = true
 	
 	for box in get_tree().get_nodes_in_group("MettaBoxes"):
-		if box.box_type == 0: # BoxTypes.BOX_TYPE_HOLLOW
+		if box.box_type == 0: # `box_type == BoxTypes.BOX_TYPE_HOLLOW`
 			box.destroyed = true
 	
 	for plus_bomb in get_tree().get_nodes_in_group("MettaPlusBombs"):

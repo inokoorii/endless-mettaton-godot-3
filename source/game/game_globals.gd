@@ -1,5 +1,5 @@
 extends Node
 
 
-"AUTOLOAD REGULAR VARIABLES"
+"SCRIPT REGULAR VARIABLES"
 var main_scene: MainScene

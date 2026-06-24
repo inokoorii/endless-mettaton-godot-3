@@ -43,7 +43,7 @@ func set_board(value: NodePath) -> void:
 	
 	if not value.is_empty():
 		if is_instance_valid(node) and (not node is BattleBoard):
-			push_error("Assigned node is not of type 'BattleBoard'.")
+			print_debug("Assigned node is not of type 'BattleBoard'.")
 			return
 	
 	board = value

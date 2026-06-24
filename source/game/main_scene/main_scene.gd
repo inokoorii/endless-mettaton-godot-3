@@ -22,7 +22,7 @@ func _enter_tree() -> void:
 	if Engine.editor_hint:
 		return
 	if GameGlobals.main_scene and not GameGlobals.main_scene == self:
-		push_error(
+		print_debug(
 				"Cannot assign self to member 'GameGlobals.main_scene': "
 				+ "another 'MainScene' is already assigned (%s)." % GameGlobals.main_scene)
 		return
@@ -34,7 +34,7 @@ func _exit_tree() -> void:
 	if Engine.editor_hint:
 		return
 	if GameGlobals.main_scene and not GameGlobals.main_scene == self:
-		push_error(
+		print_debug(
 				"Cannot remove self from member 'GameGlobals.main_scene': "
 				+ "it is assigned to another 'MainScene' (%s)." % GameGlobals.main_scene)
 		return

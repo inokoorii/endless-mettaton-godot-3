@@ -2,16 +2,20 @@ class_name SaveFile
 extends Resource
 
 
-"RESOURCE SIGNALS"
+"CLASS SIGNALS"
 signal player_name_changed
 
 
-"RESOURCE VARIABLES"
+"CLASS CONSTANTS"
+const CURRENT_FORMAT_VERSION: int = 1
+
+
+"CLASS VARIABLES"
 var player_name: String = "Chara" \
 		setget set_player_name
 
 
-"RESOURCE PUBLIC METHODS (PROPERTY SETTERS)"
+"CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_player_name(value: String) -> void:
 	player_name = value
 	emit_signal("player_name_changed")

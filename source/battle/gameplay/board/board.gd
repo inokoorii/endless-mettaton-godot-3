@@ -90,6 +90,56 @@ func _physics_process(delta: float) -> void:
 
 
 "CLASS PUBLIC METHODS"
+func get_panel_top_left_position() -> Vector2:
+	if not is_instance_valid(anchor_marker_top_left):
+		print_debug(
+				"Cannot get panel top-left position: "
+				+ "'anchor_marker_top_left' node is invalid or null.")
+		return Vector2.ZERO
+	
+	return anchor_marker_top_left.global_position
+
+
+func get_panel_top_right_position() -> Vector2:
+	if not is_instance_valid(anchor_marker_top_right):
+		print_debug(
+				"Cannot get panel top-right position: "
+				+ "'anchor_marker_top_right' node is invalid or null.")
+		return Vector2.ZERO
+	
+	return anchor_marker_top_right.global_position
+
+
+func get_panel_center_position() -> Vector2:
+	if not is_instance_valid(anchor_marker_center):
+		print_debug(
+				"Cannot get panel center position: "
+				+ "'anchor_marker_center' node is invalid or null.")
+		return Vector2.ZERO
+	
+	return anchor_marker_center.global_position
+
+
+func get_panel_bottom_left_position() -> Vector2:
+	if not is_instance_valid(anchor_marker_bottom_left):
+		print_debug(
+				"Cannot get panel bottom-left position: "
+				+ "'anchor_marker_bottom_left' node is invalid or null.")
+		return Vector2.ZERO
+	
+	return anchor_marker_bottom_left.global_position
+
+
+func get_panel_bottom_right_position() -> Vector2:
+	if not is_instance_valid(anchor_marker_bottom_right):
+		print_debug(
+				"Cannot get panel bottom-right position: "
+				+ "'anchor_marker_bottom_right' node is invalid or null.")
+		return Vector2.ZERO
+	
+	return anchor_marker_bottom_right.global_position
+
+
 func is_width_resized() -> bool:
 	return (
 			is_instance_valid(board_panel)
@@ -109,56 +159,6 @@ func is_resized() -> bool:
 			is_instance_valid(board_panel)
 			and is_width_resized()
 			and is_height_resized())
-
-
-func get_panel_top_left_position() -> Vector2:
-	if not is_instance_valid(anchor_marker_top_left):
-		push_error(
-				"Cannot get panel top-left position: "
-				+ "'anchor_marker_top_left' node is invalid or null.")
-		return Vector2.ZERO
-	
-	return anchor_marker_top_left.global_position
-
-
-func get_panel_top_right_position() -> Vector2:
-	if not is_instance_valid(anchor_marker_top_right):
-		push_error(
-				"Cannot get panel top-right position: "
-				+ "'anchor_marker_top_right' node is invalid or null.")
-		return Vector2.ZERO
-	
-	return anchor_marker_top_right.global_position
-
-
-func get_panel_center_position() -> Vector2:
-	if not is_instance_valid(anchor_marker_center):
-		push_error(
-				"Cannot get panel center position: "
-				+ "'anchor_marker_center' node is invalid or null.")
-		return Vector2.ZERO
-	
-	return anchor_marker_center.global_position
-
-
-func get_panel_bottom_left_position() -> Vector2:
-	if not is_instance_valid(anchor_marker_bottom_left):
-		push_error(
-				"Cannot get panel bottom-left position: "
-				+ "'anchor_marker_bottom_left' node is invalid or null.")
-		return Vector2.ZERO
-	
-	return anchor_marker_bottom_left.global_position
-
-
-func get_panel_bottom_right_position() -> Vector2:
-	if not is_instance_valid(anchor_marker_bottom_right):
-		push_error(
-				"Cannot get panel bottom-right position: "
-				+ "'anchor_marker_bottom_right' node is invalid or null.")
-		return Vector2.ZERO
-	
-	return anchor_marker_bottom_right.global_position
 
 
 "CLASS PRIVATE METHODS"
@@ -188,19 +188,6 @@ func _handle_panel_resize(delta: float) -> void:
 			_snap_panel_margins_height()
 	
 	board_panel.rect_pivot_offset = board_panel.rect_size / 2.0
-
-
-func _track_panel_resize_progress(delta: float) -> void:
-	if not is_resized():
-		if _resize_progress_time <= 0.0:
-			emit_signal("resize_began")
-		
-		_resize_progress_time += delta
-	else:
-		if _resize_progress_time > 0.0:
-			emit_signal("resize_finished")
-		
-		_resize_progress_time = 0.0
 
 
 func _move_panel_margins_width(delta: float) -> void:
@@ -235,6 +222,19 @@ func _snap_panel_margins_height() -> void:
 	
 	board_panel.margin_top = -ideal_size_top
 	board_panel.margin_bottom = ideal_size_bottom
+
+
+func _track_panel_resize_progress(delta: float) -> void:
+	if not is_resized():
+		if _resize_progress_time <= 0.0:
+			emit_signal("resize_began")
+		
+		_resize_progress_time += delta
+	else:
+		if _resize_progress_time > 0.0:
+			emit_signal("resize_finished")
+		
+		_resize_progress_time = 0.0
 
 
 func _update_collider_positions() -> void:

@@ -3,8 +3,7 @@ extends Node
 
 "SCRIPT CONSTANTS"
 const FILE_PATH: String = "user://"
-const FILE_ENCRYPTION_KEY: String = ""
 
 
 "SCRIPT REGULAR VARIABLES"
-var file: SaveFile = SaveFile.new()
+var file: SettingsFile = SettingsFile.new()
