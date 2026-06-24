@@ -9,7 +9,7 @@ func _ready() -> void:
 		return
 	
 	var index: Dictionary = DirectoryIndexer.index_directory(
-			"res://",
+			"res://assets",
 			true,
 			["import"])
 	

@@ -83,6 +83,11 @@ _global_script_classes=[ {
 "class": "SlicedSprite",
 "language": "GDScript",
 "path": "res://source/shared/effects/sliced_sprite/sliced_sprite.gd"
+}, {
+"base": "Object",
+"class": "TypeUtils",
+"language": "GDScript",
+"path": "res://source/core/utils/type_utils.gd"
 } ]
 _global_script_class_icons={
 "Battle": "",
@@ -99,7 +104,8 @@ _global_script_class_icons={
 "PathUtils": "",
 "SaveFile": "",
 "SettingsFile": "",
-"SlicedSprite": ""
+"SlicedSprite": "",
+"TypeUtils": ""
 }
 
 [application]
