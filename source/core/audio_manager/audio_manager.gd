@@ -8,12 +8,11 @@ func _ready() -> void:
 	if Engine.editor_hint:
 		return
 	
-	var index: Dictionary = DirectoryIndexer.index_directory(
-			"res://assets",
-			true,
-			["import"])
+	var index_options: DirectoryIndexerOptions = DirectoryIndexerOptions.new()
+	index_options.excluded_file_extensions = ["import"]
 	
-	print(JSON.print(index, "\t"))
+	var index: DirectoryIndexer = DirectoryIndexer.new()
+	print(JSON.print(index.index_directory("res://", index_options), "\t"))
 
 
 "SCRIPT PUBLIC METHODS"

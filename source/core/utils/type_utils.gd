@@ -35,6 +35,6 @@ const TYPE_STRINGS: Dictionary = {
 }
 
 
-"CLASS PUBLIC STATIC METHODS"
+"CLASS STATIC METHODS"
 static func get_type_string(type: int) -> String:
 	return TYPE_STRINGS.get(type, "UNKNOWN")

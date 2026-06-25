@@ -2,7 +2,7 @@ class_name PathUtils
 extends Object
 
 
-"CLASS PUBLIC STATIC METHODS"
+"CLASS STATIC METHODS"
 static func normalize_path(path: String) -> String:
 	return path.replace("\\", "/").simplify_path()
 

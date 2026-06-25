@@ -1,5 +1,5 @@
 class_name DirectoryIndexer
-extends Object
+extends Reference
 
 
 "CLASS CONSTANTS"
@@ -16,12 +16,10 @@ const ENTRY_KEY_CHILD_DIRECTORIES: String = "child_directories"
 const ENTRY_KEY_CHILD_FILES: String = "child_files"
 
 
-"CLASS PUBLIC STATIC METHODS"
-static func index_directory(
+"CLASS PUBLIC METHODS"
+func index_directory(
 	directory_path: String,
-	recursive: bool,
-	ignored_file_extensions: Array = [],
-	ignore_hidden_files: bool = true
+	options: DirectoryIndexerOptions = DirectoryIndexerOptions.new()
 ) -> Dictionary:
 	var directory: Directory = Directory.new()
 	var directory_index: Dictionary = _create_empty_index()
@@ -36,7 +34,9 @@ static func index_directory(
 				% [directory_path, ErrorUtils.get_error_string(open_result)])
 		return directory_index
 	
-	var list_result: int = directory.list_dir_begin(true, ignore_hidden_files)
+	var list_result: int = directory.list_dir_begin(
+			options.skip_navigational,
+			options.skip_hidden)
 	if not list_result == OK:
 		push_error(
 				"Failed to list directory contents at path: '%s' (error: %s)."
@@ -51,19 +51,18 @@ static func index_directory(
 					directory_path,
 					entry_name)
 			
-			if recursive:
+			if options.index_subdirectories:
 				_append_subdirectory_to_index(
 						directory_index,
 						directory_path,
 						entry_name,
-						ignored_file_extensions,
-						ignore_hidden_files)
+						options)
 		else:
 			_append_file_entry_to_index(
 					directory_index,
 					directory_path,
 					entry_name,
-					ignored_file_extensions)
+					options)
 		
 		entry_name = directory.get_next()
 	directory.list_dir_end()
@@ -73,6 +72,146 @@ static func index_directory(
 	return directory_index
 
 
+"CLASS PRIVATE METHODS"
+func _create_empty_index() -> Dictionary:
+	return {
+		INDEX_KEY_SUCCESS: false,
+		INDEX_KEY_ROOT: "",
+		INDEX_KEY_DIRECTORIES: {},
+		INDEX_KEY_FILES: {},
+	}
+
+
+func _create_empty_directory_entry() -> Dictionary:
+	return {
+		ENTRY_KEY_BASENAME: "",
+		ENTRY_KEY_NAME: "",
+		ENTRY_KEY_PARENT: "",
+		ENTRY_KEY_CHILD_DIRECTORIES: [],
+		ENTRY_KEY_CHILD_FILES: [],
+	}
+
+
+func _create_empty_file_entry() -> Dictionary:
+	return {
+		ENTRY_KEY_BASENAME: "",
+		ENTRY_KEY_NAME: "",
+		ENTRY_KEY_PARENT: "",
+		ENTRY_KEY_EXTENSION: "",
+	}
+
+
+func _append_directory_entry_to_index(
+	directory_index: Dictionary,
+	directory_path: String,
+	entry_name: String
+	
+) -> void:
+	if not is_index_valid(directory_index):
+		return
+	
+	directory_path = PathUtils.normalize_path(directory_path)
+	entry_name = PathUtils.normalize_path(entry_name)
+	
+	var entry: Dictionary = _create_empty_directory_entry()
+	var entry_full_path: String = PathUtils.join_paths([directory_path, entry_name])
+	
+	entry[ENTRY_KEY_BASENAME] = entry_name.get_basename()
+	entry[ENTRY_KEY_NAME] = entry_name
+	entry[ENTRY_KEY_PARENT] = directory_path
+	directory_index[INDEX_KEY_DIRECTORIES][entry_full_path] = entry
+
+
+func _append_file_entry_to_index(
+	directory_index: Dictionary,
+	directory_path: String,
+	entry_name: String,
+	options: DirectoryIndexerOptions
+) -> void:
+	if not is_index_valid(directory_index):
+		return
+	
+	directory_path = PathUtils.normalize_path(directory_path)
+	entry_name = PathUtils.normalize_path(entry_name)
+	
+	var file_extension: String = entry_name.get_extension()
+	if not options.is_file_allowed(entry_name):
+		return
+	
+	var entry: Dictionary = _create_empty_file_entry()
+	var entry_full_path: String = PathUtils.join_paths([directory_path, entry_name])
+	
+	entry[ENTRY_KEY_BASENAME] = entry_name.get_basename()
+	entry[ENTRY_KEY_NAME] = entry_name
+	entry[ENTRY_KEY_PARENT] = directory_path
+	entry[ENTRY_KEY_EXTENSION] = file_extension
+	directory_index[INDEX_KEY_FILES][entry_full_path] = entry
+
+
+func _append_subdirectory_to_index(
+	directory_index: Dictionary,
+	directory_path: String,
+	subdirectory_name: String,
+	options: DirectoryIndexerOptions
+) -> void:
+	if not is_index_valid(directory_index):
+		return
+	
+	var subdirectory_index: Dictionary = index_directory(
+			PathUtils.join_paths([directory_path, subdirectory_name]),
+			options)
+	
+	directory_index[INDEX_KEY_DIRECTORIES].merge(subdirectory_index[INDEX_KEY_DIRECTORIES])
+	directory_index[INDEX_KEY_FILES].merge(subdirectory_index[INDEX_KEY_FILES])
+
+
+func _populate_directory_entry_children(directory_index: Dictionary) -> void:
+	if not is_index_valid(directory_index):
+		return
+	
+	var directories: Dictionary = directory_index[INDEX_KEY_DIRECTORIES]
+	var files: Dictionary = directory_index[INDEX_KEY_FILES]
+	
+#	I could refactor further, but I'm pretty happy with what I've got.
+#	Leaving a "TODO:" note here nonetheless.
+	
+#	TODO: Refactor/clean this up at some point.
+	for directory_path in directories:
+		var directory: Dictionary = directory_index[INDEX_KEY_DIRECTORIES][directory_path]
+		if not is_directory_entry_valid(directory):
+			continue
+		
+		var directory_parent_path: String = directory[ENTRY_KEY_PARENT]
+		if not directory_index[INDEX_KEY_DIRECTORIES].has(directory_parent_path):
+			continue
+		
+		var directory_parent: Dictionary = directory_index[INDEX_KEY_DIRECTORIES][directory_parent_path]
+		if not is_directory_entry_valid(directory_parent):
+			continue
+		if directory_parent[ENTRY_KEY_CHILD_DIRECTORIES].has(directory_path):
+			continue
+		
+		directory_parent[ENTRY_KEY_CHILD_DIRECTORIES].append(directory_path)
+	
+	for file_path in files:
+		var file: Dictionary = directory_index[INDEX_KEY_FILES][file_path]
+		if not is_file_entry_valid(file):
+			continue
+		
+		var file_parent_path: String = file[ENTRY_KEY_PARENT]
+		if not directory_index[INDEX_KEY_DIRECTORIES].has(file_parent_path):
+			continue
+		
+		var file_parent: Dictionary = directory_index[INDEX_KEY_DIRECTORIES][file_parent_path]
+		if not is_directory_entry_valid(file_parent):
+			continue
+		if file_parent[ENTRY_KEY_CHILD_FILES].has(file_path):
+			continue
+		
+		file_parent[ENTRY_KEY_CHILD_FILES].append(file_path)
+
+
+"CLASS STATIC METHODS"
 static func is_index_valid(directory_index: Dictionary) -> bool:
 	var required_keys: Dictionary = {
 		INDEX_KEY_SUCCESS: TYPE_BOOL,
@@ -159,144 +298,3 @@ static func is_file_entry_valid(file_entry: Dictionary) -> bool:
 			is_valid = false
 	
 	return is_valid
-
-
-"CLASS PRIVTATE STATIC METHODS"
-static func _create_empty_index() -> Dictionary:
-	return {
-		INDEX_KEY_SUCCESS: false,
-		INDEX_KEY_ROOT: "",
-		INDEX_KEY_DIRECTORIES: {},
-		INDEX_KEY_FILES: {},
-	}
-
-
-static func _create_empty_directory_entry() -> Dictionary:
-	return {
-		ENTRY_KEY_BASENAME: "",
-		ENTRY_KEY_NAME: "",
-		ENTRY_KEY_PARENT: "",
-		ENTRY_KEY_CHILD_DIRECTORIES: [],
-		ENTRY_KEY_CHILD_FILES: [],
-	}
-
-
-static func _create_empty_file_entry() -> Dictionary:
-	return {
-		ENTRY_KEY_BASENAME: "",
-		ENTRY_KEY_NAME: "",
-		ENTRY_KEY_PARENT: "",
-		ENTRY_KEY_EXTENSION: "",
-	}
-
-
-static func _append_directory_entry_to_index(
-	directory_index: Dictionary,
-	directory_path: String,
-	entry_name: String
-) -> void:
-	if not is_index_valid(directory_index):
-		return
-	
-	directory_path = PathUtils.normalize_path(directory_path)
-	entry_name = PathUtils.normalize_path(entry_name)
-	
-	var entry: Dictionary = _create_empty_directory_entry()
-	var entry_full_path: String = PathUtils.join_paths([directory_path, entry_name])
-	
-	entry[ENTRY_KEY_BASENAME] = entry_name.get_basename()
-	entry[ENTRY_KEY_NAME] = entry_name
-	entry[ENTRY_KEY_PARENT] = directory_path
-	directory_index[INDEX_KEY_DIRECTORIES][entry_full_path] = entry
-
-
-static func _append_file_entry_to_index(
-	directory_index: Dictionary,
-	directory_path: String,
-	entry_name: String,
-	ignored_file_extensions: Array
-) -> void:
-	if not is_index_valid(directory_index):
-		return
-	
-	directory_path = PathUtils.normalize_path(directory_path)
-	entry_name = PathUtils.normalize_path(entry_name)
-	
-	var file_extension: String = entry_name.get_extension()
-	if ignored_file_extensions.has(file_extension):
-		return
-	
-	var entry: Dictionary = _create_empty_file_entry()
-	var entry_full_path: String = PathUtils.join_paths([directory_path, entry_name])
-	
-	entry[ENTRY_KEY_BASENAME] = entry_name.get_basename()
-	entry[ENTRY_KEY_NAME] = entry_name
-	entry[ENTRY_KEY_PARENT] = directory_path
-	entry[ENTRY_KEY_EXTENSION] = file_extension
-	directory_index[INDEX_KEY_FILES][entry_full_path] = entry
-
-
-static func _append_subdirectory_to_index(
-	directory_index: Dictionary,
-	directory_path: String,
-	subdirectory_name: String,
-	ignored_file_extensions: Array,
-	ignore_hidden_files: bool
-) -> void:
-	if not is_index_valid(directory_index):
-		return
-	
-	var subdirectory_index: Dictionary = index_directory(
-			PathUtils.join_paths([directory_path, subdirectory_name]),
-			true,
-			ignored_file_extensions,
-			ignore_hidden_files)
-	
-	directory_index[INDEX_KEY_DIRECTORIES].merge(subdirectory_index[INDEX_KEY_DIRECTORIES])
-	directory_index[INDEX_KEY_FILES].merge(subdirectory_index[INDEX_KEY_FILES])
-
-
-static func _populate_directory_entry_children(directory_index: Dictionary) -> void:
-	if not is_index_valid(directory_index):
-		return
-	
-	var directories: Dictionary = directory_index[INDEX_KEY_DIRECTORIES]
-	var files: Dictionary = directory_index[INDEX_KEY_FILES]
-	
-#	I could refactor further, but I'm pretty happy with what I've got.
-#	Leaving a "TODO:" note here nonetheless.
-	
-#	TODO: Refactor/clean this up at some point.
-	for directory_path in directories:
-		var directory: Dictionary = directory_index[INDEX_KEY_DIRECTORIES][directory_path]
-		if not is_directory_entry_valid(directory):
-			continue
-		
-		var directory_parent_path: String = directory[ENTRY_KEY_PARENT]
-		if not directory_index[INDEX_KEY_DIRECTORIES].has(directory_parent_path):
-			continue
-		
-		var directory_parent: Dictionary = directory_index[INDEX_KEY_DIRECTORIES][directory_parent_path]
-		if not is_directory_entry_valid(directory_parent):
-			continue
-		if directory_parent[ENTRY_KEY_CHILD_DIRECTORIES].has(directory_path):
-			continue
-		
-		directory_parent[ENTRY_KEY_CHILD_DIRECTORIES].append(directory_path)
-	
-	for file_path in files:
-		var file: Dictionary = directory_index[INDEX_KEY_FILES][file_path]
-		if not is_file_entry_valid(file):
-			continue
-		
-		var file_parent_path: String = file[ENTRY_KEY_PARENT]
-		if not directory_index[INDEX_KEY_DIRECTORIES].has(file_parent_path):
-			continue
-		
-		var file_parent: Dictionary = directory_index[INDEX_KEY_DIRECTORIES][file_parent_path]
-		if not is_directory_entry_valid(file_parent):
-			continue
-		if file_parent[ENTRY_KEY_CHILD_FILES].has(file_path):
-			continue
-		
-		file_parent[ENTRY_KEY_CHILD_FILES].append(file_path)

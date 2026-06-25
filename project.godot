@@ -44,10 +44,15 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/battle/gameplay/player_bullet/heart_bullet_hurtbox.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "DirectoryIndexer",
 "language": "GDScript",
-"path": "res://source/core/utils/directory_indexer.gd"
+"path": "res://source/core/directory_indexer/directory_indexer.gd"
+}, {
+"base": "Reference",
+"class": "DirectoryIndexerOptions",
+"language": "GDScript",
+"path": "res://source/core/directory_indexer/directory_indexer_options.gd"
 }, {
 "base": "Object",
 "class": "ErrorUtils",
@@ -98,6 +103,7 @@ _global_script_class_icons={
 "BattleHeartBullet": "",
 "BattleHeartBulletHurtbox": "",
 "DirectoryIndexer": "",
+"DirectoryIndexerOptions": "",
 "ErrorUtils": "",
 "MainScene": "",
 "MovementUtils": "",

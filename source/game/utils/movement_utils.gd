@@ -2,7 +2,7 @@ class_name MovementUtils
 extends Object
 
 
-"CLASS PUBLIC STATIC MEHTODS"
+"CLASS STATIC MEHTODS"
 # Helper method to help me quickly convert framerate-locked values from 
 # UNDERTALE's source code to values that scale with Godot's physics FPS.
 static func scale_to_physics_fps(value: float, delta: float) -> float:

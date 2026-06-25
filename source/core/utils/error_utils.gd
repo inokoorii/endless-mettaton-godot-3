@@ -56,6 +56,6 @@ const ERROR_STRINGS: Dictionary = {
 }
 
 
-"CLASS PUBLIC STATIC METHODS"
+"CLASS STATIC METHODS"
 static func get_error_string(error: int) -> String:
 	return ERROR_STRINGS.get(error, "UNKNOWN")
