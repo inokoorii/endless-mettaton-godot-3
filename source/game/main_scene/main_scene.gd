@@ -24,7 +24,8 @@ func _enter_tree() -> void:
 	if GameGlobals.main_scene and not GameGlobals.main_scene == self:
 		push_error(
 				"Failed to assign self to member 'GameGlobals.main_scene': "
-				+ "another 'MainScene' is already assigned (%s)." % GameGlobals.main_scene)
+				+ "another 'MainScene' is already assigned (%s)."
+				% GameGlobals.main_scene)
 		return
 	
 	GameGlobals.main_scene = self
@@ -36,14 +37,15 @@ func _exit_tree() -> void:
 	if GameGlobals.main_scene and not GameGlobals.main_scene == self:
 		push_error(
 				"Failed to remove self from member 'GameGlobals.main_scene': "
-				+ "it is assigned to another 'MainScene' (%s)." % GameGlobals.main_scene)
+				+ "it is assigned to another 'MainScene' (%s)."
+				% GameGlobals.main_scene)
 		return
 	
 	GameGlobals.main_scene = null
 
 
 func _input(event: InputEvent) -> void:
-#	KEYBIND: [F4]
+#	Keybind: [F4]
 	if event.is_action_pressed("window_toggle_fullscreen"):
 		if not OS.window_fullscreen:
 #			Saving the window's position and size before entering fullscreen mode.

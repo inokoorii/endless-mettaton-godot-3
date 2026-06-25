@@ -105,7 +105,7 @@ func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int
 		
 		BULLET_TYPE_HEAL:
 			BattleGlobals.health += bullet.on_hit_heal
-			bullet.queue_free() # I'm unsure if I want to destroy the bullets here...
+			bullet.queue_free() # Currently unsure if I want to destroy the bullets here...
 
 
 func _update_heart_sprite_playing() -> void:

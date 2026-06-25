@@ -1,25 +1,29 @@
-[gd_scene load_steps=6 format=2]
+[gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://source/core/audio_manager/audio_manager.gd" type="Script" id=1]
-[ext_resource path="res://addons/folder_nodes/source/folder.gd" type="Script" id=2]
-[ext_resource path="res://assets/battle/sound_effects/sfx_bomb_explosion.wav" type="AudioStream" id=3]
-[ext_resource path="res://assets/battle/sound_effects/sfx_bomb_explosion_tick.wav" type="AudioStream" id=4]
-[ext_resource path="res://assets/battle/sound_effects/sfx_heart_shoot.wav" type="AudioStream" id=5]
+[ext_resource path="res://source/core/audio_manager/audio_manager_directory_entry.gd" type="Script" id=2]
+
+[sub_resource type="Resource" id=1]
+script = ExtResource( 2 )
+directory_path = "res://assets"
+bus = 1
+
+[sub_resource type="Resource" id=2]
+script = ExtResource( 2 )
+directory_path = "res://references"
+bus = 2
+
+[sub_resource type="Resource" id=3]
+script = ExtResource( 2 )
+directory_path = "res://resources"
+bus = 3
+
+[sub_resource type="Resource" id=4]
+script = ExtResource( 2 )
+directory_path = "res://source"
+bus = 4
 
 [node name="AudioManager" type="Node"]
 script = ExtResource( 1 )
-
-[node name="Music" type="Node" parent="."]
-script = ExtResource( 2 )
-
-[node name="SFX" type="Node" parent="."]
-script = ExtResource( 2 )
-
-[node name="bomb_explosion" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 3 )
-
-[node name="bomb_explosion_tick" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 4 )
-
-[node name="heart_shot" type="AudioStreamPlayer" parent="SFX"]
-stream = ExtResource( 5 )
+audio_extensions = PoolStringArray( "*" )
+directory_entries = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ]

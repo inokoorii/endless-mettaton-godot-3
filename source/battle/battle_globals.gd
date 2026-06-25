@@ -9,6 +9,8 @@ signal max_health_increased
 signal health_changed
 signal health_decreased
 signal health_increased
+signal health_depleted
+signal health_full
 
 
 "AUTOLOAD REGULAR VARIABLES"
@@ -46,3 +48,8 @@ func set_health(value: int) -> void:
 		emit_signal("health_decreased")
 	if health > previous_health:
 		emit_signal("health_increased")
+	
+	if health <= 0:
+		emit_signal("health_depleted")
+	if health >= max_health:
+		emit_signal("health_full")

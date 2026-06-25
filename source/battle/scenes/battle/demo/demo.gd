@@ -1,4 +1,4 @@
-# Temporary code!
+# TEMPORARY CODE!
 extends Battle
 
 

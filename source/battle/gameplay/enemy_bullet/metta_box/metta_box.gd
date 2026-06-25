@@ -82,9 +82,9 @@ func _update_box_sprite_texture() -> void:
 					"spr_metta_box_hollow.png"))
 		
 		BoxTypes.BOX_TYPE_SOLID:
-				box_sprite.texture = preload(str(
-						"res://assets/battle/sprites/enemy_bullet/metta_box/",
-						"spr_metta_box_solid.png"))
+			box_sprite.texture = preload(str(
+					"res://assets/battle/sprites/enemy_bullet/metta_box/",
+					"spr_metta_box_solid.png"))
 
 
 func _handle_box_sway_animation(delta: float) -> void:
@@ -112,6 +112,29 @@ func _handle_box_sway_animation(delta: float) -> void:
 		visibility_notifier_2d.position.x = _sway_x_offset
 
 
+func _setup_hollow_box_break_animation() -> void:
+	if Engine.editor_hint:
+		return
+	if not destroyed:
+		return
+	if not box_type == BoxTypes.BOX_TYPE_HOLLOW:
+		return
+	
+	movement_speed = 0.0
+	movement_direction = Vector2.ZERO
+	movement_rotation_degrees = 0.0
+	movement_rotate_velocity = false
+	
+	if is_instance_valid(box_hitbox):
+		box_hitbox.queue_free()
+		
+	if is_instance_valid(enemy_bullet_hurtbox):
+		enemy_bullet_hurtbox.queue_free()
+			
+	if is_instance_valid(heart_bullet_hurtbox):
+		heart_bullet_hurtbox.queue_free()
+
+
 func _handle_box_break_animation(delta: float) -> void:
 	if Engine.editor_hint:
 		return
@@ -120,26 +143,12 @@ func _handle_box_break_animation(delta: float) -> void:
 	
 	match box_type:
 		BoxTypes.BOX_TYPE_HOLLOW:
-			movement_speed = 0.0
-			movement_direction = Vector2.ZERO
-			movement_rotation_degrees = 0.0
-			movement_rotate_velocity = false
+			modulate.a -= break_fade_speed * delta
+			modulate.a = clamp(modulate.a, 0.0, 0.8)
 			
 			if is_instance_valid(box_sprite):
 				box_sprite.h_separation += break_speed * delta
 				box_sprite.v_separation += break_speed * delta
-			
-			if is_instance_valid(box_hitbox):
-				box_hitbox.queue_free()
-				
-			if is_instance_valid(enemy_bullet_hurtbox):
-				enemy_bullet_hurtbox.queue_free()
-			
-			if is_instance_valid(heart_bullet_hurtbox):
-				heart_bullet_hurtbox.queue_free()
-			
-			modulate.a -= break_fade_speed * delta
-			modulate.a = clamp(modulate.a, 0.0, 0.8)
 			
 			if modulate.a <= 0.0:
 				queue_free()
@@ -166,6 +175,7 @@ func _handle_heart_bullet_collisions() -> void:
 		return
 	
 	destroyed = true
+	_setup_hollow_box_break_animation()
 
 
 func _handle_node_cleanup() -> void:

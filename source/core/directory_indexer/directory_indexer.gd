@@ -225,7 +225,8 @@ static func is_index_valid(directory_index: Dictionary) -> bool:
 		if not directory_index.has(key):
 			push_error(
 					"Failed to validate 'directory_index': "
-					+ "key '%s' not found." % key)
+					+ "key '%s' not found."
+					% key)
 			is_valid = false
 		
 		if directory_index.has(key) and not typeof(directory_index[key]) == required_keys[key]:
@@ -255,7 +256,8 @@ static func is_directory_entry_valid(directory_entry: Dictionary) -> bool:
 		if not directory_entry.has(key):
 			push_error(
 					"Failed to validate 'directory_entry': "
-					+ "key '%s' not found." % key)
+					+ "key '%s' not found."
+					% key)
 			is_valid = false
 		
 		if directory_entry.has(key) and not typeof(directory_entry[key]) == required_keys[key]:
@@ -284,7 +286,8 @@ static func is_file_entry_valid(file_entry: Dictionary) -> bool:
 		if not file_entry.has(key):
 			push_error(
 					"Failed to validate 'file_entry': "
-					+ "key '%s' not found." % key)
+					+ "key '%s' not found."
+					% key)
 			is_valid = false
 		
 		if file_entry.has(key) and not typeof(file_entry[key]) == required_keys[key]:

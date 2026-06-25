@@ -2,17 +2,74 @@ tool
 extends Node
 
 
+"SCRIPT EXPORTED VARIABLES"
+var audio_extensions: PoolStringArray = ["mp3", "ogg", "wav"]
+var directory_entries: Array = []
+
+
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
 func _ready() -> void:
-#	Temporary code!
+#	TEMPORARY CODE!
 	if Engine.editor_hint:
-		return
+		pass
 	
-	var index_options: DirectoryIndexerOptions = DirectoryIndexerOptions.new()
-	index_options.excluded_file_extensions = ["import"]
+	var indexer_options: DirectoryIndexerOptions = DirectoryIndexerOptions.new()
+	indexer_options.allowed_file_extensions = audio_extensions
 	
-	var index: DirectoryIndexer = DirectoryIndexer.new()
-	print(JSON.print(index.index_directory("res://", index_options), "\t"))
+	var indexer: DirectoryIndexer = DirectoryIndexer.new()
+	for entry in directory_entries:
+		if entry is AudioManagerDirectoryEntry:
+			print(JSON.print(indexer.index_directory(entry.directory_path, indexer_options), "\t"))
 
 
-"SCRIPT PUBLIC METHODS"
+"SCRIPT PRIVATE METHODS (PROPERTY LIST)"
+func _get_property_list() -> Array:
+	var property_list: Array = []
+	
+	property_list.append_array([
+		{
+			"name": "AudioManager",
+			"type": TYPE_NIL,
+			"usage": PROPERTY_USAGE_CATEGORY,
+		},
+	])
+	
+	property_list.append_array([
+		{
+			"name": "audio_extensions",
+			"type": TYPE_STRING_ARRAY,
+			"usage": PROPERTY_USAGE_DEFAULT,
+		},
+	])
+	property_list.append_array([
+		{
+			"name": "directory_entries",
+			"type": TYPE_ARRAY,
+			"usage": PROPERTY_USAGE_DEFAULT,
+			"hint": PROPERTY_HINT_RESOURCE_TYPE,
+			"hint_string": PropertyHintUtils.create_array_hint(
+				TYPE_OBJECT,
+				PROPERTY_HINT_RESOURCE_TYPE,
+				"Resource"
+			)
+		},
+	])
+	
+	return property_list
+
+
+func _get_property_list_reverts() -> Dictionary:
+	var property_list_reverts: Dictionary = {	
+		"audio_extensions": PoolStringArray(["mp3", "ogg", "wav"]),
+		"directory_entries": [],
+	}
+	
+	return property_list_reverts
+
+
+func property_can_revert(property: String):
+	return _get_property_list_reverts().has(property)
+
+
+func property_get_revert(property: String):
+	return _get_property_list_reverts().get(property)
