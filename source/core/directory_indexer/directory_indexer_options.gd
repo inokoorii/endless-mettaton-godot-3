@@ -5,10 +5,9 @@ extends Reference
 "CLASS REGULAR VARIABLES"
 var index_subdirectories: bool = true
 
-# Files matching these extensions will be indexed. "*" allows all extensions.
+# Files matching these extensions below will be indexed. "*" allows all extensions.
 var allowed_file_extensions: PoolStringArray = ["*"]
-
-# Files matching these extensions will be ignored. "*" excludes all extensions.
+# Files matching these extensions below will be ignored. "*" excludes all extensions.
 var excluded_file_extensions: PoolStringArray = []
 
 var skip_navigational: bool = true
@@ -33,5 +32,6 @@ func is_file_allowed(file_name: String) -> bool:
 		return false
 	
 	return(
-			are_all_files_allowed()
-			or allowed_file_extensions.has(file_extension))
+		are_all_files_allowed()
+		or allowed_file_extensions.has(file_extension)
+	)

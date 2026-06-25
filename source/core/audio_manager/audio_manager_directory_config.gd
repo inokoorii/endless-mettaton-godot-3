@@ -1,5 +1,5 @@
 tool
-class_name AudioManagerDirectoryEntry
+class_name AudioManagerDirectoryConfig
 extends Resource
 
 
@@ -11,7 +11,7 @@ const BUS_INDEX_MASTER: int = 0
 var directory_path: String = ""
 
 var bus: int = BUS_INDEX_MASTER \
-		setget set_bus
+	setget set_bus
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -39,8 +39,7 @@ func _get_bus_names_as_enum_hint() -> String:
 
 "CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_bus(value: int) -> void:
-	bus = value
-	bus = clamp(bus, 0, AudioServer.bus_count) as int
+	bus = clamp(value, 0, AudioServer.bus_count) as int
 
 
 "CLASS PRIVATE METHODS (PROPERTY LIST)"

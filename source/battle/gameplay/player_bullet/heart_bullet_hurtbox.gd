@@ -22,7 +22,7 @@ enum Actions {
 
 "CLASS EXPORTED VARIABLES"
 var action: int = Actions.ACTION_IGNORE \
-		setget set_action
+	setget set_action
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -41,20 +41,21 @@ func _handle_bullet_collisions(area: Area2D) -> void:
 	match action:
 		Actions.ACTION_IGNORE:
 			emit_signal("bullet_entered_ignored", area)
-			
+		
 		Actions.ACTION_DESTROY_BULLET:
 			area.monitoring = false
 			area.queue_free()
 			emit_signal("bullet_entered_destroyed")
-				
+		
 		Actions.ACTION_DEFLECT_BULLET:
 			var bullet_deflected: Node2D = preload(str(
 					"res://source/battle/gameplay/player_bullet/heart_bullet_deflected/",
-					"heart_bullet_deflected.tscn")).instance()
+					"heart_bullet_deflected.tscn"
+			)).instance()
 			
 			area.monitoring = false
-			area.get_parent().add_child(bullet_deflected)
 			
+			area.get_parent().add_child(bullet_deflected)
 			bullet_deflected.position = area.position
 			bullet_deflected.scale = area.scale
 			
@@ -64,8 +65,7 @@ func _handle_bullet_collisions(area: Area2D) -> void:
 
 "CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_action(value: int) -> void:
-	action = value
-	action = clamp(action, 0, Actions.size() - 1) as int
+	action = clamp(value, 0, Actions.size() - 1) as int
 	emit_signal("action_changed")
 
 

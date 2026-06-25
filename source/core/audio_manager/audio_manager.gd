@@ -4,7 +4,7 @@ extends Node
 
 "SCRIPT EXPORTED VARIABLES"
 var audio_extensions: PoolStringArray = ["mp3", "ogg", "wav"]
-var directory_entries: Array = []
+var directory_configs: Array = []
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -17,9 +17,9 @@ func _ready() -> void:
 	indexer_options.allowed_file_extensions = audio_extensions
 	
 	var indexer: DirectoryIndexer = DirectoryIndexer.new()
-	for entry in directory_entries:
-		if entry is AudioManagerDirectoryEntry:
-			print(JSON.print(indexer.index_directory(entry.directory_path, indexer_options), "\t"))
+	for config in directory_configs:
+		if config is AudioManagerDirectoryConfig:
+			print(JSON.print(indexer.index_directory(config.directory_path, indexer_options), "\t"))
 
 
 "SCRIPT PRIVATE METHODS (PROPERTY LIST)"
@@ -43,7 +43,7 @@ func _get_property_list() -> Array:
 	])
 	property_list.append_array([
 		{
-			"name": "directory_entries",
+			"name": "directory_configs",
 			"type": TYPE_ARRAY,
 			"usage": PROPERTY_USAGE_DEFAULT,
 			"hint": PROPERTY_HINT_RESOURCE_TYPE,
@@ -61,7 +61,7 @@ func _get_property_list() -> Array:
 func _get_property_list_reverts() -> Dictionary:
 	var property_list_reverts: Dictionary = {	
 		"audio_extensions": PoolStringArray(["mp3", "ogg", "wav"]),
-		"directory_entries": [],
+		"directory_configs": [],
 	}
 	
 	return property_list_reverts

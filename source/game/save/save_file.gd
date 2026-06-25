@@ -12,7 +12,7 @@ const CURRENT_FORMAT_VERSION: int = 1
 
 "CLASS VARIABLES"
 var player_name: String = "Chara" \
-		setget set_player_name
+	setget set_player_name
 
 
 "CLASS PUBLIC METHODS (PROPERTY SETTERS)"

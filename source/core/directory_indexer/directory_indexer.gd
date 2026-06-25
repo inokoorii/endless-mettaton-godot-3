@@ -30,39 +30,45 @@ func index_directory(
 	var open_result: int = directory.open(directory_path)
 	if not open_result == OK:
 		push_error(
-				"Failed to open directory at path: '%s' (error: %s)."
-				% [directory_path, ErrorUtils.get_error_string(open_result)])
+			"Failed to open directory at path: '%s' (error: %s)."
+			% [directory_path, ErrorUtils.get_error_string(open_result)]
+		)
 		return directory_index
 	
 	var list_result: int = directory.list_dir_begin(
-			options.skip_navigational,
-			options.skip_hidden)
+		options.skip_navigational,
+		options.skip_hidden
+	)
 	if not list_result == OK:
 		push_error(
-				"Failed to list directory contents at path: '%s' (error: %s)."
-				% [directory_path, ErrorUtils.get_error_string(list_result)])
+			"Failed to list directory contents at path: '%s' (error: %s)."
+			% [directory_path, ErrorUtils.get_error_string(list_result)]
+		)
 		return directory_index
 	
 	var entry_name: String = directory.get_next()
 	while not entry_name.empty():
 		if directory.current_is_dir():
 			_append_directory_entry_to_index(
-					directory_index,
-					directory_path,
-					entry_name)
+				directory_index,
+				directory_path,
+				entry_name
+			)
 			
 			if options.index_subdirectories:
 				_append_subdirectory_to_index(
-						directory_index,
-						directory_path,
-						entry_name,
-						options)
-		else:
-			_append_file_entry_to_index(
 					directory_index,
 					directory_path,
 					entry_name,
-					options)
+					options
+				)
+		else:
+			_append_file_entry_to_index(
+				directory_index,
+				directory_path,
+				entry_name,
+				options
+			)
 		
 		entry_name = directory.get_next()
 	directory.list_dir_end()
@@ -158,9 +164,9 @@ func _append_subdirectory_to_index(
 		return
 	
 	var subdirectory_index: Dictionary = index_directory(
-			PathUtils.join_paths([directory_path, subdirectory_name]),
-			options)
-	
+		PathUtils.join_paths([directory_path, subdirectory_name]),
+		options
+	)
 	directory_index[INDEX_KEY_DIRECTORIES].merge(subdirectory_index[INDEX_KEY_DIRECTORIES])
 	directory_index[INDEX_KEY_FILES].merge(subdirectory_index[INDEX_KEY_FILES])
 
@@ -190,7 +196,6 @@ func _populate_directory_entry_children(directory_index: Dictionary) -> void:
 			continue
 		if directory_parent[ENTRY_KEY_CHILD_DIRECTORIES].has(directory_path):
 			continue
-		
 		directory_parent[ENTRY_KEY_CHILD_DIRECTORIES].append(directory_path)
 	
 	for file_path in files:
@@ -207,7 +212,6 @@ func _populate_directory_entry_children(directory_index: Dictionary) -> void:
 			continue
 		if file_parent[ENTRY_KEY_CHILD_FILES].has(file_path):
 			continue
-		
 		file_parent[ENTRY_KEY_CHILD_FILES].append(file_path)
 
 
@@ -223,20 +227,21 @@ static func is_index_valid(directory_index: Dictionary) -> bool:
 	
 	for key in required_keys:
 		if not directory_index.has(key):
-			push_error(
-					"Failed to validate 'directory_index': "
-					+ "key '%s' not found."
-					% key)
+			push_error(str(
+				"Failed to validate 'directory_index': ",
+				"key '%s' not found." % key
+			))
 			is_valid = false
 		
 		if directory_index.has(key) and not typeof(directory_index[key]) == required_keys[key]:
 			var expected_type: String = TypeUtils.get_type_string(required_keys[key])
 			var recieved_type: String = TypeUtils.get_type_string(directory_index[key])
 			
-			push_error(
-					"Failed to validate 'directory_index': "
-					+ "value of key '%s' must be of type '%s', got: %s."
-					% [key, expected_type, recieved_type])
+			push_error(str(
+				"Failed to validate 'directory_index': ",
+				"value of key '%s' must be of type '%s', got: %s."
+				% [key, expected_type, recieved_type]
+			))
 			is_valid = false
 	
 	return is_valid
@@ -254,20 +259,21 @@ static func is_directory_entry_valid(directory_entry: Dictionary) -> bool:
 	
 	for key in required_keys:
 		if not directory_entry.has(key):
-			push_error(
-					"Failed to validate 'directory_entry': "
-					+ "key '%s' not found."
-					% key)
+			push_error(str(
+				"Failed to validate 'directory_entry': ",
+				"key '%s' not found." % key
+			))
 			is_valid = false
 		
 		if directory_entry.has(key) and not typeof(directory_entry[key]) == required_keys[key]:
 			var expected_type: String = TypeUtils.get_type_string(typeof(required_keys[key]))
 			var recieved_type: String = TypeUtils.get_type_string(typeof(directory_entry[key]))
 			
-			push_error(
-					"Failed to validate 'directory_entry': "
-					+ "value of key '%s' must be of type '%s', got: %s."
-					% [key, expected_type, recieved_type])
+			push_error(str(
+				"Failed to validate 'directory_entry': ",
+				"value of key '%s' must be of type '%s', got: %s."
+				% [key, expected_type, recieved_type]
+			))
 			is_valid = false
 	
 	return is_valid
@@ -284,20 +290,21 @@ static func is_file_entry_valid(file_entry: Dictionary) -> bool:
 	
 	for key in required_keys:
 		if not file_entry.has(key):
-			push_error(
-					"Failed to validate 'file_entry': "
-					+ "key '%s' not found."
-					% key)
+			push_error(str(
+				"Failed to validate 'file_entry': ",
+				"key '%s' not found." % key
+			))
 			is_valid = false
 		
 		if file_entry.has(key) and not typeof(file_entry[key]) == required_keys[key]:
 			var expected_type: String = TypeUtils.get_type_string(typeof(required_keys[key]))
 			var recieved_type: String = TypeUtils.get_type_string(typeof(file_entry[key]))
 			
-			push_error(
-					"Failed to validate 'file_entry': "
-					+ "value of key '%s' must be of type '%s', got: %s."
-					% [key, expected_type, recieved_type])
+			push_error(str(
+				"Failed to validate 'file_entry': ",
+				"value of key '%s' must be of type '%s', got: %s."
+				% [key, expected_type, recieved_type]
+			))
 			is_valid = false
 	
 	return is_valid

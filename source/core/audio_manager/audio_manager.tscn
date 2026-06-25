@@ -1,7 +1,7 @@
 [gd_scene load_steps=7 format=2]
 
 [ext_resource path="res://source/core/audio_manager/audio_manager.gd" type="Script" id=1]
-[ext_resource path="res://source/core/audio_manager/audio_manager_directory_entry.gd" type="Script" id=2]
+[ext_resource path="res://source/core/audio_manager/audio_manager_directory_config.gd" type="Script" id=2]
 
 [sub_resource type="Resource" id=1]
 script = ExtResource( 2 )
@@ -26,4 +26,4 @@ bus = 4
 [node name="AudioManager" type="Node"]
 script = ExtResource( 1 )
 audio_extensions = PoolStringArray( "*" )
-directory_entries = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ]
+directory_configs = [ SubResource( 1 ), SubResource( 2 ), SubResource( 3 ), SubResource( 4 ) ]

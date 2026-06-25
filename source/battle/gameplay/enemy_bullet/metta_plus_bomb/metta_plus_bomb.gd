@@ -8,26 +8,26 @@ signal bomb_shot
 
 "SCRIPT EXPORTED VARIABLES"
 var explosion_time: float = 0.2 \
-		setget set_explosion_time # In seconds!
+	setget set_explosion_time # In seconds!
 
 
 "SCRIPT REGULAR VARIABLES"
 var explosion_time_left: float \
-		setget set_explosion_time_left # ...also in seconds!
+	setget set_explosion_time_left # ...also in seconds!
 
 var shot: bool = false \
-		setget set_shot
+	setget set_shot
 
 
 "SCRIPT ONREADY VARIABLES"
 onready var bomb_sprite: AnimatedSprite = \
-		get_node_or_null("BombSprite")
+	get_node_or_null("BombSprite")
 onready var bomb_hitbox: CollisionShape2D = \
-		get_node_or_null("BombHitbox")
+	get_node_or_null("BombHitbox")
 onready var heart_bullet_hurtbox: BattleHeartBulletHurtbox = \
-		get_node_or_null("HeartBulletHurtbox")
+	get_node_or_null("HeartBulletHurtbox")
 onready var visibility_notifier_2d: VisibilityNotifier2D = \
-		get_node_or_null("VisibilityNotifier2D")
+	get_node_or_null("VisibilityNotifier2D")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -46,6 +46,16 @@ func _physics_process(delta: float) -> void:
 
 
 "SCRIPT PRIVATE METHODS"
+func _handle_heart_bullet_collisions() -> void:
+	if shot:
+		return
+	if is_instance_valid(bomb_sprite):
+		bomb_sprite.playing = true
+	
+	explosion_time_left = explosion_time
+	shot = true
+
+
 func _handle_bomb_explosion(delta: float) -> void:
 	if Engine.editor_hint:
 		return
@@ -56,23 +66,13 @@ func _handle_bomb_explosion(delta: float) -> void:
 	
 	if explosion_time_left <= 0.0:
 		var bomb_blast: BattleEnemyBullet = preload(str(
-				"res://source/battle/gameplay/enemy_bullet/metta_plus_bomb_blast/",
-				"metta_plus_bomb_blast.tscn")).instance()
+			"res://source/battle/gameplay/enemy_bullet/metta_plus_bomb_blast/",
+			"metta_plus_bomb_blast.tscn"
+		)).instance()
 		
 		get_parent().add_child(bomb_blast)
 		bomb_blast.position = position
 		queue_free()
-
-
-func _handle_heart_bullet_collisions() -> void:
-	if shot:
-		return
-	
-	if is_instance_valid(bomb_sprite):
-		bomb_sprite.playing = true
-	
-	explosion_time_left = explosion_time
-	shot = true
 
 
 func _handle_node_cleanup() -> void:
@@ -81,13 +81,11 @@ func _handle_node_cleanup() -> void:
 
 "SCRIPT PUBLIC METHODS (PROPERTY SETTERS)"
 func set_explosion_time(value: float) -> void:
-	explosion_time = value
-	explosion_time = clamp(explosion_time, 0.0, INF)
+	explosion_time = clamp(value, 0.0, INF)
 
 
 func set_explosion_time_left(value: float) -> void:
-	explosion_time_left = value
-	explosion_time_left = clamp(explosion_time_left, 0.0, INF)
+	explosion_time_left = clamp(value, 0.0, INF)
 
 
 func set_shot(value: bool) -> void:

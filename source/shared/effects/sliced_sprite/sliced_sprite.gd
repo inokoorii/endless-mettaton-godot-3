@@ -9,32 +9,32 @@ signal texture_changed
 
 "CLASS EXPORTED VARIABLES"
 var texture: Texture = null \
-		setget set_texture
+	setget set_texture
 var normal_map: Texture = null \
-		setget set_normal_map
+	setget set_normal_map
 
 var offset: Vector2 = Vector2.ZERO \
-		setget set_offset
+	setget set_offset
 var flip_h: bool = false \
-		setget set_flip_h
+	setget set_flip_h
 var flip_v: bool = false \
-		setget set_flip_v
+	setget set_flip_v
 
 var h_separation: float = 0.0 \
-		setget set_h_separation
+	setget set_h_separation
 var v_separation: float = 0.0 \
-		setget set_v_separation
+	setget set_v_separation
 
 
 "CLASS ONREADY VARIABLES"
 onready var top_left: Sprite = \
-		get_node_or_null("TopLeft")
+	get_node_or_null("TopLeft")
 onready var top_right: Sprite = \
-		get_node_or_null("TopRight")
+	get_node_or_null("TopRight")
 onready var bottom_left: Sprite = \
-		get_node_or_null("BottomLeft")
+	get_node_or_null("BottomLeft")
 onready var bottom_right: Sprite = \
-		get_node_or_null("BottomRight")
+	get_node_or_null("BottomRight")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -127,23 +127,27 @@ func _update_sprite_positions() -> void:
 	
 	if is_instance_valid(top_left):
 		top_left.position = Vector2(
-				ceil(-texture_width) - h_separation,
-				ceil(-texture_height) - v_separation)
+			ceil(-texture_width) - h_separation,
+			ceil(-texture_height) - v_separation
+		)
 	
 	if is_instance_valid(top_right):
 		top_right.position = Vector2(
-				ceil(texture_width) + h_separation,
-				ceil(-texture_height) - v_separation)
+			ceil(texture_width) + h_separation,
+			ceil(-texture_height) - v_separation
+		)
 	
 	if is_instance_valid(bottom_left):
 		bottom_left.position = Vector2(
-				ceil(-texture_width) - h_separation,
-				ceil(texture_height) + v_separation)
+			ceil(-texture_width) - h_separation,
+			ceil(texture_height) + v_separation
+		)
 	
 	if is_instance_valid(bottom_right):
 		bottom_right.position = Vector2(
-				ceil(texture_width) + h_separation,
-				ceil(texture_height) + v_separation)
+			ceil(texture_width) + h_separation,
+			ceil(texture_height) + v_separation
+		)
 
 
 "CLASS PUBLIC METHODS (PROPERTY SETTERS)"

@@ -4,20 +4,20 @@ extends BattleEnemyBullet
 
 "SCRIPT ONREADY VARIABLES"
 onready var blast_sprite_center: AnimatedSprite = \
-		get_node_or_null("BlastSprites/Center")
+	get_node_or_null("BlastSprites/Center")
 onready var blast_sprite_horizontal_left: TextureRect = \
-		get_node_or_null("BlastSprites/HorizontalLeft")
+	get_node_or_null("BlastSprites/HorizontalLeft")
 onready var blast_sprite_horizontal_right: TextureRect = \
-		get_node_or_null("BlastSprites/HorizontalRight")
+	get_node_or_null("BlastSprites/HorizontalRight")
 onready var blast_sprite_vertical_top: TextureRect = \
-		get_node_or_null("BlastSprites/VerticalTop")
+	get_node_or_null("BlastSprites/VerticalTop")
 onready var blast_sprite_vertical_bottom: TextureRect = \
-		get_node_or_null("BlastSprites/VerticalBottom")
+	get_node_or_null("BlastSprites/VerticalBottom")
 
 onready var blast_hitbox_horizontal: CollisionShape2D = \
-		get_node_or_null("BlastHitboxHorizontal")
+	get_node_or_null("BlastHitboxHorizontal")
 onready var blast_hitbox_vertical: CollisionShape2D = \
-		get_node_or_null("BlastHitboxVertical")
+	get_node_or_null("BlastHitboxVertical")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -42,8 +42,9 @@ func _update_blast_sprite_textures() -> void:
 		return
 	
 	var blast_texture: StreamTexture = load(str(
-			"res://assets/battle/sprites/enemy_bullet/metta_plus_bomb_blast/",
-			"spr_metta_plus_bomb_blast_%s.png" % blast_sprite_center.frame))
+		"res://assets/battle/sprites/enemy_bullet/metta_plus_bomb_blast/",
+		"spr_metta_plus_bomb_blast_%s.png" % blast_sprite_center.frame
+	))
 	
 	if is_instance_valid(blast_sprite_horizontal_left):
 		blast_sprite_horizontal_left.texture = blast_texture

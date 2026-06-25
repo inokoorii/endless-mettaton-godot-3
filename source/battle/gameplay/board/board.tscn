@@ -48,7 +48,6 @@ custom_styles/panel = ExtResource( 3 )
 
 [node name="BoardColliders" type="StaticBody2D" parent="BoardPanel"]
 physics_interpolation_mode = 2
-visible = false
 
 [node name="Left" type="CollisionShape2D" parent="BoardPanel/BoardColliders"]
 position = Vector2( -955, 70 )

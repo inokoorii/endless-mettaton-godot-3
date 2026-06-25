@@ -20,12 +20,12 @@ enum Actions {
 
 "CLASS EXPORTED VARIABLES"
 var action: int = Actions.ACTION_IGNORE \
-		setget set_action
+	setget set_action
 
 
 "CLASS REGULAR VARIABLES"
 var on_hit_invincibility_time_left: float \
-		setget set_on_hit_invincibility_time_left # In seconds!
+	setget set_on_hit_invincibility_time_left # In seconds!
 
 # Some bullets may have an instance of this class added as a child.
 # To prevent `_handle_collisions()` from detecting its parent, they can append
@@ -51,10 +51,11 @@ func _physics_process(delta: float) -> void:
 func is_moving() -> bool:
 #	TODO: Switch to UNDERTALE's velocity-based movement detection.
 	return (
-			Input.is_action_pressed("move_left")
-			or Input.is_action_pressed("move_right")
-			or Input.is_action_pressed("move_up")
-			or Input.is_action_pressed("move_down"))
+		Input.is_action_pressed("move_left")
+		or Input.is_action_pressed("move_right")
+		or Input.is_action_pressed("move_up")
+		or Input.is_action_pressed("move_down")
+	)
 
 
 func is_invincible() -> bool:
@@ -77,15 +78,15 @@ func _handle_bullet_collisions(area: Area2D) -> void:
 		
 		Actions.ACTION_PROCESS_BULLET:
 			var BULLET_TYPE_DAMAGE: int = \
-					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE
+				BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE
 			var BULLET_TYPE_DAMAGE_ON_IDLE: int = \
-					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE
+				BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE
 			var BULLET_TYPE_DAMAGE_ON_MOVE: int = \
-					BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE
+				BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE
 			var BULLET_TYPE_HEAL: int = \
-					BattleEnemyBullet.BulletTypes.BULLET_TYPE_HEAL
+				BattleEnemyBullet.BulletTypes.BULLET_TYPE_HEAL
 			var BULLET_TYPE_NO_DAMAGE: int = \
-					BattleEnemyBullet.BulletTypes.BULLET_TYPE_NO_DAMAGE
+				BattleEnemyBullet.BulletTypes.BULLET_TYPE_NO_DAMAGE
 			
 			if is_invincible():
 				return
@@ -111,14 +112,12 @@ func _handle_bullet_collisions(area: Area2D) -> void:
 
 "CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_action(value: int) -> void:
-	action = value
-	action = clamp(action, 0, Actions.size() - 1) as int
+	action = clamp(value, 0, Actions.size() - 1) as int
 	emit_signal("action_changed")
 
 
 func set_on_hit_invincibility_time_left(value: float) -> void:
-	on_hit_invincibility_time_left = value
-	on_hit_invincibility_time_left = clamp(on_hit_invincibility_time_left, 0.0, INF)
+	on_hit_invincibility_time_left = clamp(value, 0.0, INF)
 
 
 "CLASS PRIVATE METHODS (PROPERTY LIST)"

@@ -17,18 +17,18 @@ enum HealthTextPaddingModes {
 
 "SCRIPT EXPORTED VARIABLES"
 var health_text_padding_mode: int = HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS \
-		setget set_health_text_padding_mode
+	setget set_health_text_padding_mode
 var health_text_padding_custom_length: int = 0 \
-		setget set_health_text_padding_custom_length
+	setget set_health_text_padding_custom_length
 
 
 "SCRIPT ONREADY VARIABLES"
 onready var hud_name: Label = \
-		get_node_or_null("HUD/Name")
+	get_node_or_null("HUD/Name")
 onready var hud_health_bar: ProgressBar = \
-		get_node_or_null("HUD/Health/HBoxContainer/HealthBar")
+	get_node_or_null("HUD/Health/HBoxContainer/HealthBar")
 onready var hud_health_text: Label = \
-		get_node_or_null("HUD/Health/HBoxContainer/HealthText")
+	get_node_or_null("HUD/Health/HBoxContainer/HealthText")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -39,7 +39,6 @@ func _ready() -> void:
 	
 	if Engine.editor_hint:
 		return
-	
 	if is_instance_valid(SaveFileManager.file):
 		SaveFileManager.file.connect("player_name_changed", self, "_update_hud_name")
 	
@@ -104,18 +103,14 @@ func _update_hud_health_text() -> void:
 
 "SCRIPT PUBLIC METHODS (PROPERTY SETTERS)"
 func set_health_text_padding_mode(value: int) -> void:
-	health_text_padding_mode = value
-	health_text_padding_mode = clamp(
-			health_text_padding_mode, 0, HealthTextPaddingModes.size() - 1) as int
-	
+	health_text_padding_mode = clamp(value, 0, HealthTextPaddingModes.size() - 1) as int
 	emit_signal("health_text_padding_mode_changed")
 	_update_hud_health_text()
 	property_list_changed_notify()
 
 
 func set_health_text_padding_custom_length(value: int) -> void:
-	health_text_padding_custom_length = value
-	health_text_padding_custom_length = clamp(health_text_padding_custom_length, 0, INF) as int
+	health_text_padding_custom_length = clamp(value, 0, INF) as int
 	_update_hud_health_text()
 
 

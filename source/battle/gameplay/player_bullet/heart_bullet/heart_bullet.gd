@@ -5,9 +5,9 @@ extends Area2D
 
 "CLASS EXPORTED VARIABLES"
 var movement_speed: float = 480.0 \
-		setget set_movement_speed
+	setget set_movement_speed
 var movement_acceleration: float = 6.0 \
-		setget set_movement_acceleration
+	setget set_movement_acceleration
 var movement_direction: Vector2 = Vector2(0.0, -1.0)
 
 var scale_growth: Vector2 = Vector2(0.0, 6.0)
@@ -19,11 +19,11 @@ var velocity: Vector2
 
 "CLASS ONREADY VARIABLES"
 onready var heart_bullet_sprite: AnimatedSprite = \
-		get_node_or_null("HeartBulletSprite")
+	get_node_or_null("HeartBulletSprite")
 onready var heart_bullet_hitbox: CollisionShape2D = \
-		get_node_or_null("HeartBulletHitbox")
+	get_node_or_null("HeartBulletHitbox")
 onready var visibility_notifier_2d: VisibilityNotifier2D = \
-		get_node_or_null("VisibilityNotifier2D")
+	get_node_or_null("VisibilityNotifier2D")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -62,13 +62,11 @@ func _handle_node_cleanup() -> void:
 
 "CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_movement_speed(value: float) -> void:
-	movement_speed = value
-	movement_speed = clamp(movement_speed, 0.0, INF)
+	movement_speed = clamp(value, 0.0, INF)
 
 
 func set_movement_acceleration(value: float) -> void:
-	movement_acceleration = value
-	movement_acceleration = clamp(movement_acceleration, 0.0, INF)
+	movement_acceleration = clamp(value, 0.0, INF)
 
 
 "CLASS PRIVATE METHODS (PROPERTY LIST)"

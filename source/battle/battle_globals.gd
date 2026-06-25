@@ -17,17 +17,16 @@ signal health_full
 var battle: Battle
 
 var max_health: int = 4 \
-		setget set_max_health
+	setget set_max_health
 var health: int = 4 \
-		setget set_health
+	setget set_health
 
 
 "AUTOLOAD PUBLIC METHODS (PROPERTY SETTERS)"
 func set_max_health(value: int) -> void:
 	var previous_max_health: int = max_health
 	
-	max_health = value
-	max_health = clamp(max_health, 0, INF) as int
+	max_health = clamp(value, 0, INF) as int
 	health = clamp(health, 0, max_health) as int
 	emit_signal("max_health_changed")
 	
@@ -40,8 +39,7 @@ func set_max_health(value: int) -> void:
 func set_health(value: int) -> void:
 	var previous_health: int = health
 	
-	health = value
-	health = clamp(health, 0, max_health) as int
+	health = clamp(value, 0, max_health) as int
 	emit_signal("health_changed")
 	
 	if health < previous_health:

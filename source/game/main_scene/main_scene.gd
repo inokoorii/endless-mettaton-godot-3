@@ -10,11 +10,11 @@ var _pre_fullscreen_window_position: Vector2
 
 "CLASS ONREADY VARIABLES"
 onready var clear_color: ColorRect = \
-		get_node_or_null("ClearColor")
+	get_node_or_null("ClearColor")
 onready var game_viewport_container: ViewportContainer = \
-		get_node_or_null("GameViewportContainer")
+	get_node_or_null("GameViewportContainer")
 onready var game_viewport: Viewport = \
-		get_node_or_null("GameViewportContainer/GameViewport")
+	get_node_or_null("GameViewportContainer/GameViewport")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -22,10 +22,10 @@ func _enter_tree() -> void:
 	if Engine.editor_hint:
 		return
 	if GameGlobals.main_scene and not GameGlobals.main_scene == self:
-		push_error(
-				"Failed to assign self to member 'GameGlobals.main_scene': "
-				+ "another 'MainScene' is already assigned (%s)."
-				% GameGlobals.main_scene)
+		push_error(str(
+			"Failed to assign self to member 'GameGlobals.main_scene': ",
+			"another 'MainScene' is already assigned (%s)." % GameGlobals.main_scene
+		))
 		return
 	
 	GameGlobals.main_scene = self
@@ -35,10 +35,10 @@ func _exit_tree() -> void:
 	if Engine.editor_hint:
 		return
 	if GameGlobals.main_scene and not GameGlobals.main_scene == self:
-		push_error(
-				"Failed to remove self from member 'GameGlobals.main_scene': "
-				+ "it is assigned to another 'MainScene' (%s)."
-				% GameGlobals.main_scene)
+		push_error(str(
+			"Failed to remove self from member 'GameGlobals.main_scene': ",
+			"it is assigned to another 'MainScene' (%s)." % GameGlobals.main_scene
+		))
 		return
 	
 	GameGlobals.main_scene = null

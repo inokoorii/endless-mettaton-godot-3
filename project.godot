@@ -10,9 +10,9 @@ config_version=4
 
 _global_script_classes=[ {
 "base": "Resource",
-"class": "AudioManagerDirectoryEntry",
+"class": "AudioManagerDirectoryConfig",
 "language": "GDScript",
-"path": "res://source/core/audio_manager/audio_manager_directory_entry.gd"
+"path": "res://source/core/audio_manager/audio_manager_directory_config.gd"
 }, {
 "base": "Node2D",
 "class": "Battle",
@@ -105,7 +105,7 @@ _global_script_classes=[ {
 "path": "res://source/core/utils/type_utils.gd"
 } ]
 _global_script_class_icons={
-"AudioManagerDirectoryEntry": "",
+"AudioManagerDirectoryConfig": "",
 "Battle": "",
 "BattleBoard": "",
 "BattleEnemyBullet": "",

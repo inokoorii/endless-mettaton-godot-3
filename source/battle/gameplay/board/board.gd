@@ -23,9 +23,9 @@ enum ResizeModes {
 
 "CLASS EXPORTED VARIABLES"
 var resize_mode: int = ResizeModes.RESIZE_MODE_WIDTH_BEFORE_HEIGHT \
-		setget set_resize_mode
+	setget set_resize_mode
 var resize_speed: float = 480.0 \
-		setget set_resize_speed
+	setget set_resize_speed
 
 var ideal_size_left: int = 287
 var ideal_size_top: int = 70
@@ -40,9 +40,9 @@ var collider_offset_right: int = 5
 var collider_offset_bottom: int = 5
 
 var anchor_markers_visible: bool = false \
-		setget set_anchor_markers_visible
+	setget set_anchor_markers_visible
 var anchor_markers_modulate: Color = Color.white \
-		setget set_anchor_markers_modulate
+	setget set_anchor_markers_modulate
 
 
 "CLASS REGULAR VARIABLES"
@@ -51,29 +51,29 @@ var _resize_progress_time: float # In seconds!
 
 "CLASS ONREADY VARIABLES"
 onready var board_panel: Panel = \
-		get_node_or_null("BoardPanel")
+	get_node_or_null("BoardPanel")
 
 onready var board_collider_left: CollisionShape2D = \
-		get_node_or_null("BoardPanel/BoardColliders/Left")
+	get_node_or_null("BoardPanel/BoardColliders/Left")
 onready var board_collider_top: CollisionShape2D = \
-		get_node_or_null("BoardPanel/BoardColliders/Top")
+	get_node_or_null("BoardPanel/BoardColliders/Top")
 onready var board_collider_right: CollisionShape2D = \
-		get_node_or_null("BoardPanel/BoardColliders/Right")
+	get_node_or_null("BoardPanel/BoardColliders/Right")
 onready var board_collider_bottom: CollisionShape2D = \
-		get_node_or_null("BoardPanel/BoardColliders/Bottom")
+	get_node_or_null("BoardPanel/BoardColliders/Bottom")
 
 onready var anchor_markers: Node2D = \
-		get_node_or_null("BoardPanel/AnchorMarkers")
+	get_node_or_null("BoardPanel/AnchorMarkers")
 onready var anchor_marker_top_left: Sprite = \
-		get_node_or_null("BoardPanel/AnchorMarkers/TopLeft")
+	get_node_or_null("BoardPanel/AnchorMarkers/TopLeft")
 onready var anchor_marker_top_right: Sprite = \
-		get_node_or_null("BoardPanel/AnchorMarkers/TopRight")
+	get_node_or_null("BoardPanel/AnchorMarkers/TopRight")
 onready var anchor_marker_center: Sprite = \
-		get_node_or_null("BoardPanel/AnchorMarkers/Center")
+	get_node_or_null("BoardPanel/AnchorMarkers/Center")
 onready var anchor_marker_bottom_left: Sprite = \
-		get_node_or_null("BoardPanel/AnchorMarkers/BottomLeft")
+	get_node_or_null("BoardPanel/AnchorMarkers/BottomLeft")
 onready var anchor_marker_bottom_right: Sprite = \
-		get_node_or_null("BoardPanel/AnchorMarkers/BottomRight")
+	get_node_or_null("BoardPanel/AnchorMarkers/BottomRight")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -92,9 +92,10 @@ func _physics_process(delta: float) -> void:
 "CLASS PUBLIC METHODS"
 func get_panel_top_left_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_top_left):
-		push_error(
-				"Failed to get panel top-left position: "
-				+ "'anchor_marker_top_left' node is invalid or null.")
+		push_error(str(
+			"Failed to get panel top-left position: ",
+			"'anchor_marker_top_left' node is invalid or null."
+		))
 		return Vector2.ZERO
 	
 	return anchor_marker_top_left.global_position
@@ -102,9 +103,10 @@ func get_panel_top_left_position() -> Vector2:
 
 func get_panel_top_right_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_top_right):
-		push_error(
-				"Failed to get panel top-right position: "
-				+ "'anchor_marker_top_right' node is invalid or null.")
+		push_error(str(
+			"Failed to get panel top-right position: ",
+			"'anchor_marker_top_right' node is invalid or null."
+		))
 		return Vector2.ZERO
 	
 	return anchor_marker_top_right.global_position
@@ -112,9 +114,10 @@ func get_panel_top_right_position() -> Vector2:
 
 func get_panel_center_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_center):
-		push_error(
-				"Failed to get panel center position: "
-				+ "'anchor_marker_center' node is invalid or null.")
+		push_error(str(
+			"Failed to get panel center position: ",
+			"'anchor_marker_center' node is invalid or null."
+		))
 		return Vector2.ZERO
 	
 	return anchor_marker_center.global_position
@@ -122,9 +125,11 @@ func get_panel_center_position() -> Vector2:
 
 func get_panel_bottom_left_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_bottom_left):
-		push_error(
-				"Failed to get panel bottom-left position: "
-				+ "'anchor_marker_bottom_left' node is invalid or null.")
+		push_error(str(
+			"Failed to get panel bottom-left position: ",
+			"'anchor_marker_bottom_left' node is invalid or null."
+		))
+		
 		return Vector2.ZERO
 	
 	return anchor_marker_bottom_left.global_position
@@ -132,9 +137,10 @@ func get_panel_bottom_left_position() -> Vector2:
 
 func get_panel_bottom_right_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_bottom_right):
-		push_error(
-				"Failed to get panel bottom-right position: "
-				+ "'anchor_marker_bottom_right' node is invalid or null.")
+		push_error(str(
+			"Failed to get panel bottom-right position: ",
+			"'anchor_marker_bottom_right' node is invalid or null."
+		))
 		return Vector2.ZERO
 	
 	return anchor_marker_bottom_right.global_position
@@ -142,23 +148,26 @@ func get_panel_bottom_right_position() -> Vector2:
 
 func is_width_resized() -> bool:
 	return (
-			is_instance_valid(board_panel)
-			and board_panel.margin_left == -ideal_size_left
-			and board_panel.margin_right == ideal_size_right)
+		is_instance_valid(board_panel)
+		and board_panel.margin_left == -ideal_size_left
+		and board_panel.margin_right == ideal_size_right
+	)
 
 
 func is_height_resized() -> bool:
 	return (
-			is_instance_valid(board_panel)
-			and board_panel.margin_top == -ideal_size_top
-			and board_panel.margin_bottom == ideal_size_bottom)
+		is_instance_valid(board_panel)
+		and board_panel.margin_top == -ideal_size_top
+		and board_panel.margin_bottom == ideal_size_bottom
+	)
 
 
 func is_resized() -> bool:
 	return (
-			is_instance_valid(board_panel)
-			and is_width_resized()
-			and is_height_resized())
+		is_instance_valid(board_panel)
+		and is_width_resized()
+		and is_height_resized()
+	)
 
 
 "CLASS PRIVATE METHODS"
@@ -248,23 +257,27 @@ func _update_collider_positions() -> void:
 	
 	if is_instance_valid(board_collider_left) and is_instance_valid(board_collider_left.shape):
 		board_collider_left.position = Vector2(
-				-board_collider_left.shape.extents.x + collider_offset_left,
-				panel_height_center)
+			-board_collider_left.shape.extents.x + collider_offset_left,
+			panel_height_center
+		)
 	
 	if is_instance_valid(board_collider_top) and is_instance_valid(board_collider_top.shape):
 		board_collider_top.position = Vector2(
-				panel_width_center,
-				-board_collider_top.shape.extents.y + collider_offset_top)
+			panel_width_center,
+			-board_collider_top.shape.extents.y + collider_offset_top
+		)
 	
 	if is_instance_valid(board_collider_right) and is_instance_valid(board_collider_right.shape):
 		board_collider_right.position = Vector2(
-				panel_width + (board_collider_right.shape.extents.x - collider_offset_right),
-				panel_height_center)
+			panel_width + (board_collider_right.shape.extents.x - collider_offset_right),
+			panel_height_center
+		)
 	
 	if is_instance_valid(board_collider_bottom) and is_instance_valid(board_collider_bottom.shape):
 		board_collider_bottom.position = Vector2(
-				panel_width_center,
-				panel_height + (board_collider_bottom.shape.extents.y - collider_offset_bottom))
+			panel_width_center,
+			panel_height + (board_collider_bottom.shape.extents.y - collider_offset_bottom)
+		)
 
 
 func _update_anchor_marker_positions() -> void:
@@ -302,14 +315,12 @@ func _update_anchor_marker_visibilities() -> void:
 
 "CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_resize_mode(value: int) -> void:
-	resize_mode = value
-	resize_mode = clamp(resize_mode, 0, ResizeModes.size() - 1) as int
+	resize_mode = clamp(value, 0, ResizeModes.size() - 1) as int
 	emit_signal("resize_mode_changed")
 
 
 func set_resize_speed(value: float) -> void:
-	resize_speed = value
-	resize_speed = clamp(resize_speed, 0.0, INF)
+	resize_speed = clamp(value, 0.0, INF)
 
 
 func set_anchor_markers_visible(value: bool) -> void:

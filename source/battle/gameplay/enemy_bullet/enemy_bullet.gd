@@ -27,23 +27,23 @@ enum BulletColors {
 
 "CLASS EXPORTED VARIABLES"
 var bullet_type: int = BulletTypes.BULLET_TYPE_DAMAGE \
-		setget set_bullet_type
+	setget set_bullet_type
 var bullet_color: int = BulletColors.BULLET_COLOR_WHITE \
-		setget set_bullet_color
+	setget set_bullet_color
 
 var on_hit_damage: int = 0 \
-		setget set_on_hit_damage
+	setget set_on_hit_damage
 var on_hit_heal: int = 0 \
-		setget set_on_hit_heal
+	setget set_on_hit_heal
 var on_hit_invincibility_time: float = 1.0 \
-		setget set_on_hit_invincibility_time # In seconds!
+	setget set_on_hit_invincibility_time # In seconds!
 
 var movement_speed: float = 0.0 \
-		setget set_movement_speed
+	setget set_movement_speed
 var movement_direction: Vector2 = Vector2.ZERO \
-		setget set_movement_direction
+	setget set_movement_direction
 var movement_rotation_degrees: float = 0.0 \
-		setget set_movement_rotation_degrees
+	setget set_movement_rotation_degrees
 var movement_rotate_velocity: bool = false
 
 
@@ -94,36 +94,30 @@ func _handle_bullet_movement(delta: float) -> void:
 
 "CLASS PUBLIC METHODS (PROPERTY SETTERS)"
 func set_bullet_type(value: int) -> void:
-	bullet_type = value
-	bullet_type = clamp(bullet_type, 0, BulletTypes.size() - 1) as int
+	bullet_type = clamp(value, 0, BulletTypes.size() - 1) as int
 	emit_signal("bullet_type_changed")
 
 
 func set_bullet_color(value: int) -> void:
-	bullet_color = value
-	bullet_color = clamp(bullet_color, 0, BulletColors.size() - 1) as int
+	bullet_color = clamp(value, 0, BulletColors.size() - 1) as int
 	emit_signal("bullet_color_changed")
 	_update_modulate()
 
 
 func set_on_hit_damage(value: int) -> void:
-	on_hit_damage = value
-	on_hit_damage = clamp(on_hit_damage, 0, INF) as int
+	on_hit_damage = clamp(value, 0, INF) as int
 
 
 func set_on_hit_heal(value: int) -> void:
-	on_hit_heal = value
-	on_hit_heal = clamp(on_hit_heal, 0, INF) as int
+	on_hit_heal = clamp(value, 0, INF) as int
 
 
 func set_on_hit_invincibility_time(value: float) -> void:
-	on_hit_invincibility_time = value
-	on_hit_invincibility_time = clamp(on_hit_invincibility_time, 0.0, INF)
+	on_hit_invincibility_time = clamp(value, 0.0, INF)
 
 
 func set_movement_speed(value: float) -> void:
-	movement_speed = value
-	movement_speed = clamp(movement_speed, 0.0, INF)
+	movement_speed = clamp(value, 0.0, INF)
 
 
 func set_movement_direction(value: Vector2) -> void:

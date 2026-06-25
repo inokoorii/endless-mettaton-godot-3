@@ -4,12 +4,12 @@ extends Node2D
 
 "SCRIPT EXPORTED VARIABLES"
 var board: NodePath = NodePath("") \
-		setget set_board
+	setget set_board
 
 
 "SCRIPT ONREADY VARIABLES"
 onready var background: Panel = \
-		get_node_or_null("Background")
+	get_node_or_null("Background")
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -43,9 +43,10 @@ func set_board(value: NodePath) -> void:
 	
 	if not value.is_empty():
 		if is_instance_valid(node) and (not node is BattleBoard):
-			push_error(
-					"Failed to assign '%s' to member 'board': " % node.name
-					+ "node is not of type 'BattleBoard' (%s)." % node)
+			push_error(str(
+				"Failed to assign '%s' to member 'board': " % node.name,
+				"node is not of type 'BattleBoard' (%s)." % node
+			))
 			return
 	
 	board = value
