@@ -85,9 +85,10 @@ func _handle_heart_bullet_firing(delta: float) -> void:
 		
 		get_parent().add_child(bullet)
 		bullet.position = position + bullet_firing_offset
-		
 		bullet_firing_cooldown_time_left = bullet_firing_cooldown_time
+		
 		emit_signal("bullet_fired", bullet)
+		AudioManager.play_overlapping("assets/battle/sfx/sfx_heart_shoot.wav")
 
 
 func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int) -> void:
@@ -103,10 +104,12 @@ func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int
 	match bullet_type:
 		BULLET_TYPE_DAMAGE, BULLET_TYPE_DAMAGE_ON_IDLE, BULLET_TYPE_DAMAGE_ON_MOVE:
 			BattleGlobals.health -= bullet.on_hit_damage
+			AudioManager.play_overlapping("assets/battle/sfx/sfx_player_hurt.wav")
 		
 		BULLET_TYPE_HEAL:
 			BattleGlobals.health += bullet.on_hit_heal
 			bullet.queue_free() # Currently unsure if I want to destroy the bullets here...
+			AudioManager.play_overlapping("assets/battle/sfx/sfx_player_heal.wav")
 
 
 func _update_heart_sprite_playing() -> void:

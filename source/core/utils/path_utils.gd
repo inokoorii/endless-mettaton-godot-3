@@ -1,5 +1,5 @@
 class_name PathUtils
-extends Object
+extends Reference
 
 
 "CLASS STATIC METHODS"

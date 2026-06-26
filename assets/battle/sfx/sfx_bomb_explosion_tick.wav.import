@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/sfx_bomb_explosion.wav-0a0d30440a8f35f478d3f71f74692463.sample"
+path="res://.import/sfx_bomb_explosion_tick.wav-0c041519ca11d038ba241a626406f7f6.sample"
 
 [deps]
 
-source_file="res://assets/battle/sound_effects/sfx_bomb_explosion.wav"
-dest_files=[ "res://.import/sfx_bomb_explosion.wav-0a0d30440a8f35f478d3f71f74692463.sample" ]
+source_file="res://assets/battle/sfx/sfx_bomb_explosion_tick.wav"
+dest_files=[ "res://.import/sfx_bomb_explosion_tick.wav-0c041519ca11d038ba241a626406f7f6.sample" ]
 
 [params]
 

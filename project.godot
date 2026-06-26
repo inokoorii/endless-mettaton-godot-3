@@ -9,6 +9,16 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Reference",
+"class": "AudioManagerAudioEntry",
+"language": "GDScript",
+"path": "res://source/core/audio_manager/audio_manager_audio_entry.gd"
+}, {
+"base": "Reference",
+"class": "AudioManagerAudioPlayback",
+"language": "GDScript",
+"path": "res://source/core/audio_manager/audio_manager_audio_playback.gd"
+}, {
 "base": "Resource",
 "class": "AudioManagerDirectoryConfig",
 "language": "GDScript",
@@ -59,7 +69,7 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/core/directory_indexer/directory_indexer_options.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "ErrorUtils",
 "language": "GDScript",
 "path": "res://source/core/utils/error_utils.gd"
@@ -69,17 +79,17 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/game/main_scene/main_scene.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "MovementUtils",
 "language": "GDScript",
 "path": "res://source/game/utils/movement_utils.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "PathUtils",
 "language": "GDScript",
 "path": "res://source/core/utils/path_utils.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "PropertyHintUtils",
 "language": "GDScript",
 "path": "res://source/core/utils/property_hint_utils.gd"
@@ -99,12 +109,14 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://source/shared/effects/sliced_sprite/sliced_sprite.gd"
 }, {
-"base": "Object",
+"base": "Reference",
 "class": "TypeUtils",
 "language": "GDScript",
 "path": "res://source/core/utils/type_utils.gd"
 } ]
 _global_script_class_icons={
+"AudioManagerAudioEntry": "",
+"AudioManagerAudioPlayback": "",
 "AudioManagerDirectoryConfig": "",
 "Battle": "",
 "BattleBoard": "",

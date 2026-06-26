@@ -228,7 +228,7 @@ static func is_index_valid(directory_index: Dictionary) -> bool:
 	for key in required_keys:
 		if not directory_index.has(key):
 			push_error(str(
-				"Failed to validate 'directory_index': ",
+				"DirectoryIndexer: Cannot validate 'directory_index'; ",
 				"key '%s' not found." % key
 			))
 			is_valid = false
@@ -238,7 +238,7 @@ static func is_index_valid(directory_index: Dictionary) -> bool:
 			var recieved_type: String = TypeUtils.get_type_string(directory_index[key])
 			
 			push_error(str(
-				"Failed to validate 'directory_index': ",
+				"DirectoryIndexer: Cannot validate 'directory_index'; ",
 				"value of key '%s' must be of type '%s', got: %s."
 				% [key, expected_type, recieved_type]
 			))
@@ -260,7 +260,7 @@ static func is_directory_entry_valid(directory_entry: Dictionary) -> bool:
 	for key in required_keys:
 		if not directory_entry.has(key):
 			push_error(str(
-				"Failed to validate 'directory_entry': ",
+				"DirectoryIndexer: Cannot validate 'directory_entry'; ",
 				"key '%s' not found." % key
 			))
 			is_valid = false
@@ -270,7 +270,7 @@ static func is_directory_entry_valid(directory_entry: Dictionary) -> bool:
 			var recieved_type: String = TypeUtils.get_type_string(typeof(directory_entry[key]))
 			
 			push_error(str(
-				"Failed to validate 'directory_entry': ",
+				"DirectoryIndexer: Cannot validate 'directory_entry'; ",
 				"value of key '%s' must be of type '%s', got: %s."
 				% [key, expected_type, recieved_type]
 			))
@@ -291,7 +291,7 @@ static func is_file_entry_valid(file_entry: Dictionary) -> bool:
 	for key in required_keys:
 		if not file_entry.has(key):
 			push_error(str(
-				"Failed to validate 'file_entry': ",
+				"DirectoryIndexer: Cannot validate 'file_entry'; ",
 				"key '%s' not found." % key
 			))
 			is_valid = false
@@ -301,7 +301,7 @@ static func is_file_entry_valid(file_entry: Dictionary) -> bool:
 			var recieved_type: String = TypeUtils.get_type_string(typeof(file_entry[key]))
 			
 			push_error(str(
-				"Failed to validate 'file_entry': ",
+				"DirectoryIndexer: Cannot validate 'file_entry'; ",
 				"value of key '%s' must be of type '%s', got: %s."
 				% [key, expected_type, recieved_type]
 			))

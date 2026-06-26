@@ -2,12 +2,12 @@
 
 importer="wav"
 type="AudioStreamSample"
-path="res://.import/sfx_heart_shoot.wav-e358278f0ae11fa8dbdd9b27f8d3a989.sample"
+path="res://.import/sfx_heart_shoot.wav-1870e3a722257cf41a70759a8fcdaeb9.sample"
 
 [deps]
 
-source_file="res://assets/battle/sound_effects/sfx_heart_shoot.wav"
-dest_files=[ "res://.import/sfx_heart_shoot.wav-e358278f0ae11fa8dbdd9b27f8d3a989.sample" ]
+source_file="res://assets/battle/sfx/sfx_heart_shoot.wav"
+dest_files=[ "res://.import/sfx_heart_shoot.wav-1870e3a722257cf41a70759a8fcdaeb9.sample" ]
 
 [params]
 

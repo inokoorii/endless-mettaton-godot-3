@@ -34,11 +34,14 @@ onready var visibility_notifier_2d: VisibilityNotifier2D = \
 func _ready() -> void:
 	add_to_group("MettaPlusBombs", true)
 	
+	if is_instance_valid(bomb_sprite):
+		bomb_sprite.connect("frame_changed", self, "_play_explosion_tick_sound")
+	
 	if is_instance_valid(heart_bullet_hurtbox):
 		heart_bullet_hurtbox.connect("bullet_entered", self, "_handle_heart_bullet_collisions")
 	
 	if is_instance_valid(visibility_notifier_2d):
-		visibility_notifier_2d.connect("screen_exited", self, "_handle_node_cleanup")
+		visibility_notifier_2d.connect("screen_exited", self, "queue_free")
 
 
 func _physics_process(delta: float) -> void:
@@ -75,8 +78,14 @@ func _handle_bomb_explosion(delta: float) -> void:
 		queue_free()
 
 
-func _handle_node_cleanup() -> void:
-	queue_free()
+func _play_explosion_tick_sound() -> void:
+#	FIXME: Explosion tick SFX plays more frequently compared to its original counterpart.
+	if not is_instance_valid(bomb_sprite):
+		return
+	if not bomb_sprite.frame == 1:
+		return
+	
+	AudioManager.play_overlapping("assets/battle/sfx/sfx_bomb_explosion_tick.wav")
 
 
 "SCRIPT PUBLIC METHODS (PROPERTY SETTERS)"

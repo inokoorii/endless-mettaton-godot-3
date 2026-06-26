@@ -7,6 +7,10 @@ var trigger_shot: bool = false
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
+func _ready() -> void:
+	AudioManager.play_single("assets/battle/music/mus_mettaton.ogg")
+
+
 func _physics_process(delta: float) -> void:
 	if not trigger_shot:
 		board.rotation_degrees += 15.0 * delta
@@ -34,3 +38,6 @@ func _on_trigger_bullet_entered() -> void:
 	
 	for plus_bomb in get_tree().get_nodes_in_group("MettaPlusBombs"):
 		plus_bomb.shot = true
+		yield(get_tree(), "physics_frame")
+	
+	AudioManager.play_overlapping("assets/battle/sfx/sfx_bell.wav")

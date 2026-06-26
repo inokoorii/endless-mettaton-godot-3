@@ -1,5 +1,5 @@
 class_name TypeUtils
-extends Object
+extends Reference
 
 
 "CLASS CONSTANTS"

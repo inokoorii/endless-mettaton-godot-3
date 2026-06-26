@@ -1,5 +1,5 @@
 class_name ErrorUtils
-extends Object
+extends Reference
 
 
 "CLASS CONSTANTS"

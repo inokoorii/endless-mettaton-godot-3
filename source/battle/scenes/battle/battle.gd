@@ -14,8 +14,8 @@ func _enter_tree() -> void:
 		return
 	if BattleGlobals.battle and not BattleGlobals.battle == self:
 		push_error(str(
-			"Failed to assign self to member 'BattleGlobals.battle': ",
-			"another 'Battle' is already assigned (%s)." % BattleGlobals.battle
+			"Battle: Cannot assign self to member 'BattleGlobals.battle'; ",
+			"another instance is already assigned (%s)." % BattleGlobals.battle
 		))
 		return
 	
@@ -27,10 +27,9 @@ func _exit_tree() -> void:
 		return
 	if BattleGlobals.battle and not BattleGlobals.battle == self:
 		push_error(str(
-			"Failed to remove self from member 'BattleGlobals.battle': ",
+			"Battle: Cannot remove self from member 'BattleGlobals.battle'; ",
 			"it is assigned to another 'Battle' (%s)." % BattleGlobals.battle
 		))
 		return
 	
 	BattleGlobals.battle = null
-

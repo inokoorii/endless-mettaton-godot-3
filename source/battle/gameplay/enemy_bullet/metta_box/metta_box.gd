@@ -62,7 +62,7 @@ func _ready() -> void:
 		heart_bullet_hurtbox.connect("bullet_entered", self, "_handle_heart_bullet_collisions")
 	
 	if is_instance_valid(visibility_notifier_2d):
-		visibility_notifier_2d.connect("screen_exited", self, "_handle_node_cleanup")
+		visibility_notifier_2d.connect("screen_exited", self, "queue_free")
 
 
 func _physics_process(delta: float) -> void:
@@ -178,10 +178,6 @@ func _handle_box_break_animation(delta: float) -> void:
 	
 		BoxTypes.BOX_TYPE_SOLID:
 			queue_free()
-
-
-func _handle_node_cleanup() -> void:
-	queue_free()
 
 
 "SCRIPT PUBLIC METHODS (PROPERTY SETTERS)"

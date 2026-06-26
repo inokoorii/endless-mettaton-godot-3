@@ -1,5 +1,5 @@
 class_name PropertyHintUtils
-extends Object
+extends Reference
 
 
 "CLASS STATIC METHODS"

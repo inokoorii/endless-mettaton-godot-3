@@ -1,5 +1,5 @@
 class_name MovementUtils
-extends Object
+extends Reference
 
 
 "CLASS STATIC MEHTODS"

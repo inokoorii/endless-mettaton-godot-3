@@ -1,0 +1,15 @@
+[remap]
+
+importer="ogg_vorbis"
+type="AudioStreamOGGVorbis"
+path="res://.import/mus_mettaton_ex.ogg-9fa116629bd30160837f0ce4e33e2a26.oggstr"
+
+[deps]
+
+source_file="res://assets/battle/music/mus_mettaton_ex.ogg"
+dest_files=[ "res://.import/mus_mettaton_ex.ogg-9fa116629bd30160837f0ce4e33e2a26.oggstr" ]
+
+[params]
+
+loop=true
+loop_offset=0

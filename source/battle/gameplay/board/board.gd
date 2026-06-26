@@ -93,7 +93,7 @@ func _physics_process(delta: float) -> void:
 func get_panel_top_left_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_top_left):
 		push_error(str(
-			"Failed to get panel top-left position: ",
+			"BattleBoard: Cannot get panel top-left position; ",
 			"'anchor_marker_top_left' node is invalid or null."
 		))
 		return Vector2.ZERO
@@ -104,7 +104,7 @@ func get_panel_top_left_position() -> Vector2:
 func get_panel_top_right_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_top_right):
 		push_error(str(
-			"Failed to get panel top-right position: ",
+			"BattleBoard: Cannot get panel top-right position; ",
 			"'anchor_marker_top_right' node is invalid or null."
 		))
 		return Vector2.ZERO
@@ -115,7 +115,7 @@ func get_panel_top_right_position() -> Vector2:
 func get_panel_center_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_center):
 		push_error(str(
-			"Failed to get panel center position: ",
+			"BattleBoard: Cannot get panel center position; ",
 			"'anchor_marker_center' node is invalid or null."
 		))
 		return Vector2.ZERO
@@ -126,7 +126,7 @@ func get_panel_center_position() -> Vector2:
 func get_panel_bottom_left_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_bottom_left):
 		push_error(str(
-			"Failed to get panel bottom-left position: ",
+			"BattleBoard: Cannot get panel bottom-left position; ",
 			"'anchor_marker_bottom_left' node is invalid or null."
 		))
 		
@@ -138,7 +138,7 @@ func get_panel_bottom_left_position() -> Vector2:
 func get_panel_bottom_right_position() -> Vector2:
 	if not is_instance_valid(anchor_marker_bottom_right):
 		push_error(str(
-			"Failed to get panel bottom-right position: ",
+			"BattleBoard: Cannot get panel bottom-right position; ",
 			"'anchor_marker_bottom_right' node is invalid or null."
 		))
 		return Vector2.ZERO

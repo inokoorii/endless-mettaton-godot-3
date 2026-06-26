@@ -26,10 +26,14 @@ func _ready() -> void:
 	
 	if is_instance_valid(blast_sprite_center):
 		blast_sprite_center.connect("frame_changed", self, "_update_blast_sprite_textures")
-		blast_sprite_center.connect("animation_finished", self, "_handle_node_cleanup")
 		
-		if not Engine.editor_hint:
-			blast_sprite_center.play("blast_center")
+		if Engine.editor_hint:
+			return
+		
+		blast_sprite_center.connect("animation_finished", self, "queue_free")
+		blast_sprite_center.play("blast_center")
+	
+	AudioManager.play_overlapping("assets/battle/sfx/sfx_bomb_explosion.wav")
 
 
 func _physics_process(delta: float) -> void:
@@ -72,8 +76,6 @@ func _update_blast_hitboxes_disabled() -> void:
 		blast_hitbox_vertical.disabled = is_damage_frame
 
 
-func _handle_node_cleanup() -> void:
+func _play_explosion_sound() -> void:
 	if Engine.editor_hint:
 		return
-	
-	queue_free()
