@@ -12,9 +12,9 @@ const BUS_INDEX_MASTER: int = 0
 
 
 "CLASS EXPORTED VARIABLES"
-# TODO: Add audio entry overrides maybe???
 var directory_path: String = ""
-var bus: String = AudioServer.get_bus_name(BUS_INDEX_MASTER) \
+
+var bus: String = AudioServer.get_bus_name(BUS_INDEX_MASTER)\
 	setget set_bus
 
 

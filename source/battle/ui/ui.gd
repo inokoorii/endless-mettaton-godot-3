@@ -16,18 +16,18 @@ enum HealthTextPaddingModes {
 
 
 "SCRIPT EXPORTED VARIABLES"
-var health_text_padding_mode: int = HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS \
+var health_text_padding_mode: int = HealthTextPaddingModes.PADDING_MODE_TO_TWO_DIGITS\
 	setget set_health_text_padding_mode
-var health_text_padding_custom_length: int = 0 \
+var health_text_padding_custom_length: int = 0\
 	setget set_health_text_padding_custom_length
 
 
 "SCRIPT ONREADY VARIABLES"
-onready var hud_name: Label = \
+onready var hud_name: Label =\
 	get_node_or_null("HUD/Name")
-onready var hud_health_bar: ProgressBar = \
+onready var hud_health_bar: ProgressBar =\
 	get_node_or_null("HUD/Health/HBoxContainer/HealthBar")
-onready var hud_health_text: Label = \
+onready var hud_health_text: Label =\
 	get_node_or_null("HUD/Health/HBoxContainer/HealthText")
 
 
@@ -37,22 +37,26 @@ func _ready() -> void:
 	_update_hud_health_bar()
 	_update_hud_health_text()
 	
-	if Engine.editor_hint:
-		return
-	if is_instance_valid(SaveFileManager.file):
-		SaveFileManager.file.connect("player_name_changed", self, "_update_hud_name")
+	print(JSON.print(DirectoryIndexer.new().index_directory("res://references"), "\t"))
 	
 	BattleGlobals.connect("max_health_changed", self, "_update_hud_health_bar")
 	BattleGlobals.connect("health_changed", self, "_update_hud_health_bar")
 	BattleGlobals.connect("max_health_changed", self, "_update_hud_health_text")
 	BattleGlobals.connect("health_changed", self, "_update_hud_health_text")
+	
+	if Engine.editor_hint:
+		return
+	if is_instance_valid(SaveFileManager.file):
+		SaveFileManager.file.connect("player_name_changed", self, "_update_hud_name")
 
 
 "SCRIPT PRIVATE METHODS"
 func _update_hud_name() -> void:
 	if Engine.editor_hint:
 		return
-	if not is_instance_valid(hud_name) or not is_instance_valid(SaveFileManager.file):
+	if not is_instance_valid(SaveFileManager.file):
+		return
+	if not is_instance_valid(hud_name):
 		return
 	
 	hud_name.text = "%s   LV 1" % SaveFileManager.file.player_name
@@ -141,7 +145,6 @@ func _get_property_list() -> Array:
 			"hint_string": "To Two Digits,To Max Health Digits,To Custom Length,None",
 		},
 	])
-	
 	if health_text_padding_mode == HealthTextPaddingModes.PADDING_MODE_TO_CUSTOM_LENGTH:
 		property_list.append_array([
 			{

@@ -9,11 +9,11 @@ var _pre_fullscreen_window_position: Vector2
 
 
 "CLASS ONREADY VARIABLES"
-onready var clear_color: ColorRect = \
+onready var clear_color: ColorRect =\
 	get_node_or_null("ClearColor")
-onready var game_viewport_container: ViewportContainer = \
+onready var game_viewport_container: ViewportContainer =\
 	get_node_or_null("GameViewportContainer")
-onready var game_viewport: Viewport = \
+onready var game_viewport: Viewport =\
 	get_node_or_null("GameViewportContainer/GameViewport")
 
 
@@ -21,7 +21,7 @@ onready var game_viewport: Viewport = \
 func _enter_tree() -> void:
 	if Engine.editor_hint:
 		return
-	if GameGlobals.main_scene and not GameGlobals.main_scene == self:
+	if GameGlobals.main_scene and GameGlobals.main_scene != self:
 		push_error(str(
 			"MainScene: Cannot assign self to member 'GameGlobals.main_scene'; ",
 			"another instance is already assigned (%s)." % GameGlobals.main_scene
@@ -34,7 +34,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	if Engine.editor_hint:
 		return
-	if GameGlobals.main_scene and not GameGlobals.main_scene == self:
+	if GameGlobals.main_scene and GameGlobals.main_scene != self:
 		push_error(str(
 			"MainScene: Cannot remove self from member 'GameGlobals.main_scene'; ",
 			"it is assigned to another instance (%s)." % GameGlobals.main_scene

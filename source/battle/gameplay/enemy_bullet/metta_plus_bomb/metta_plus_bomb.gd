@@ -7,26 +7,26 @@ signal bomb_shot
 
 
 "SCRIPT EXPORTED VARIABLES"
-var explosion_time: float = 0.2 \
+var explosion_time: float = 0.2\
 	setget set_explosion_time # In seconds!
 
 
 "SCRIPT REGULAR VARIABLES"
-var explosion_time_left: float \
+var explosion_time_left: float\
 	setget set_explosion_time_left # ...also in seconds!
 
-var shot: bool = false \
+var shot: bool = false\
 	setget set_shot
 
 
 "SCRIPT ONREADY VARIABLES"
-onready var bomb_sprite: AnimatedSprite = \
+onready var bomb_sprite: AnimatedSprite =\
 	get_node_or_null("BombSprite")
-onready var bomb_hitbox: CollisionShape2D = \
+onready var bomb_hitbox: CollisionShape2D =\
 	get_node_or_null("BombHitbox")
-onready var heart_bullet_hurtbox: BattleHeartBulletHurtbox = \
+onready var heart_bullet_hurtbox: BattleHeartBulletHurtbox =\
 	get_node_or_null("HeartBulletHurtbox")
-onready var visibility_notifier_2d: VisibilityNotifier2D = \
+onready var visibility_notifier_2d: VisibilityNotifier2D =\
 	get_node_or_null("VisibilityNotifier2D")
 
 

@@ -3,20 +3,20 @@ extends BattleEnemyBullet
 
 
 "SCRIPT ONREADY VARIABLES"
-onready var blast_sprite_center: AnimatedSprite = \
+onready var blast_sprite_center: AnimatedSprite =\
 	get_node_or_null("BlastSprites/Center")
-onready var blast_sprite_horizontal_left: TextureRect = \
+onready var blast_sprite_horizontal_left: TextureRect =\
 	get_node_or_null("BlastSprites/HorizontalLeft")
-onready var blast_sprite_horizontal_right: TextureRect = \
+onready var blast_sprite_horizontal_right: TextureRect =\
 	get_node_or_null("BlastSprites/HorizontalRight")
-onready var blast_sprite_vertical_top: TextureRect = \
+onready var blast_sprite_vertical_top: TextureRect =\
 	get_node_or_null("BlastSprites/VerticalTop")
-onready var blast_sprite_vertical_bottom: TextureRect = \
+onready var blast_sprite_vertical_bottom: TextureRect =\
 	get_node_or_null("BlastSprites/VerticalBottom")
 
-onready var blast_hitbox_horizontal: CollisionShape2D = \
+onready var blast_hitbox_horizontal: CollisionShape2D =\
 	get_node_or_null("BlastHitboxHorizontal")
-onready var blast_hitbox_vertical: CollisionShape2D = \
+onready var blast_hitbox_vertical: CollisionShape2D =\
 	get_node_or_null("BlastHitboxVertical")
 
 
@@ -26,14 +26,11 @@ func _ready() -> void:
 	
 	if is_instance_valid(blast_sprite_center):
 		blast_sprite_center.connect("frame_changed", self, "_update_blast_sprite_textures")
-		
-		if Engine.editor_hint:
-			return
-		
-		blast_sprite_center.connect("animation_finished", self, "queue_free")
-		blast_sprite_center.play("blast_center")
 	
-	AudioManager.play_overlapping("assets/battle/sfx/sfx_bomb_explosion.wav")
+		if not Engine.editor_hint:
+			blast_sprite_center.connect("animation_finished", self, "queue_free")
+			blast_sprite_center.play("blast_center")
+			AudioManager.play_overlapping("assets/battle/sfx/sfx_bomb_explosion.wav")
 
 
 func _physics_process(delta: float) -> void:
@@ -74,8 +71,3 @@ func _update_blast_hitboxes_disabled() -> void:
 	
 	if is_instance_valid(blast_hitbox_vertical):
 		blast_hitbox_vertical.disabled = is_damage_frame
-
-
-func _play_explosion_sound() -> void:
-	if Engine.editor_hint:
-		return

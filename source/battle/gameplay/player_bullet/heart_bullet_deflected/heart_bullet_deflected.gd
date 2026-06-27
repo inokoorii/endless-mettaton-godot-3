@@ -3,7 +3,7 @@ extends Node2D
 
 
 "SCRIPT EXPORTED VARIABLES"
-var movement_speed: float = 540.0 \
+var movement_speed: float = 540.0\
 	setget set_movement_speed
 
 
@@ -15,9 +15,9 @@ var velocity: Vector2
 
 
 "SCRIPT ONREADY VARIABLES"
-onready var heart_bullet_sprite: AnimatedSprite = \
+onready var heart_bullet_sprite: AnimatedSprite =\
 	get_node_or_null("HeartBulletSprite")
-onready var visibility_notifier_2d: VisibilityNotifier2D = \
+onready var visibility_notifier_2d: VisibilityNotifier2D =\
 	get_node_or_null("VisibilityNotifier2D")
 
 

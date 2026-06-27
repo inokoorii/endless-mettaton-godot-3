@@ -19,12 +19,12 @@ enum Actions {
 
 
 "CLASS EXPORTED VARIABLES"
-var action: int = Actions.ACTION_IGNORE \
+var action: int = Actions.ACTION_IGNORE\
 	setget set_action
 
 
 "CLASS REGULAR VARIABLES"
-var on_hit_invincibility_time_left: float \
+var on_hit_invincibility_time_left: float\
 	setget set_on_hit_invincibility_time_left # In seconds!
 
 # Some bullets may have an instance of this class added as a child.
@@ -65,9 +65,7 @@ func is_invincible() -> bool:
 "CLASS PRIVATE METHODS"
 func _handle_bullet_collisions(area: Area2D) -> void:
 #	FIXME: Collisions being processed at different rates depending on physics FPS.
-	if ignored_areas.has(area):
-		return
-	if not area is BattleEnemyBullet:
+	if ignored_areas.has(area) or (not area is BattleEnemyBullet):
 		return
 	
 	emit_signal("bullet_entered", area, area.bullet_type)
@@ -77,15 +75,15 @@ func _handle_bullet_collisions(area: Area2D) -> void:
 			emit_signal("bullet_entered_ignored", area, area.bullet_type)
 		
 		Actions.ACTION_PROCESS_BULLET:
-			var BULLET_TYPE_DAMAGE: int = \
+			var BULLET_TYPE_DAMAGE: int =\
 				BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE
-			var BULLET_TYPE_DAMAGE_ON_IDLE: int = \
+			var BULLET_TYPE_DAMAGE_ON_IDLE: int =\
 				BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE
-			var BULLET_TYPE_DAMAGE_ON_MOVE: int = \
+			var BULLET_TYPE_DAMAGE_ON_MOVE: int =\
 				BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE
-			var BULLET_TYPE_HEAL: int = \
+			var BULLET_TYPE_HEAL: int =\
 				BattleEnemyBullet.BulletTypes.BULLET_TYPE_HEAL
-			var BULLET_TYPE_NO_DAMAGE: int = \
+			var BULLET_TYPE_NO_DAMAGE: int =\
 				BattleEnemyBullet.BulletTypes.BULLET_TYPE_NO_DAMAGE
 			
 			if is_invincible():

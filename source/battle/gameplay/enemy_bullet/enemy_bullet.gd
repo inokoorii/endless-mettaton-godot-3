@@ -26,23 +26,23 @@ enum BulletColors {
 
 
 "CLASS EXPORTED VARIABLES"
-var bullet_type: int = BulletTypes.BULLET_TYPE_DAMAGE \
+var bullet_type: int = BulletTypes.BULLET_TYPE_DAMAGE\
 	setget set_bullet_type
-var bullet_color: int = BulletColors.BULLET_COLOR_WHITE \
+var bullet_color: int = BulletColors.BULLET_COLOR_WHITE\
 	setget set_bullet_color
 
-var on_hit_damage: int = 0 \
+var on_hit_damage: int = 0\
 	setget set_on_hit_damage
-var on_hit_heal: int = 0 \
+var on_hit_heal: int = 0\
 	setget set_on_hit_heal
-var on_hit_invincibility_time: float = 1.0 \
+var on_hit_invincibility_time: float = 1.0\
 	setget set_on_hit_invincibility_time # In seconds!
 
-var movement_speed: float = 0.0 \
+var movement_speed: float = 0.0\
 	setget set_movement_speed
-var movement_direction: Vector2 = Vector2.ZERO \
+var movement_direction: Vector2 = Vector2.ZERO\
 	setget set_movement_direction
-var movement_rotation_degrees: float = 0.0 \
+var movement_rotation_degrees: float = 0.0\
 	setget set_movement_rotation_degrees
 var movement_rotate_velocity: bool = false
 
@@ -84,7 +84,6 @@ func _handle_bullet_movement(delta: float) -> void:
 		return
 	
 	velocity = (movement_direction * movement_speed) * delta
-	
 	if movement_rotate_velocity:
 		velocity = velocity.rotated(rotation)
 	

@@ -4,7 +4,7 @@ extends Node2D
 
 
 "CLASS ONREADY VARIABLES"
-onready var board: BattleBoard = \
+onready var board: BattleBoard =\
 	get_node_or_null("Board")
 
 
@@ -12,7 +12,7 @@ onready var board: BattleBoard = \
 func _enter_tree() -> void:
 	if Engine.editor_hint:
 		return
-	if BattleGlobals.battle and not BattleGlobals.battle == self:
+	if BattleGlobals.battle and BattleGlobals.battle != self:
 		push_error(str(
 			"Battle: Cannot assign self to member 'BattleGlobals.battle'; ",
 			"another instance is already assigned (%s)." % BattleGlobals.battle
@@ -25,7 +25,7 @@ func _enter_tree() -> void:
 func _exit_tree() -> void:
 	if Engine.editor_hint:
 		return
-	if BattleGlobals.battle and not BattleGlobals.battle == self:
+	if BattleGlobals.battle and BattleGlobals.battle != self:
 		push_error(str(
 			"Battle: Cannot remove self from member 'BattleGlobals.battle'; ",
 			"it is assigned to another 'Battle' (%s)." % BattleGlobals.battle

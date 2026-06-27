@@ -4,9 +4,9 @@ extends Area2D
 
 
 "CLASS EXPORTED VARIABLES"
-var movement_speed: float = 480.0 \
+var movement_speed: float = 480.0\
 	setget set_movement_speed
-var movement_acceleration: float = 6.0 \
+var movement_acceleration: float = 6.0\
 	setget set_movement_acceleration
 var movement_direction: Vector2 = Vector2(0.0, -1.0)
 
@@ -18,11 +18,11 @@ var velocity: Vector2
 
 
 "CLASS ONREADY VARIABLES"
-onready var heart_bullet_sprite: AnimatedSprite = \
+onready var heart_bullet_sprite: AnimatedSprite =\
 	get_node_or_null("HeartBulletSprite")
-onready var heart_bullet_hitbox: CollisionShape2D = \
+onready var heart_bullet_hitbox: CollisionShape2D =\
 	get_node_or_null("HeartBulletHitbox")
-onready var visibility_notifier_2d: VisibilityNotifier2D = \
+onready var visibility_notifier_2d: VisibilityNotifier2D =\
 	get_node_or_null("VisibilityNotifier2D")
 
 

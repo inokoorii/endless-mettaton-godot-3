@@ -28,7 +28,7 @@ func index_directory(
 	directory_index[INDEX_KEY_ROOT] = directory_path
 	
 	var open_result: int = directory.open(directory_path)
-	if not open_result == OK:
+	if open_result != OK:
 		push_error(
 			"Failed to open directory at path: '%s' (error: %s)."
 			% [directory_path, ErrorUtils.get_error_string(open_result)]
@@ -39,7 +39,7 @@ func index_directory(
 		options.skip_navigational,
 		options.skip_hidden
 	)
-	if not list_result == OK:
+	if list_result != OK:
 		push_error(
 			"Failed to list directory contents at path: '%s' (error: %s)."
 			% [directory_path, ErrorUtils.get_error_string(list_result)]
@@ -79,6 +79,7 @@ func index_directory(
 
 
 "CLASS PRIVATE METHODS"
+# TODO: Extract this into its own Reference class.
 func _create_empty_index() -> Dictionary:
 	return {
 		INDEX_KEY_SUCCESS: false,
@@ -88,6 +89,7 @@ func _create_empty_index() -> Dictionary:
 	}
 
 
+# TODO: Extract this into its own Reference class.
 func _create_empty_directory_entry() -> Dictionary:
 	return {
 		ENTRY_KEY_BASENAME: "",
@@ -98,6 +100,7 @@ func _create_empty_directory_entry() -> Dictionary:
 	}
 
 
+# TODO: Extract this into its own Reference class.
 func _create_empty_file_entry() -> Dictionary:
 	return {
 		ENTRY_KEY_BASENAME: "",
@@ -114,6 +117,7 @@ func _append_directory_entry_to_index(
 	
 ) -> void:
 	if not is_index_valid(directory_index):
+#		TODO: Push an error message here, probably.
 		return
 	
 	directory_path = PathUtils.normalize_path(directory_path)
@@ -135,6 +139,7 @@ func _append_file_entry_to_index(
 	options: DirectoryIndexerOptions
 ) -> void:
 	if not is_index_valid(directory_index):
+#		TODO: Push an error message here, probably.
 		return
 	
 	directory_path = PathUtils.normalize_path(directory_path)
@@ -161,6 +166,7 @@ func _append_subdirectory_to_index(
 	options: DirectoryIndexerOptions
 ) -> void:
 	if not is_index_valid(directory_index):
+#		TODO: Push an error message here, probably.
 		return
 	
 	var subdirectory_index: Dictionary = index_directory(
@@ -173,14 +179,13 @@ func _append_subdirectory_to_index(
 
 func _populate_directory_entry_children(directory_index: Dictionary) -> void:
 	if not is_index_valid(directory_index):
+#		TODO: Push an error message here, probably.
 		return
 	
 	var directories: Dictionary = directory_index[INDEX_KEY_DIRECTORIES]
 	var files: Dictionary = directory_index[INDEX_KEY_FILES]
 	
-#	I could refactor further, but I'm pretty happy with what I've got.
-#	Leaving a "TODO:" note here nonetheless.
-	
+#	I could refactor further, but I'm satisfied with what I've got. Maybe someday.
 #	TODO: Refactor/clean this up at some point.
 	for directory_path in directories:
 		var directory: Dictionary = directory_index[INDEX_KEY_DIRECTORIES][directory_path]

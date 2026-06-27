@@ -11,7 +11,7 @@ const CURRENT_FORMAT_VERSION: int = 1
 
 
 "CLASS VARIABLES"
-var player_name: String = "Chara" \
+var player_name: String = "Chara"\
 	setget set_player_name
 
 

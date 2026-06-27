@@ -7,6 +7,7 @@ var index_subdirectories: bool = true
 
 # Files matching these extensions below will be indexed. "*" allows all extensions.
 var allowed_file_extensions: PoolStringArray = ["*"]
+
 # Files matching these extensions below will be ignored. "*" excludes all extensions.
 var excluded_file_extensions: PoolStringArray = []
 

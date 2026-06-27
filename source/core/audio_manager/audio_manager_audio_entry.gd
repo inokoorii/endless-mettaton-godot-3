@@ -12,9 +12,10 @@ const BUS_INDEX_MASTER: int = 0
 
 
 "CLASS REGULAR VARIABLES"
-var audio_stream: AudioStream \
+var audio_stream: AudioStream\
 	setget set_audio_stream
-var bus: String = AudioServer.get_bus_name(BUS_INDEX_MASTER) \
+
+var bus: String = AudioServer.get_bus_name(BUS_INDEX_MASTER)\
 	setget set_bus
 
 

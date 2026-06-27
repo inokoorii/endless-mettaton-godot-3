@@ -8,25 +8,25 @@ signal bullet_fired(bullet)
 
 
 "CLASS EXPORTED VARIABLES"
-var movement_speed: float = 120.0 \
+var movement_speed: float = 120.0\
 	setget set_movement_speed
 
-var bullet_firing_cooldown_time: float = 0.5 \
+var bullet_firing_cooldown_time: float = 0.5\
 	setget set_bullet_firing_cooldown_time # In seconds!
 var bullet_firing_offset: Vector2 = Vector2(0.0, -16.0)
 
 
 "CLASS REGULAR VARIABLES"
-var bullet_firing_cooldown_time_left: float \
+var bullet_firing_cooldown_time_left: float\
 	setget set_bullet_firing_cooldown_time_left # ...also in seconds!
 
 var velocity: Vector2
 
 
 "CLASS ONREADY VARIABLES"
-onready var heart_sprite: AnimatedSprite = \
+onready var heart_sprite: AnimatedSprite =\
 	get_node_or_null("HeartSprite")
-onready var enemy_bullet_hurtbox: BattleEnemyBulletHurtbox = \
+onready var enemy_bullet_hurtbox: BattleEnemyBulletHurtbox =\
 	get_node_or_null("EnemyBulletHurtbox")
 
 
@@ -92,13 +92,13 @@ func _handle_heart_bullet_firing(delta: float) -> void:
 
 
 func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int) -> void:
-	var BULLET_TYPE_DAMAGE: int = \
+	var BULLET_TYPE_DAMAGE: int =\
 		BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE
-	var BULLET_TYPE_DAMAGE_ON_IDLE: int = \
+	var BULLET_TYPE_DAMAGE_ON_IDLE: int =\
 		BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_IDLE
-	var BULLET_TYPE_DAMAGE_ON_MOVE: int = \
+	var BULLET_TYPE_DAMAGE_ON_MOVE: int =\
 		BattleEnemyBullet.BulletTypes.BULLET_TYPE_DAMAGE_ON_MOVE
-	var BULLET_TYPE_HEAL: int = \
+	var BULLET_TYPE_HEAL: int =\
 		BattleEnemyBullet.BulletTypes.BULLET_TYPE_HEAL
 	
 	match bullet_type:
@@ -121,6 +121,7 @@ func _update_heart_sprite_playing() -> void:
 		return
 	
 	heart_sprite.playing = enemy_bullet_hurtbox.is_invincible()
+	
 	if not enemy_bullet_hurtbox.is_invincible():
 		heart_sprite.frame = 0
 

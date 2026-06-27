@@ -15,21 +15,21 @@ enum BoxTypes {
 
 
 "SCRIPT EXPORTED VARIABLES"
-var box_type: int = BoxTypes.BOX_TYPE_HOLLOW \
+var box_type: int = BoxTypes.BOX_TYPE_HOLLOW\
 	setget set_box_type
 
-var sway_speed: float = 0.0 \
+var sway_speed: float = 0.0\
 	setget set_sway_speed
 var sway_intensity: float = 0.0
 
-var break_speed: float = 30.0 \
+var break_speed: float = 30.0\
 	setget set_break_speed
-var break_fade_speed: float = 1.25 \
+var break_fade_speed: float = 1.25\
 	setget set_break_fade_speed
 
 
 "SCRIPT REGULAR VARIABLES"
-var destroyed: bool = false \
+var destroyed: bool = false\
 	setget set_destroyed
 
 var _sway_elapsed_time: float # In seconds!
@@ -37,15 +37,15 @@ var _sway_x_offset: float
 
 
 "SCRIPT ONREADY VARIABLES"
-onready var box_sprite: SlicedSprite = \
+onready var box_sprite: SlicedSprite =\
 	get_node_or_null("BoxSprite")
-onready var box_hitbox: CollisionShape2D = \
+onready var box_hitbox: CollisionShape2D =\
 	get_node_or_null("BoxHitbox")
-onready var enemy_bullet_hurtbox: BattleEnemyBulletHurtbox = \
+onready var enemy_bullet_hurtbox: BattleEnemyBulletHurtbox =\
 	get_node_or_null("EnemyBulletHurtbox")
-onready var heart_bullet_hurtbox: BattleHeartBulletHurtbox = \
+onready var heart_bullet_hurtbox: BattleHeartBulletHurtbox =\
 	get_node_or_null("HeartBulletHurtbox")
-onready var visibility_notifier_2d: VisibilityNotifier2D = \
+onready var visibility_notifier_2d: VisibilityNotifier2D =\
 	get_node_or_null("VisibilityNotifier2D")
 
 
@@ -115,9 +115,7 @@ func _handle_box_sway_animation(delta: float) -> void:
 
 
 func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int) -> void:
-	if destroyed:
-		return
-	if not box_type == BoxTypes.BOX_TYPE_SOLID:
+	if not destroyed and (box_type != BoxTypes.BOX_TYPE_SOLID):
 		return
 	if not bullet.is_in_group("MettaPlusBombBlasts"):
 		return
@@ -126,9 +124,7 @@ func _handle_enemy_bullet_collisions(bullet: BattleEnemyBullet, bullet_type: int
 
 
 func _handle_heart_bullet_collisions() -> void:
-	if destroyed:
-		return
-	if not box_type == BoxTypes.BOX_TYPE_HOLLOW:
+	if not destroyed and (box_type != BoxTypes.BOX_TYPE_HOLLOW):
 		return
 	
 	destroyed = true
@@ -138,9 +134,7 @@ func _handle_heart_bullet_collisions() -> void:
 func _setup_hollow_box_break_animation() -> void:
 	if Engine.editor_hint:
 		return
-	if not destroyed:
-		return
-	if not box_type == BoxTypes.BOX_TYPE_HOLLOW:
+	if not destroyed and (box_type != BoxTypes.BOX_TYPE_HOLLOW):
 		return
 	
 	movement_speed = 0.0
@@ -156,6 +150,8 @@ func _setup_hollow_box_break_animation() -> void:
 			
 	if is_instance_valid(heart_bullet_hurtbox):
 		heart_bullet_hurtbox.queue_free()
+	
+	AudioManager.play_overlapping("assets/battle/sfx/sfx_burst.wav")
 
 
 func _handle_box_break_animation(delta: float) -> void:
@@ -175,7 +171,7 @@ func _handle_box_break_animation(delta: float) -> void:
 			
 			if modulate.a <= 0.0:
 				queue_free()
-	
+		
 		BoxTypes.BOX_TYPE_SOLID:
 			queue_free()
 

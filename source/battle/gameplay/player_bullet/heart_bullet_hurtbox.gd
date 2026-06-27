@@ -21,7 +21,7 @@ enum Actions {
 
 
 "CLASS EXPORTED VARIABLES"
-var action: int = Actions.ACTION_IGNORE \
+var action: int = Actions.ACTION_IGNORE\
 	setget set_action
 
 

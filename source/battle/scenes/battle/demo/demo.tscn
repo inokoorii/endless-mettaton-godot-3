@@ -241,28 +241,16 @@ movement_speed = 10.0
 movement_direction = Vector2( 0, 1 )
 
 [node name="MettaPlusBomb8" parent="EnemyBullets/MettaPlusBombs/Row3" index="7" instance=ExtResource( 2 )]
-modulate = Color( 0, 0.635294, 0.909804, 1 )
 position = Vector2( -24, 0 )
-bullet_type = 1
-bullet_color = 1
-on_hit_invincibility_time = 0.0
 movement_speed = 10.0
 movement_direction = Vector2( 0, 1 )
 
 [node name="MettaPlusBomb9" parent="EnemyBullets/MettaPlusBombs/Row3" index="8" instance=ExtResource( 2 )]
-modulate = Color( 0, 0.635294, 0.909804, 1 )
-bullet_type = 1
-bullet_color = 1
-on_hit_invincibility_time = 0.0
 movement_speed = 10.0
 movement_direction = Vector2( 0, 1 )
 
 [node name="MettaPlusBomb10" parent="EnemyBullets/MettaPlusBombs/Row3" index="9" instance=ExtResource( 2 )]
-modulate = Color( 0, 0.635294, 0.909804, 1 )
 position = Vector2( 24, 0 )
-bullet_type = 1
-bullet_color = 1
-on_hit_invincibility_time = 0.0
 movement_speed = 10.0
 movement_direction = Vector2( 0, 1 )
 

@@ -13,8 +13,7 @@ var audio_directories: Array = []
 
 "SCRIPT REGULAR VARIABLES"
 var _audio_entries: Dictionary = {}
-# TODO: Store references of active audio players.
-var _audio_playing: Dictionary = {}
+var _audio_stream_players: Dictionary = {}
 
 
 "OVERRIDEN GODOT BUILT-IN CALLBACKS"
@@ -27,7 +26,6 @@ func _ready() -> void:
 
 "SCRIPT PUBLIC METHODS"
 func play_single(audio_id: String) -> AudioManagerAudioPlayback:
-#	TODO: Clear all active instances of the audio before playing another.
 	return _play(audio_id)
 
 
@@ -54,10 +52,29 @@ func load_audio_from_directory(directory: AudioManagerDirectoryConfig) -> void:
 		var audio_entry: AudioManagerAudioEntry = AudioManagerAudioEntry.new()
 		audio_entry.audio_stream = load(path)
 		audio_entry.bus = directory.bus
+		
 		_audio_entries[path.lstrip(RESOURCE_PATH_PREFIX)] = audio_entry
 
 
 "SCRIPT PRIVATE METHODS"
+# TODO: Extract this into its own Reference class.
+func _create_audio_player_entry(audio_id: String) -> Dictionary:
+	return {
+		audio_id: [],
+	}
+
+
+func _create_audio_stream_player(audio_entry: AudioManagerAudioEntry) -> AudioStreamPlayer:
+	var audio_stream_player: AudioStreamPlayer = AudioStreamPlayer.new()
+	
+	audio_stream_player.stream = audio_entry.audio_stream
+	audio_stream_player.bus = audio_entry.bus
+	audio_stream_player.connect("finished", audio_stream_player, "queue_free")
+	
+	add_child(audio_stream_player)
+	return audio_stream_player
+
+
 func _play(audio_id: String) -> AudioManagerAudioPlayback:
 	if not audio_id in _audio_entries:
 		push_error(str(
@@ -74,17 +91,6 @@ func _play(audio_id: String) -> AudioManagerAudioPlayback:
 	
 	audio_stream_player.play()
 	return audio_playback
-
-
-func _create_audio_stream_player(audio_entry: AudioManagerAudioEntry) -> AudioStreamPlayer:
-	var audio_stream_player: AudioStreamPlayer = AudioStreamPlayer.new()
-	
-	audio_stream_player.stream = audio_entry.audio_stream
-	audio_stream_player.bus = audio_entry.bus
-	audio_stream_player.connect("finished", audio_stream_player, "queue_free")
-	
-	add_child(audio_stream_player)
-	return audio_stream_player
 
 
 "SCRIPT PRIVATE METHODS (PROPERTY LIST)"

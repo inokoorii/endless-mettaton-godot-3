@@ -16,9 +16,9 @@ signal health_full
 "AUTOLOAD REGULAR VARIABLES"
 var battle: Battle
 
-var max_health: int = 4 \
+var max_health: int = 4\
 	setget set_max_health
-var health: int = 4 \
+var health: int = 4\
 	setget set_health
 
 
@@ -27,13 +27,14 @@ func set_max_health(value: int) -> void:
 	var previous_max_health: int = max_health
 	
 	max_health = clamp(value, 0, INF) as int
-	health = clamp(health, 0, max_health) as int
 	emit_signal("max_health_changed")
 	
 	if max_health < previous_max_health:
 		emit_signal("max_health_decreased")
 	if max_health > previous_max_health:
 		emit_signal("max_health_increased")
+	
+	health = clamp(health, 0, max_health) as int
 
 
 func set_health(value: int) -> void:

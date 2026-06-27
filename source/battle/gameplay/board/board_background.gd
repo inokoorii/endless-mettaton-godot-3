@@ -3,12 +3,12 @@ extends Node2D
 
 
 "SCRIPT EXPORTED VARIABLES"
-var board: NodePath = NodePath("") \
+var board: NodePath = NodePath("")\
 	setget set_board
 
 
 "SCRIPT ONREADY VARIABLES"
-onready var background: Panel = \
+onready var background: Panel =\
 	get_node_or_null("Background")
 
 
@@ -23,7 +23,7 @@ func _update_background_rect() -> void:
 	
 	if not is_instance_valid(background):
 		return
-	if not is_instance_valid(board_node) or not is_instance_valid(board_node.board_panel):
+	if not is_instance_valid(board_node) or is_instance_valid(board_node.board_panel):
 		return
 	
 	position = board_node.position
@@ -48,7 +48,6 @@ func set_board(value: NodePath) -> void:
 				"node is not of type 'BattleBoard' (%s)." % node
 			))
 			return
-	
 	board = value
 
 

@@ -22,9 +22,9 @@ enum ResizeModes {
 
 
 "CLASS EXPORTED VARIABLES"
-var resize_mode: int = ResizeModes.RESIZE_MODE_WIDTH_BEFORE_HEIGHT \
+var resize_mode: int = ResizeModes.RESIZE_MODE_WIDTH_BEFORE_HEIGHT\
 	setget set_resize_mode
-var resize_speed: float = 480.0 \
+var resize_speed: float = 480.0\
 	setget set_resize_speed
 
 var ideal_size_left: int = 287
@@ -39,9 +39,9 @@ var collider_offset_top: int = 5
 var collider_offset_right: int = 5
 var collider_offset_bottom: int = 5
 
-var anchor_markers_visible: bool = false \
+var anchor_markers_visible: bool = false\
 	setget set_anchor_markers_visible
-var anchor_markers_modulate: Color = Color.white \
+var anchor_markers_modulate: Color = Color.white\
 	setget set_anchor_markers_modulate
 
 
@@ -50,29 +50,29 @@ var _resize_progress_time: float # In seconds!
 
 
 "CLASS ONREADY VARIABLES"
-onready var board_panel: Panel = \
+onready var board_panel: Panel =\
 	get_node_or_null("BoardPanel")
 
-onready var board_collider_left: CollisionShape2D = \
+onready var board_collider_left: CollisionShape2D =\
 	get_node_or_null("BoardPanel/BoardColliders/Left")
-onready var board_collider_top: CollisionShape2D = \
+onready var board_collider_top: CollisionShape2D =\
 	get_node_or_null("BoardPanel/BoardColliders/Top")
-onready var board_collider_right: CollisionShape2D = \
+onready var board_collider_right: CollisionShape2D =\
 	get_node_or_null("BoardPanel/BoardColliders/Right")
-onready var board_collider_bottom: CollisionShape2D = \
+onready var board_collider_bottom: CollisionShape2D =\
 	get_node_or_null("BoardPanel/BoardColliders/Bottom")
 
-onready var anchor_markers: Node2D = \
+onready var anchor_markers: Node2D =\
 	get_node_or_null("BoardPanel/AnchorMarkers")
-onready var anchor_marker_top_left: Sprite = \
+onready var anchor_marker_top_left: Sprite =\
 	get_node_or_null("BoardPanel/AnchorMarkers/TopLeft")
-onready var anchor_marker_top_right: Sprite = \
+onready var anchor_marker_top_right: Sprite =\
 	get_node_or_null("BoardPanel/AnchorMarkers/TopRight")
-onready var anchor_marker_center: Sprite = \
+onready var anchor_marker_center: Sprite =\
 	get_node_or_null("BoardPanel/AnchorMarkers/Center")
-onready var anchor_marker_bottom_left: Sprite = \
+onready var anchor_marker_bottom_left: Sprite =\
 	get_node_or_null("BoardPanel/AnchorMarkers/BottomLeft")
-onready var anchor_marker_bottom_right: Sprite = \
+onready var anchor_marker_bottom_right: Sprite =\
 	get_node_or_null("BoardPanel/AnchorMarkers/BottomRight")
 
 
