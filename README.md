@@ -1,7 +1,7 @@
 # ENDLESS METTATON (Godot 3)
 [![Godot Engine](https://img.shields.io/badge/Godot%20Engine-3.6-blue?logo=godotengine)](https://godotengine.org/)
 
-This is the repository for an <b>ENDLESS METTATON</b>, an UNDERTALE fan-game I was developing in Godot Engine 3.6.
+This is the repository for <b>ENDLESS METTATON</b>, an UNDERTALE fan-game I was developing in Godot Engine 3.6.
 
 I've since moved development the project to Godot 4.7 in a new repository, so this version of the game was abandoned.
 
