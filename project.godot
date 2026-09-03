@@ -140,7 +140,7 @@ _global_script_class_icons={
 
 [application]
 
-config/name="ENDLESS METTATON"
+config/name="ENDLESS METTATON (3.6)"
 run/main_scene="res://source/game/main_scene/main_scene.tscn"
 config/use_custom_user_dir=true
 config/custom_user_dir_name="inokoorii/games/endless-mettaton"
